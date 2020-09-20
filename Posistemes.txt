@@ -1,0 +1,50 @@
+1. klientu dalies valdymas
+	Registracija
+	prisijungimas
+	vartotojo redagavimas
+	vartotoju pridejimas
+	vartotoju perziura
+	vartotoju redagavimas (admin)
+	vartotoju pašalinimas (admin)
+	*slaptazodzio priminimo laisko issiuntimas
+	*slaptazodzio keitimas
+
+2. sandeliavimas
+	detaliu redagavimas
+	detaliu pridejimas
+	detaliu perziura
+	detaliu pašalinimas
+	*detaliu paieška
+	sandeliu perziura
+	sandeliu redagavimas
+	sandeliu pridejimas
+	sandeliu pašalinimas
+		
+3. e-parduotuve
+	prekes pridejimas
+	prekes perziura
+	*prekiu paieska
+	prekes uzsakymas
+	uzsakymo perziura(pirkiniu krepselis)
+	uzsakymo redagavimas
+	uzsakymo prekiu salinimas
+	uzsakymo atsaukimas
+	uzsakymo patvirtinimas
+
+4. gamykla
+	gamyklu perziura
+	gamyklu pridejimas
+	gamyklu redagavimas
+	tvarkarascio perziura
+	*tvarkarascio sudarymas
+	tvarkarascio redagavimas
+	tvarkarasciu paieska
+	
+	
+5. statistika
+	*prekiu populiarumas
+	sandelio uzimtumas
+	tvarkarascio statistika
+	*uzmokescio perziura
+	parduotuves statistika
+	gamyklu produktyvumas
