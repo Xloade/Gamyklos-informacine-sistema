@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('root');
+})->name('root.index');
+
+Route::prefix('gamyklos')->group(function () {
+    Route::get('', 'GamyklaController@index')->name('gamyklos.index');
 });
