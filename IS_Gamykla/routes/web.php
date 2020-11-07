@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::prefix('gamyklos')->group(function () {
     Route::get('', 'GamyklaController@index')->name('gamyklos.index');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
