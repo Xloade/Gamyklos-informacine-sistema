@@ -3,7 +3,7 @@
 <div class="container" id="app">
     <div class="card shadow border border-secondary">
         <div class="card-header">
-            <h2 class="text-center">Gamyklos</h2>
+            <h2 class="text-center">Tvarkaraščiai</h2>
             <div class="d-flex flex-row-reverse">
                 <div>
                     <form action="{{ action('GamyklaController@create') }}" method="get">
@@ -18,9 +18,9 @@
             <table class="table table-hover table-striped  p-0 m-0">
                 <thead>
                     <tr class="text-center w-100">
-                        <th scope="col">Kodas</th>
-                        <th scope="col">Pavadinimas</th>
-                        <th scope="col">Adresas</th>
+                        <th scope="col">Nr</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Gamykla</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -28,8 +28,8 @@
                     <tbody>
                         <tr>
                             <td class="text-center">#1</td>
+                        <td class="text-center">{{ Carbon\Carbon::now() }}</td>
                             <td class="text-center">Varžtinė</td>
-                            <td class="text-center">Klaipėda</td>
                             <td class="text-center">
                                 <div>
                                     <form action="{{ action('GamyklaController@edit', '1') }}" method="get">
