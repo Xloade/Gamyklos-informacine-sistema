@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -34,10 +35,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('gamyklos.index') }}">Gamyklos</a>
+                            <a class="nav-link" href="{{ route('gamyklos.index') }}">
+                                <i class="fas fa-industry"></i>
+                                Gamyklos
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('tvarkarasciai.index') }}">Tvarkarasciai</a>
+                            <a class="nav-link" href="{{ route('tvarkarasciai.index') }}">
+                                <i class="fas fa-calendar-day"></i>
+                                Tvarkaraščiai
+                            </a>
                         </li>
                     </ul>
 

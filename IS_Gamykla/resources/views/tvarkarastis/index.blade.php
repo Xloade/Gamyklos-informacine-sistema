@@ -6,8 +6,8 @@
             <h2 class="text-center">Tvarkaraščiai</h2>
             <div class="d-flex flex-row-reverse">
                 <div>
-                    <form action="{{ action('GamyklaController@create') }}" method="get">
-                        <button class="btn btn-default fas fas fa-plus" type="submit" value="Sukurti"> Sukurti gamyklą</button>
+                    <form action="{{ action('TvarkarastisController@create') }}" method="get">
+                        <button class="btn btn-default fas fas fa-plus" type="submit" value="Sukurti"> Sukurti tvarkaraštį</button>
                         <input type="hidden" name="_method" value="create" />
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     </form>
@@ -25,30 +25,30 @@
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">#1</td>
+                <tbody>
+                    <tr>
+                        <td class="text-center">#1</td>
                         <td class="text-center">{{ Carbon\Carbon::now() }}</td>
-                            <td class="text-center">Varžtinė</td>
-                            <td class="text-center">
-                                <div>
-                                    <form action="{{ action('GamyklaController@edit', '1') }}" method="get">
-                                        <button class="btn btn-default fas fa-edit" type="submit" value="Keisti"> Keisti</button>
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    </form>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div>
-                                    <form action="{{ action('GamyklaController@delete', ['id' => '1']) }}" method="post">
-                                        <button class="btn btn-default fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
-                                        <input type="hidden" name="_method" value="delete" />
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    </form>
-                                </div>      
-                            </td>
-                        </tr>
-                    </tbody>
+                        <td class="text-center">Varžtinė</td>
+                        <td class="text-center">
+                            <div>
+                                <form action="{{ action('TvarkarastisController@edit', '1') }}" method="get">
+                                    <button class="btn btn-default fas fa-edit" type="submit" value="Keisti"> Keisti</button>
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                </form>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div>
+                                <form action="{{ action('TvarkarastisController@delete', ['id' => '1']) }}" method="post">
+                                    <button class="btn btn-default fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
+                                    <input type="hidden" name="_method" value="delete" />
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                </form>
+                            </div>      
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>  
     </div>

@@ -12,26 +12,26 @@ class TvarkarastisController extends Controller
     }
     public function index()
     {
-        return view('gamykla.index');
+        return view('tvarkarastis.index');
     }
 
     public function edit($id){
-        return view('gamykla.edit');
+        return view('tvarkarastis.edit');
     }
 
     public function update($id){
-        return redirect()->route('gamyklos.index');
+        return redirect()->route('tvarkarasciai.index');
     }
 
     public function create(){
-        return view('gamykla.create');
+        return view('tvarkarastis.create');
     }
 
     public function store(){
-        return redirect()->route('gamyklos.index');
+        return redirect()->route('tvarkarasciai.index');
     }
 
     public function delete(){
-        return redirect()->route('gamyklos.index');
+        return redirect()->route('tvarkarasciai.index');
     }
 }
