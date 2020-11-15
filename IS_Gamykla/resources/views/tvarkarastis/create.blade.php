@@ -32,7 +32,10 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type="number" name="worker[0][hours]" placeholder="Darbo valandos" class="form-control" />
+                            <input type="number" name="worker[0][hoursFrom]" placeholder="Darbo valandos nuo" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="number" name="worker[0][hoursTo]" placeholder="Darbo valandos iki" class="form-control" />
                         </div>
                         <div class="col"></div>
                     </div>
@@ -70,7 +73,7 @@
     var i = 0;
     $(document).on('click', '.add-row',function(){
         ++i;
-        $("#dynamicTable").append('<div class="row my-2"><div class="col"><select name="worker['+i+'][name]" id="worker" class="form-control"><option value="0" selected>Jonas Jonaitis</option><option value="1">Jonas Jonaitytis</option></select></div><div class="col"><input type="number" name="worker['+i+'][hours]" placeholder="Darbo valandos" class="form-control" /></div><div class="col"><button type="button" name="remove" id="remove" class="btn btn-danger remove-row"><i class="fas fa-user-times" aria-hidden="true"></i></button></div></div>');
+        $("#dynamicTable").append('<div class="row my-2"><div class="col"><select name="worker['+i+'][name]" id="worker" class="form-control"><option value="0" selected>Jonas Jonaitis</option><option value="1">Jonas Jonaitytis</option></select></div><div class="col"><input type="number" name="worker['+i+'][hours]" placeholder="Darbo valandos" class="form-control" /></div><div class="col"><input type="number" name="worker[0][hoursTo]" placeholder="Darbo valandos iki" class="form-control" /></div><div class="col"><button type="button" name="remove" id="remove" class="btn btn-danger remove-row"><i class="fas fa-user-times" aria-hidden="true"></i></button></div></div>');
     });
 
     $(document).on('click', '.remove-row', function(){  

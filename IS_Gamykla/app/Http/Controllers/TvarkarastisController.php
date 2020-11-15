@@ -34,4 +34,8 @@ class TvarkarastisController extends Controller
     public function delete(){
         return redirect()->route('tvarkarasciai.index');
     }
+
+    public function show(){
+        return view('tvarkarastis.show');
+    }
 }

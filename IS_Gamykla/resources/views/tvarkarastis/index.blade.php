@@ -34,7 +34,6 @@
                             <div>
                                 <form action="{{ action('TvarkarastisController@edit', '1') }}" method="get">
                                     <button class="btn btn-default fas fa-edit" type="submit" value="Keisti"> Keisti</button>
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 </form>
                             </div>
                         </td>

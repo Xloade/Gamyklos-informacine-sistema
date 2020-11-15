@@ -48,6 +48,7 @@ Route::prefix('tvarkarasciai')->group(function () {
     Route::delete('delete','TvarkarastisController@delete')->name('tvarkarasciai.delete');
     Route::get('create', 'TvarkarastisController@create')->name('tvarkarasciai.create');
     Route::post('create', 'TvarkarastisController@store')->name('tvarkarasciai.store');
+    Route::get('show', 'TvarkarastisController@show')->name('tvarkarasciai.show');
 });
 
 Auth::routes();
