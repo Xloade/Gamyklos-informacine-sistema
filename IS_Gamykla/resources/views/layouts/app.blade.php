@@ -46,6 +46,24 @@
                                 Tvarkaraščiai
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('sandelis.index') }}">
+                                <i class="fas fa-warehouse"></i>
+                                Sandėliai
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('tvarkarascio_statistika.show') }}">
+                                <i class="fas fa-chart-bar"></i>
+                                Tvarkaraščio statisktika
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('populiariausios_prekes.show') }}">
+                                <i class="fas fa-chart-line"></i>
+                                Populiariausios prekės
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

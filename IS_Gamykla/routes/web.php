@@ -51,6 +51,29 @@ Route::prefix('tvarkarasciai')->group(function () {
     Route::get('show', 'TvarkarastisController@show')->name('tvarkarasciai.show');
 });
 
+// --------------------------------------------------------------------------------------
+Route::prefix('sandelis')->group(function () {
+    Route::get('', 'SandelisController@index')->name('sandelis.index');
+    Route::get('edit/{id}', 'SandelisController@edit')->name('sandelis.edit');
+    Route::post('edit/{id}', 'SandelisController@update')->name('sandelis.update');
+    Route::delete('delete','SandelisController@delete')->name('sandelis.delete');
+    Route::get('create', 'SandelisController@create')->name('sandelis.create');
+    Route::post('create', 'SandelisController@store')->name('sandelis.store');
+});
+
+Route::prefix('sandelio_uzimtumas')->group(function () {
+    Route::get('show', 'SandelioUzimtumasController@show')->name('sandelio_uzimtumas.show');
+});
+
+Route::prefix('populiariausios_prekes')->group(function () {
+    Route::get('show', 'PopuliariausiosPrekesController@show')->name('populiariausios_prekes.show');
+});
+
+Route::prefix('tvarkarascio_statistika')->group(function () {
+    Route::get('show', 'TvarkarascioStatistikaController@show')->name('tvarkarascio_statistika.show');
+});
+// --------------------------------------------------------------------------------------
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
