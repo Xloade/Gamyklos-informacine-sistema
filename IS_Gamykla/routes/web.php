@@ -72,6 +72,13 @@ Route::prefix('populiariausios_prekes')->group(function () {
 Route::prefix('tvarkarascio_statistika')->group(function () {
     Route::get('show', 'TvarkarascioStatistikaController@show')->name('tvarkarascio_statistika.show');
 });
+
+Route::prefix('eparduotuve')->group(function () {
+    Route::get('', 'EParduotuveController@index')->name('eparduotuve.index');
+    Route::get('cart', 'EParduotuveController@cart')->name('eparduotuve.cart');
+    Route::get('item/{id}', 'EParduotuveController@show')->name('eparduotuve.show');
+    Route::get('complete', 'EParduotuveController@complete')->name('eparduotuve.complete');
+});
 // --------------------------------------------------------------------------------------
 
 Auth::routes();
