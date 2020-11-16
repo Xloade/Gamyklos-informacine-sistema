@@ -61,6 +61,14 @@ Route::prefix('sandelis')->group(function () {
     Route::post('create', 'SandelisController@store')->name('sandelis.store');
 });
 
+Route::prefix('prekes_sandelyje')->group(function () {
+    Route::get('', 'PrekesSandelyjeController@index')->name('prekes_sandelyje.index');
+    Route::get('create', 'PrekesSandelyjeController@create')->name('prekes_sandelyje.create');
+    Route::get('edit/{id}', 'PrekesSandelyjeController@edit')->name('prekes_sandelyje.edit');
+    Route::delete('delete','PrekesSandelyjeController@delete')->name('prekes_sandelyje.delete');
+    Route::post('create', 'PrekesSandelyjeController@store')->name('prekes_sandelyje.store');
+});
+
 Route::prefix('sandelio_uzimtumas')->group(function () {
     Route::get('show', 'SandelioUzimtumasController@show')->name('sandelio_uzimtumas.show');
 });
