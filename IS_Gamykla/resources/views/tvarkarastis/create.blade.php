@@ -5,12 +5,18 @@
         <form action="{{ route('tvarkarasciai.update', ['id' => '1']) }}" method="POST">
             <div class="card-header">
                 <h2 class="text-center">Tvarkaraščio forma</h2>
-                <div class="col-sm-5">
-                    <label for="factory" class="col-form-label font-weight-bold">Gamykla</label>
-                    <select name="factory" id="factory" class="form-control">
-                        <option value="0" selected>Gamykla #1</option>
-                        <option value="1">Gamykla #2</option>
-                    </select>
+                <div class="row">
+                    <div class="col-sm-5">          
+                        <label for="factory" class="col-form-label font-weight-bold">Gamykla</label>
+                        <select name="factory" id="factory" class="form-control">
+                            <option value="0" selected>Gamykla #1</option>
+                            <option value="1">Gamykla #2</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                        <label for="date" class="col-form-label font-weight-bold">Data</label>
+                        <input class="form-control" type="date" id="date" name="date" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="{{Carbon\Carbon::now()->format('Y-m-d')}}" max="2022-12-31">
+                    </div>
                 </div>
             </div>
             <div class="card-body">

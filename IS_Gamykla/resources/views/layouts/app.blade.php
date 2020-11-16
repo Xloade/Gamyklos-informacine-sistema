@@ -46,12 +46,6 @@
                                 Tvarkaraščiai
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('tvarkarasciai.show') }}">
-                                <i class="fas fa-calendar-day"></i>
-                                Tvarkaraštis
-                            </a>
-                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

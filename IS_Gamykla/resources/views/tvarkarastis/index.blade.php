@@ -4,8 +4,18 @@
     <div class="card shadow border border-secondary">
         <div class="card-header">
             <h2 class="text-center">Tvarkaraščiai</h2>
-            <div class="d-flex flex-row-reverse">
-                <div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-sm-3"> 
+                        <input class="form-control" type="date" id="date" name="date" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="{{Carbon\Carbon::now()->format('Y-m-d')}}" max="2022-12-31">
+                    </div>
+                    <div class="col">                  
+                        <button type="button" name="search" id="search" class="btn btn-success search">
+                            <i class="fas fa-search"> Ieškoti</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="d-flex flex-row-reverse">
                     <form action="{{ action('TvarkarastisController@create') }}" method="get">
                         <button class="btn btn-default fas fas fa-plus" type="submit" value="Sukurti"> Sukurti tvarkaraštį</button>
                         <input type="hidden" name="_method" value="create" />
@@ -28,8 +38,15 @@
                 <tbody>
                     <tr>
                         <td class="text-center">#1</td>
-                        <td class="text-center">{{ Carbon\Carbon::now() }}</td>
+                        <td class="text-center">{{ Carbon\Carbon::now()->format('Y-m-d') }}</td>
                         <td class="text-center">Varžtinė</td>
+                        <td class="text-center">
+                            <div>
+                                <form action="{{ action('TvarkarastisController@show', '1') }}" method="get">
+                                    <button class="btn btn-default fas fa-eye" type="submit" value="Perziureti"> Peržiūrėti</button>
+                                </form>
+                            </div>
+                        </td>
                         <td class="text-center">
                             <div>
                                 <form action="{{ action('TvarkarastisController@edit', '1') }}" method="get">
