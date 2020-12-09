@@ -24,7 +24,7 @@ class CreateUzsakymasTable extends Migration
             $table->string('pristatymo_komentaras')->nullable();
             $table->integer('duru_kodas')->nullable();
             $table->foreignId('fk_UserId')->constrained('users');
-            $table->foreignId('fk_BankoKorteleId')->constrained('banko_kortele');
+            $table->foreignId('fk_BankoKorteleId')->constrained('banko_korteles');
         });
     }
 
