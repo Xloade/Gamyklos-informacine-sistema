@@ -15,8 +15,9 @@ class CreatePrekeSandelyjeTable extends Migration
     {
         Schema::create('preke_sandelyje', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sandelis_id')->constrained('sandeliai');
-            $table->foreignId('preke_id')->constrained('preke');
+            $table->integer('kiekis');
+            $table->foreignId('fk_SandelisId')->constrained('sandeliai');
+            $table->foreignId('fk_PrekeSandelyjeId')->constrained('preke_sandelyje');
         });
     }
 

@@ -17,8 +17,8 @@ class CreateTvarkarastisTable extends Migration
             $table->id();
             $table->date('data');
             $table->dateTime('data');
-            $table->foreignId('darbuotojas_id')->constrained('users');
-            $table->foreignId('vadovas_id')->constrained('users');
+            $table->foreignId('fk_DarbuotojasId')->constrained('users');
+            $table->foreignId('fk_vadovasId')->constrained('users');
         });
     }
 

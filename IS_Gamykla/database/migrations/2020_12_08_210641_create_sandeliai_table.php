@@ -19,7 +19,7 @@ class CreateSandeliaiTable extends Migration
             $table->string('miestas');
             $table->string('gatve');
             $table->float('talpa');
-            $table->foreignId('vadovo_id')->nullable()->constrained('users');
+            $table->foreignId('fk_VadovasId')->nullable()->constrained('users');
         });
     }
 

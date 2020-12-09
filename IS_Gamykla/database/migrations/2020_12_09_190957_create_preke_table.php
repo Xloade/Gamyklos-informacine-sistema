@@ -14,8 +14,13 @@ class CreatePrekeTable extends Migration
     public function up()
     {
         Schema::create('preke', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('prekes_kodas');
+            $table->float('kaina');
+            $table->float('svoris');
+            $table->string('pavadinimas');
+            $table->float('aukstis');
+            $table->float('ilgis');
+            $table->float('plotis');
         });
     }
 

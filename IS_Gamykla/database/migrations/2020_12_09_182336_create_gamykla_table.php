@@ -17,7 +17,7 @@ class CreateGamyklaTable extends Migration
             $table->id('kodas');
             $table->string('adresas');
             $table->string('pavadinimas');
-            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->foreignId('fk_userId')->nullable()->constrained('users');
         });
     }
 

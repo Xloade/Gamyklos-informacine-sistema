@@ -15,6 +15,7 @@ class CreateUzsakymasPrekeTable extends Migration
     {
         Schema::create('uzsakymas_preke', function (Blueprint $table) {
             $table->id();
+            $table->integer('kiekis');
             $table->foreignId('fk_UzsakymasId')->constrained('uzsakymas');
             $table->foreignId('fk_PrekeSandelyjeId')->constrained('preke_sandelyje');
         });
