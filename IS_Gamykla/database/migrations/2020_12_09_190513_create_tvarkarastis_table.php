@@ -16,9 +16,15 @@ class CreateTvarkarastisTable extends Migration
         Schema::create('tvarkarastis', function (Blueprint $table) {
             $table->id();
             $table->date('data');
+<<<<<<< HEAD
             $table->dateTime('data');
             $table->foreignId('fk_DarbuotojasId')->constrained('users');
             $table->foreignId('fk_vadovasId')->constrained('users');
+=======
+            $table->dateTime('Laikas');
+            $table->foreignId('darbuotojas_id')->constrained('users');
+            $table->foreignId('vadovas_id')->constrained('users');
+>>>>>>> faf818c9b8825703194d46eb77a55d2d082031b2
         });
     }
 
