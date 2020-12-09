@@ -15,7 +15,7 @@ class Banko_kortele extends Model
      * @var array
      */
     protected $fillable = [
-        'Korteles_numeris','Vardas', 'Pavarde', 'CVV', 'Galiojimo_pabaigos_menuo', 'Galiojimo_pabaigos_metai', 'Gatve', 'Buto_nr', 'Miestas', 'Salis'
+        'korteles_numeris','vardas', 'pavarde', 'cvv', 'galiojimo_pabaigos_menuo', 'galiojimo_pabaigos_metai', 'gatve', 'buto_nr', 'miestas', 'salis'
     ];
 
     /**
