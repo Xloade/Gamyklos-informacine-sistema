@@ -75,6 +75,12 @@
                                 <a class="dropdown-item" href="{{ route('eparduotuve.cart') }}"><i class="fas fa-shopping-cart"></i>Krepšelis</a>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.index') }}">
+                                <!-- <i class="fas fa-user"></i> -->
+                                Admin
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

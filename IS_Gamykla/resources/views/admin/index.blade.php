@@ -18,7 +18,27 @@
             <tr class="text-center w-100">
                 <td scope="col">{{$user->first_name}} {{$user->last_name}}</td>
                 <td scope="col">{{$user->email}}</td>
-                <td scope="col">{{$user->userlevel}}</td>
+                @php($category = '')
+                @switch($user->userlevel)
+                    @case(Config::get('constants.KLIENTAS'))
+                        @php($category = Config::get('constants.KLIENTO_VARDAS'))
+                        @break
+                    @case(Config::get('constants.DARBUOTOJAS'))
+                        @php($category = Config::get('constants.DARBUOTOJO_VARDAS'))
+                        @break
+                    @case(Config::get('constants.SANDELIO_VADOVAS'))
+                        @php($category = Config::get('constants.SAN_VAD_VARDAS'))
+                        @break
+                    @case(Config::get('constants.GAMYKLOS_VADOVAS'))
+                        @php($category = Config::get('constants.GAM_VAD_VARDAS'))
+                        @break
+                    @case(Config::get('constants.ADMINISTRATORIUS'))
+                        @php($category = Config::get('constants.ADMINISTRATORIAUS_VARDAS'))
+                        @break
+                    @default
+                        @php($category = 'undefined'))
+                @endswitch
+                <td scope="col">{{ $category}}</td>
                 <td scope="col"><a href="{{route('admin.edit',$user->id)}}">Edit</a></td>
                 <td scope="col"><button onclick="event.preventDefault();if(confirm('Do you really want to delete this user?')){
                             document.getElementById('form-delete-{{$user->id}}').submit()}">Delete</button>
