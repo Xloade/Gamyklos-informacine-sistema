@@ -14,12 +14,13 @@ class CreateSandeliaiTable extends Migration
     public function up()
     {
         Schema::create('sandeliai', function (Blueprint $table) {
-            $table->id('sandelio_kodas');
+            $table->increments('sandelio_kodas');
             $table->string('salis');
             $table->string('miestas');
             $table->string('gatve');
             $table->float('talpa');
-            $table->foreignId('fk_VadovasId')->nullable()->constrained('users');
+            $table->integer('fk_VadovasId')->nullable()->unsigned();
+            $table->foreign('fk_VadovasId')->references('id')->on('users');
         });
     }
 

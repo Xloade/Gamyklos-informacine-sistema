@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('miestas')->nullable();
             $table->string('gatve')->nullable();
             $table->string('buto_nr')->nullable();
-            $table->interger('duru_kodas')->nullable();
+            $table->integer('duru_kodas')->nullable();
 
             $table->float('atlyginimas')->nullable();
         });

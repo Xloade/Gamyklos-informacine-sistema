@@ -14,7 +14,7 @@ class CreateBankoKortelesTable extends Migration
     public function up()
     {
         Schema::create('banko_korteles', function (Blueprint $table) {
-            $table->id('korteles_numeris');
+            $table->increments('korteles_numeris');
             $table->string('vardas');
             $table->string('pavarde');
             $table->integer('cvv');
@@ -24,7 +24,8 @@ class CreateBankoKortelesTable extends Migration
             $table->string('buto_nr');
             $table->string('miestas');
             $table->string('salis');
-            $table->foreignId('fk_userId')->constrained('users');
+            $table->integer('fk_userId')->unsigned();
+            $table->foreign('fk_userId')->references('id')->on('users');
         });
     }
 

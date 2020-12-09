@@ -14,10 +14,11 @@ class CreateGamyklaTable extends Migration
     public function up()
     {
         Schema::create('gamykla', function (Blueprint $table) {
-            $table->id('kodas');
+            $table->increments('kodas');
             $table->string('adresas');
             $table->string('pavadinimas');
-            $table->foreignId('fk_userId')->nullable()->constrained('users');
+            $table->integer('fk_userId')->nullable()->unsigned();
+            $table->foreign('fk_userId')->references('id')->on('users');
         });
     }
 

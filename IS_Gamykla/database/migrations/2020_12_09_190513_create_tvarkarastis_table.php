@@ -14,11 +14,13 @@ class CreateTvarkarastisTable extends Migration
     public function up()
     {
         Schema::create('tvarkarastis', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->date('data');
             $table->dateTime('laikas');
-            $table->foreignId('darbuotojas_id')->constrained('users');
-            $table->foreignId('vadovas_id')->constrained('users');
+            $table->integer('darbuotojas_id')->unsigned();
+            $table->integer('vadovas_id')->unsigned();
+            $table->foreign('darbuotojas_id')->references('id')->on('users');
+            $table->foreign('vadovas_id')->references('id')->on('users');
         });
     }
 
