@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('salis')->nullable();
             $table->string('miestas')->nullable();
             $table->string('gatve')->nullable();
-            $table->string('buto_nr.')->nullable();
+            $table->string('buto_nr')->nullable();
             $table->interger('duru_kodas')->nullable();
 
             $table->float('atlyginimas')->nullable();
