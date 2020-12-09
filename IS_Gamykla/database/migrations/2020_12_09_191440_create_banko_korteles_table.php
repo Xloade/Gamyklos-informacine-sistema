@@ -20,10 +20,11 @@ class CreateBankoKortelesTable extends Migration
             $table->integer('CVV');
             $table->integer('Galiojimo_pabaigos_menuo');
             $table->integer('Galiojimo_pabaigos_metai');
-            $table->integer('Gatve');
-            $table->integer('Buto_nr');
-            $table->integer('Miestas');
-            $table->integer('Salis');
+            $table->string('Gatve');
+            $table->string('Buto_nr');
+            $table->string('Miestas');
+            $table->string('Salis');
+            $table->foreignId('fk_userId')->constrained('users');
         });
     }
 
