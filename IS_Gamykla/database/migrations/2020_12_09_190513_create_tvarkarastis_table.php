@@ -17,10 +17,10 @@ class CreateTvarkarastisTable extends Migration
             $table->increments('id');
             $table->date('data');
             $table->dateTime('laikas');
-            $table->integer('darbuotojas_id')->unsigned();
-            $table->integer('vadovas_id')->unsigned();
-            $table->foreign('darbuotojas_id')->references('id')->on('users');
-            $table->foreign('vadovas_id')->references('id')->on('users');
+            $table->integer('fk_darbuotojasId')->unsigned();
+            $table->integer('fk_vadovasId')->unsigned();
+            $table->foreign('fk_darbuotojasId')->references('id')->on('users');
+            $table->foreign('fk_vadovasId')->references('id')->on('users');
         });
     }
 

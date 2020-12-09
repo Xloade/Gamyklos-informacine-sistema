@@ -24,9 +24,9 @@ class CreateUzsakymasTable extends Migration
             $table->string('pristatymo_komentaras')->nullable();
             $table->integer('duru_kodas')->nullable();
             $table->integer('fk_userId')->unsigned();
-            $table->integer('fk_BankoKorteleId')->unsigned();
+            $table->integer('fk_bankoKorteleId')->unsigned();
             $table->foreign('fk_userId')->references('id')->on('users');
-            $table->foreign('fk_BankoKorteleId')->references('korteles_numeris')->on('banko_korteles');
+            $table->foreign('fk_bankoKorteleId')->references('korteles_numeris')->on('banko_korteles');
         });
     }
 

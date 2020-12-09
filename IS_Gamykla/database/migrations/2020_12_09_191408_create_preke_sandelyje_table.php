@@ -16,8 +16,8 @@ class CreatePrekeSandelyjeTable extends Migration
         Schema::create('preke_sandelyje', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('kiekis');
-            $table->integer('fk_SandelisId')->unsigned();
-            $table->foreign('fk_SandelisId')->references('sandelio_kodas')->on('sandeliai');
+            $table->integer('fk_sandelisId')->unsigned();
+            $table->foreign('fk_sandelisId')->references('sandelio_kodas')->on('sandeliai');
         });
     }
 

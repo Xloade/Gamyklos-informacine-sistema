@@ -19,8 +19,8 @@ class CreateSandeliaiTable extends Migration
             $table->string('miestas');
             $table->string('gatve');
             $table->float('talpa');
-            $table->integer('fk_VadovasId')->nullable()->unsigned();
-            $table->foreign('fk_VadovasId')->references('id')->on('users');
+            $table->integer('fk_vadovasId')->nullable()->unsigned();
+            $table->foreign('fk_vadovasId')->references('id')->on('users');
         });
     }
 

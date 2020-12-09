@@ -16,10 +16,10 @@ class CreateUzsakymasPrekeTable extends Migration
         Schema::create('uzsakymas_preke', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('kiekis');
-            $table->integer('fk_UzsakymasId')->unsigned();
-            $table->integer('fk_PrekeSandelyjeId')->unsigned();
-            $table->foreign('fk_UzsakymasId')->references('id')->on('uzsakymas');
-            $table->foreign('fk_PrekeSandelyjeId')->references('id')->on('preke_sandelyje');
+            $table->integer('fk_uzsakymasId')->unsigned();
+            $table->integer('fk_prekeSandelyjeId')->unsigned();
+            $table->foreign('fk_uzsakymasId')->references('id')->on('uzsakymas');
+            $table->foreign('fk_prekeSandelyjeId')->references('id')->on('preke_sandelyje');
         });
     }
 
