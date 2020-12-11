@@ -19,13 +19,15 @@
                     </tr>
                 </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">#1</td>
-                            <td class="text-center">Lietuva</td>
-                            <td class="text-center">Kaunas</td>
-                            <td class="text-center">Elektėnų g. 8</td>
-                            <td class="text-center">0%</td>
-                        </tr>
+                        @foreach($sandeliai as $sandelis)
+                            <tr>
+                                <td class="text-center">#{{ $sandelis->sandelio_kodas }}</td>
+                                <td class="text-center">{{ $sandelis->salis }}</td>
+                                <td class="text-center">{{ $sandelis->miestas }}</td>
+                                <td class="text-center">{{ $sandelis->gatve }}</td>
+                                <td class="text-center">0%</td>
+                            </tr>
+                        @endforeach
                     </tbody>
             </table>
         </div>   

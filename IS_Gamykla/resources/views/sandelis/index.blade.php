@@ -38,38 +38,40 @@
                     </tr>
                 </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">#1</td>
-                            <td class="text-center">Lietuva</td>
-                            <td class="text-center">Kaunas</td>
-                            <td class="text-center">Elektėnų g. 8</td>
-                            <td class="text-center">2500</td>
-                            <td class="text-center">
-                                <div>
-                                    <form action="{{ action('PrekesSandelyjeController@index', '1') }}" method="get">
-                                        <button class="btn btn-default fas fa-eye" type="submit" value="Keisti"> Peržiūrėti prekes</button>
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    </form>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div>
-                                    <form action="{{ action('SandelisController@edit', '1') }}" method="get">
-                                        <button class="btn btn-default fas fa-edit" type="submit" value="Keisti"> Keisti</button>
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    </form>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div>
-                                    <form action="{{ action('SandelisController@delete', ['id' => '1']) }}" method="post">
-                                        <button class="btn btn-default fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
-                                        <input type="hidden" name="_method" value="delete" />
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach($sandeliai as $sandelis)
+                            <tr>
+                                <td class="text-center">#{{ $sandelis->sandelio_kodas }}</td>
+                                <td class="text-center">{{ $sandelis->salis }}</td>
+                                <td class="text-center">{{ $sandelis->miestas }}</td>
+                                <td class="text-center">{{ $sandelis->gatve }}</td>
+                                <td class="text-center">{{ $sandelis->talpa }}</td>
+                                <td class="text-center">
+                                    <div>
+                                        <form action="{{ action('PrekesSandelyjeController@index', $sandelis->sandelio_kodas) }}" method="get">
+                                            <button class="btn btn-default fas fa-eye" type="submit" value="Keisti"> Peržiūrėti prekes</button>
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        <form action="{{ action('SandelisController@edit', $sandelis->sandelio_kodas) }}" method="get">
+                                            <button class="btn btn-default fas fa-edit" type="submit" value="Keisti"> Keisti</button>
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        <form action="{{ action('SandelisController@delete', ['id' => $sandelis->sandelio_kodas]) }}" method="post">
+                                            <button class="btn btn-default fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
+                                            <input type="hidden" name="_method" value="delete" />
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
             </table>
         </div>

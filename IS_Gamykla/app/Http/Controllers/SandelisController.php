@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Sandelis;
 
 class SandelisController extends Controller
 {
@@ -11,13 +12,16 @@ class SandelisController extends Controller
 
     }
 
-    public function index()
-    {
-        return view('sandelis.index');
+    public function index(){
+        $sandeliai = Sandelis::all();
+
+        return view('sandelis.index', ['sandeliai' => $sandeliai]);
     }
 
     public function edit($id){
-        return view('sandelis.edit');
+        echo $id;
+        $sandelis = Sandelis::where('sandelio_kodas', $id)->get();
+        return view('sandelis.edit', ['sandelis' => $sandelis[0]]);
     }
 
     public function update($id){

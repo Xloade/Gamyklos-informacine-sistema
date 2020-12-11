@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Preke extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'prekes_kodas';
 }

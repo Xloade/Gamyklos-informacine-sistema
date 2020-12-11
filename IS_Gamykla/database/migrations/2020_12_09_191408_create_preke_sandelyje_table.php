@@ -18,6 +18,8 @@ class CreatePrekeSandelyjeTable extends Migration
             $table->integer('kiekis');
             $table->integer('fk_sandelisId')->unsigned();
             $table->foreign('fk_sandelisId')->references('sandelio_kodas')->on('sandeliai');
+            $table->integer('fk_prekeId')->unsigned();
+            $table->foreign('fk_prekeId')->references('prekes_kodas')->on('preke');
         });
     }
 
