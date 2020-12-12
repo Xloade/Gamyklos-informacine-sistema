@@ -28,7 +28,7 @@
                         <th scope="col">Šalis</th>
                         <th scope="col">Miestas</th>
                         <th scope="col">Gatvė</th>
-                        <th scope="col">Talpa (kūbiniais metrais)</th>
+                        <th scope="col">Talpa</th>
                         <th scope="col">Prekės sandelyje</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
@@ -41,7 +41,7 @@
                                 <td class="text-center">{{ $sandelis->salis }}</td>
                                 <td class="text-center">{{ $sandelis->miestas }}</td>
                                 <td class="text-center">{{ $sandelis->gatve }}</td>
-                                <td class="text-center">{{ $sandelis->talpa }}</td>
+                                <td class="text-center">{{ $sandelis->talpa }} m&#x00B3</td>
                                 <td class="text-center">
                                     <div>
                                         <form action="{{ action('PrekesSandelyjeController@index', $sandelis->sandelio_kodas) }}" method="get">
