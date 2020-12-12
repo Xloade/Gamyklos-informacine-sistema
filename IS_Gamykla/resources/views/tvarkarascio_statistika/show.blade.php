@@ -30,14 +30,16 @@
                         <th scope="col">Darbo Valandos</th>
                     </tr>
                 </thead>
-                    <tbody>
+                <tbody>
+                    @foreach($gamyklos as $gamykla)
                         <tr>
-                            <td class="text-center">Varžtinė</td>
-                            <td class="text-center">2020-11-16</td>
-                            <td class="text-center">2020-11-17</td>
-                            <td class="text-center">9</td>
+                            <td class="text-center">{{ $gamykla->pavadinimas }}</td>
+                            <td class="text-center">{{ $gamykla->nuo }}</td>
+                            <td class="text-center">{{ $gamykla->iki }}</td>
+                            <td class="text-center">{{ $gamykla->valandos }}</td>
                         </tr>
-                    </tbody>
+                    @endforeach
+                </tbody>
             </table>
         </div>  
     </div>

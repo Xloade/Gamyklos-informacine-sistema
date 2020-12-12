@@ -32,32 +32,18 @@
                         <th scope="col">Parduotų prekių kiekis</th>
                     </tr>
                 </thead>
-                    <tbody>
+                <tbody>
+                    @foreach($prekes as $preke)
                         <tr>
-                            <td class="text-center">#5</td>
-                            <td class="text-center">Pirmoji prekė</td>
-                            <td class="text-center">15.99€</td>
-                            <td class="text-center">2020-05-05</td>
-                            <td class="text-center">2020-07-10</td>
-                            <td class="text-center">100</td>
+                            <td class="text-center">#{{ $preke->prekes_kodas }}</td>
+                            <td class="text-center">{{ $preke->pavadinimas }}</td>
+                            <td class="text-center">{{ $preke->kaina }}€</td>
+                            <td class="text-center">{{ $preke->nuo }}</td>
+                            <td class="text-center">{{ $preke->iki }}</td>
+                            <td class="text-center">{{ $preke->kiekis }}</td>
                         </tr>
-                        <tr>
-                            <td class="text-center">#10</td>
-                            <td class="text-center">Antroji prekė</td>
-                            <td class="text-center">40.99€</td>
-                            <td class="text-center">2020-04-07</td>
-                            <td class="text-center">2020-06-13</td>
-                            <td class="text-center">80</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">#48</td>
-                            <td class="text-center">Trečioji prekė</td>
-                            <td class="text-center">10.49€</td>
-                            <td class="text-center">2020-10-11</td>
-                            <td class="text-center">2020-11-16</td>
-                            <td class="text-center">74</td>
-                        </tr>
-                    </tbody>
+                    @endforeach
+                </tbody>
             </table>
         </div>  
     </div>
