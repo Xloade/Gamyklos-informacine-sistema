@@ -7,7 +7,7 @@
             <div class="d-flex flex-row-reverse">
                 <div>
                     <form action="{{ action('PrekesSandelyjeController@create') }}" method="get">
-                        <button class="btn btn-default fas fas fa-plus" type="submit" value="Sukurti"> Užsakyti prekę</button>
+                        <button class="btn btn-info fas fas fa-plus" type="submit" value="Sukurti"> Užsakyti prekę</button>
                         <input type="hidden" name="_method" value="create" />
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     </form>
@@ -29,8 +29,9 @@
                     </tr>
                 </thead>
                     <tbody>
-                        <tr>
-                            @foreach ($allPrekes as $nt)
+                        @foreach ($allPrekes as $nt)
+                            <tr>
+
 
                                 <td class="text-center">{{$nt->id}}</td>
                                 <td class="text-center">{{$nt->preke->pavadinimas}}</td>
@@ -41,12 +42,9 @@
                                 <td class="text-center">{{$nt->preke->ilgis}}</td>
                                 <td class="text-center">{{$nt->preke->plotis}}</td>
                                 <td class="text-center">
-
-                            @endforeach
-
                                 <div>
                                     <form action="{{ action('PrekesSandelyjeController@edit', '1') }}" method="get">
-                                        <button class="btn btn-default fas fa-edit" type="submit" value="Keisti"> Keisti</button>
+                                        <button class="btn btn-success fa fa-edit" type="submit" value="Keisti"> Keisti</button>
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     </form>
                                 </div>
@@ -54,13 +52,14 @@
                             <td class="text-center">
                                 <div>
                                     <form action="{{ action('PrekesSandelyjeController@delete', ['id' => '1']) }}" method="post">
-                                        <button class="btn btn-default fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
+                                        <button class="btn btn-danger fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
                                         <input type="hidden" name="_method" value="delete" />
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     </form>
                                 </div>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
             </table>
         </div>

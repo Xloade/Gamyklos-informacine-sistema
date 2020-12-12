@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,7 +59,7 @@ Route::prefix('sandelis')->group(function () {
 });
 
 Route::prefix('prekes_sandelyje')->group(function () {
-    Route::get('', 'PrekesSandelyjeController@index')->name('prekes_sandelyje.index');
+    Route::get('{id}', 'PrekesSandelyjeController@index')->name('prekes_sandelyje.index');
     Route::get('create', 'PrekesSandelyjeController@create')->name('prekes_sandelyje.create');
     Route::get('edit/{id}', 'PrekesSandelyjeController@edit')->name('prekes_sandelyje.edit');
     Route::delete('delete','PrekesSandelyjeController@delete')->name('prekes_sandelyje.delete');

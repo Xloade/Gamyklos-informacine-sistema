@@ -6,6 +6,7 @@ use App\Models\Preke_sandelyje as ModelsPreke_sandelyje;
 use Illuminate\Http\Request;
 use App\Models\Preke_sandelyje;
 use App\Models\Preke;
+use App\Models\sandelis;
 class PrekesSandelyjeController extends Controller
 {
     public function __construct()
@@ -13,9 +14,12 @@ class PrekesSandelyjeController extends Controller
 
     }
 
-    public function index()
+    public function index(\App\Models\sandelis $id)
     {
-        $allPrekes = Preke_sandelyje::with('preke')->get();
+        $allPrekes = preke_sandelyje::where(['fk_sandelisid' => $id->sandelio_kodas])
+                    ->with('preke')
+                    ->get();
+
         return view('prekes_sandelyje.index', compact('allPrekes'));
     }
 
