@@ -30,15 +30,20 @@
                 </thead>
                     <tbody>
                         <tr>
-                            <td class="text-center">#1</td>
-                            <td class="text-center">Didelis varžtas</td>
-                            <td class="text-center">125</td>
-                            <td class="text-center">99.99</td>
-                            <td class="text-center">50</td>
-                            <td class="text-center">50</td>
-                            <td class="text-center">125</td>
-                            <td class="text-center">125</td>
-                            <td class="text-center">
+                            @foreach ($allPrekes as $nt)
+
+                                <td class="text-center">{{$nt->id}}</td>
+                                <td class="text-center">{{$nt->preke->pavadinimas}}</td>
+                                <td class="text-center">{{$nt->kiekis}}</td>
+                                <td class="text-center">{{$nt->preke->kaina}}</td>
+                                <td class="text-center">{{$nt->preke->svoris}}</td>
+                                <td class="text-center">{{$nt->preke->aukstis}}</td>
+                                <td class="text-center">{{$nt->preke->ilgis}}</td>
+                                <td class="text-center">{{$nt->preke->plotis}}</td>
+                                <td class="text-center">
+
+                            @endforeach
+
                                 <div>
                                     <form action="{{ action('PrekesSandelyjeController@edit', '1') }}" method="get">
                                         <button class="btn btn-default fas fa-edit" type="submit" value="Keisti"> Keisti</button>

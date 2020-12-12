@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Preke_sandelyje as ModelsPreke_sandelyje;
 use Illuminate\Http\Request;
-
+use App\Models\Preke_sandelyje;
+use App\Models\Preke;
 class PrekesSandelyjeController extends Controller
 {
     public function __construct()
@@ -13,7 +15,8 @@ class PrekesSandelyjeController extends Controller
 
     public function index()
     {
-        return view('prekes_sandelyje.index');
+        $allPrekes = Preke_sandelyje::with('preke')->get();
+        return view('prekes_sandelyje.index', compact('allPrekes'));
     }
 
     public function edit($id){
