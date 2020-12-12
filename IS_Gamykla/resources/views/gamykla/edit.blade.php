@@ -7,16 +7,17 @@
                 <h2>Gamyklos forma</h2>
             </div>
             <div class="card-body">
+                <input type="hidden" name="id" value="{{$gamykla->kodas}}" />
                 <div class="form-row my-2">
                     <label for="gamykla_name" class="col-form-label col-md-3 text-right">Pavadinimas</label>
                     <div class="col-md-3">
-                        <input type="textbox" name="gamykla_name" id="gamykla_name" class="form-control">
+                        <input type="textbox" name="gamykla_name" id="gamykla_name" class="form-control" value="{{$gamykla->pavadinimas}}" required>
                     </div>
                 </div>
                 <div class="form-row my-2">
                     <label for="gamykla_adress" class="col-form-label col-md-3 text-right">Adresas</label>
                     <div class="col-md-3">
-                        <input type="textbox" name="gamykla_adress" id="gamykla_adress" class="form-control">
+                        <input type="textbox" name="gamykla_adress" id="gamykla_adress" class="form-control" value="{{$gamykla->adresas}}" required>
                     </div>
                 </div>
                 <div class="form-row my-2">
