@@ -25,7 +25,7 @@
                                 <td class="text-center">{{ $sandelis->salis }}</td>
                                 <td class="text-center">{{ $sandelis->miestas }}</td>
                                 <td class="text-center">{{ $sandelis->gatve }}</td>
-                                <td class="text-center">0%</td>
+                                <td class="text-center">{{ $sandelis->uzpildyta }}%</td>
                             </tr>
                         @endforeach
                     </tbody>

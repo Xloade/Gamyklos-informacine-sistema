@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Sandelis extends Model
 {
@@ -11,7 +12,7 @@ class Sandelis extends Model
 
     protected $table = 'sandeliai';
     protected $primaryKey = 'sandelio_kodas';
-
+    
      /**
      * The attributes that are mass assignable.
      *
@@ -36,4 +37,12 @@ class Sandelis extends Model
      */
     protected $casts = [
     ];
+
+    /**
+     * Get the what is in sandelis.
+     */
+    public function sandelyje()
+    {
+        return $this->hasMany(Preke_sandelyje::class, 'fk_sandelisId');
+    }
 }
