@@ -19,10 +19,12 @@ Route::get('/', function () {
 
 Route::prefix('admin')->group(function () {
     Route::get('','AdminController@index')->name('admin.index');
+    Route::get('change_category','AdminController@change_category')->name('admin.change_category');
+    Route::get('search','AdminController@search')->name('admin.search');
     Route::get('create','AdminController@create')->name('admin.create');
     Route::post('store','AdminController@store')->name('admin.store');
     Route::get('{user}','AdminController@edit')->name('admin.edit');
-    Route::get('{user}','AdminController@edit')->name('admin.edit');
+    //Route::get('{user}','AdminController@edit')->name('admin.edit');
     Route::patch('{user}/update','AdminController@update')->name('admin.update');
     Route::delete('{user}/destroy','AdminController@destroy')->name('admin.destroy');
 });
