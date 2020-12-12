@@ -38,4 +38,13 @@ class Gamykla extends Model
      */
     protected $casts = [
     ];
+
+    public function boss()
+    {
+        return $this->hasOne(User::class, 'id', 'fk_userId');
+    }
+
+    public function worker(){
+        return $this->hasMany(User::class, 'id', 'kodas');
+    }
 }
