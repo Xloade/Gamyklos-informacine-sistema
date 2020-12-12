@@ -16,11 +16,7 @@
             </div>
             <div class="d-flex flex-row-reverse">
                 <div>
-                    <form action="{{ action('SandelisController@create') }}" method="get">
-                        <button class="btn btn-default fas fas fa-plus" type="submit" value="Sukurti"> Sukurti sandėlį</button>
-                        <input type="hidden" name="_method" value="create" />
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    </form>
+                    <a class="btn btn-info fas fas fa-plus" href="{{ action('SandelisController@create') }}" type="submit">Sukurti sandėlį</a>
                 </div>
             </div>
         </div>
@@ -33,6 +29,7 @@
                         <th scope="col">Miestas</th>
                         <th scope="col">Gatvė</th>
                         <th scope="col">Talpa (kūbiniais metrais)</th>
+                        <th scope="col">Prekės sandelyje</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -48,24 +45,22 @@
                                 <td class="text-center">
                                     <div>
                                         <form action="{{ action('PrekesSandelyjeController@index', $sandelis->sandelio_kodas) }}" method="get">
-                                            <button class="btn btn-default fas fa-eye" type="submit" value="Keisti"> Peržiūrėti prekes</button>
+                                            <button class="btn btn-info fas fa-eye" type="submit" value="Keisti"> Peržiūrėti prekes</button>
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         </form>
                                     </div>
                                 </td>
                                 <td class="text-center">
                                     <div>
-                                        <form action="{{ action('SandelisController@edit', $sandelis->sandelio_kodas) }}" method="get">
-                                            <button class="btn btn-default fas fa-edit" type="submit" value="Keisti"> Keisti</button>
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        </form>
+                                        <a href="{{ action('SandelisController@edit', $sandelis->sandelio_kodas) }}" class="btn btn-success fa fa-edit">Keisti</a>
                                     </div>
                                 </td>
                                 <td class="text-center">
                                     <div>
-                                        <form action="{{ action('SandelisController@delete', ['id' => $sandelis->sandelio_kodas]) }}" method="post">
-                                            <button class="btn btn-default fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
+                                        <form action="{{ action('SandelisController@delete') }}" method="post">
+                                            <button class="btn btn-danger fas fa-trash" type="submit"> Ištrinti</button>
                                             <input type="hidden" name="_method" value="delete" />
+                                            <input type="hidden" name="id" value="{{ $sandelis->sandelio_kodas }}" />
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         </form>
                                     </div>

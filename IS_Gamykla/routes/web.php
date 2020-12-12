@@ -30,8 +30,6 @@ Route::prefix('user')->group(function () {
     Route::get('/user','UserController@editprofile')->name('user.editprofile');
 });
 
-
-
 Route::prefix('gamyklos')->group(function () {
     Route::get('', 'GamyklaController@index')->name('gamyklos.index');
     Route::get('edit/{id}', 'GamyklaController@edit')->name('gamyklos.edit');
@@ -51,7 +49,6 @@ Route::prefix('tvarkarasciai')->group(function () {
     Route::get('show', 'TvarkarastisController@show')->name('tvarkarasciai.show');
 });
 
-// --------------------------------------------------------------------------------------
 Route::prefix('sandelis')->group(function () {
     Route::get('', 'SandelisController@index')->name('sandelis.index');
     Route::get('edit/{id}', 'SandelisController@edit')->name('sandelis.edit');
@@ -87,7 +84,6 @@ Route::prefix('eparduotuve')->group(function () {
     Route::get('item/{id}', 'EParduotuveController@show')->name('eparduotuve.show');
     Route::get('complete', 'EParduotuveController@complete')->name('eparduotuve.complete');
 });
-// --------------------------------------------------------------------------------------
 
 Auth::routes();
 
