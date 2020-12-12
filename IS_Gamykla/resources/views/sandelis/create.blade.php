@@ -8,27 +8,27 @@
             </div>
             <div class="card-body">
                 <div class="form-row my-2">
-                    <label for="sandelis_country" class="col-form-label col-md-3 text-right">Šalis</label>
+                    <label for="sandelis_salis" class="col-form-label col-md-3 text-right">Šalis</label>
                     <div class="col-md-3">
-                        <input type="textbox" name="sandelis_country" id="sandelis_country" class="form-control">
+                        <input type="textbox" name="sandelis_salis" id="sandelis_salis" class="form-control">
                     </div>
                 </div>
                 <div class="form-row my-2">
-                    <label for="sandelis_city" class="col-form-label col-md-3 text-right">Miestas</label>
+                    <label for="sandelis_miestas" class="col-form-label col-md-3 text-right">Miestas</label>
                     <div class="col-md-3">
-                        <input type="textbox" name="sandelis_city" id="sandelis_city" class="form-control">
+                        <input type="textbox" name="sandelis_miestas" id="sandelis_miestas" class="form-control">
                     </div>
                 </div>
                 <div class="form-row my-2">
-                    <label for="sandelis_adress" class="col-form-label col-md-3 text-right">Gatvė</label>
+                    <label for="sandelis_gatve" class="col-form-label col-md-3 text-right">Gatvė</label>
                     <div class="col-md-3">
-                        <input type="textbox" name="sandelis_adress" id="sandelis_adress" class="form-control">
+                        <input type="textbox" name="sandelis_gatve" id="sandelis_gatve" class="form-control">
                     </div>
                 </div>
                 <div class="form-row my-2">
-                    <label for="sandelis_size" class="col-form-label col-md-3 text-right">Talpa</label>
+                    <label for="sandelis_talpa" class="col-form-label col-md-3 text-right">Talpa</label>
                     <div class="col-md-3">
-                        <input type="textbox" name="sandelis_size" id="sandelis_size" class="form-control">
+                        <input type="textbox" name="sandelis_talpa" id="sandelis_talpa" class="form-control">
                     </div>
                 </div>
                 <div class="form-row my-2">

@@ -19,12 +19,18 @@ class SandelisController extends Controller
     }
 
     public function edit($id){
-        echo $id;
-        $sandelis = Sandelis::where('sandelio_kodas', $id)->get();
-        return view('sandelis.edit', ['sandelis' => $sandelis[0]]);
+        $sandelis = Sandelis::where('sandelio_kodas', $id)->first();
+        return view('sandelis.edit', ['sandelis' => $sandelis]);
     }
 
-    public function update($id){
+    public function update(Request $request){
+        Sandelis::where('sandelio_kodas', $request->id)->update([
+            'salis' => $request->sandelis_salis,
+            'miestas' => $request->sandelis_miestas,
+            'gatve' => $request->sandelis_gatve,
+            'talpa' => $request->sandelis_talpa,
+            'fk_vadovasId' => null
+        ]);
         return redirect()->route('sandelis.index');
     }
 
@@ -32,11 +38,19 @@ class SandelisController extends Controller
         return view('sandelis.create');
     }
 
-    public function store(){
+    public function store(Request $request){
+        Sandelis::create([
+            'salis' => $request->sandelis_salis,
+            'miestas' => $request->sandelis_miestas,
+            'gatve' => $request->sandelis_gatve,
+            'talpa' => $request->sandelis_talpa,
+            'fk_vadovasId' => null
+        ]);
         return redirect()->route('sandelis.index');
     }
 
-    public function delete(){
+    public function delete(Request $request){
+        Sandelis::where('sandelio_kodas', $request->id)->delete();
         return redirect()->route('sandelis.index');
     }
 }

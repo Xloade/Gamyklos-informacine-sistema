@@ -2,40 +2,40 @@
 @section('content')
 <div class="container" id="app">
     <div class="card shadow border border-secondary">
-        <form action="{{ route('sandelis.update', ['id' => '$sandelis->sandelio_kodas']) }}" method="POST">
+        <form action="{{ route('sandelis.update', ['id' => $sandelis->sandelio_kodas]) }}" method="POST">
             <div class="card-header text-center">
                 <h2>Sandėlio forma</h2>
             </div>
             <div class="card-body">
                 <div class="form-row my-2">
-                    <label for="sandelis_country" class="col-form-label col-md-3 text-right">Šalis</label>
+                    <label for="sandelis_salis" class="col-form-label col-md-3 text-right">Šalis</label>
                     <div class="col-md-3">
-                        <input type="textbox" name="sandelis_country" id="sandelis_country" class="form-control" value="{{ $sandelis->salis }}">
+                        <input type="textbox" name="sandelis_salis" id="sandelis_salis" class="form-control" value="{{ $sandelis->salis }}">
                     </div>
                 </div>
                 <div class="form-row my-2">
-                    <label for="sandelis_city" class="col-form-label col-md-3 text-right">Miestas</label>
+                    <label for="sandelis_miestas" class="col-form-label col-md-3 text-right">Miestas</label>
                     <div class="col-md-3">
-                        <input type="textbox" name="sandelis_city" id="sandelis_city" class="form-control" value="{{ $sandelis->miestas }}">
+                        <input type="textbox" name="sandelis_miestas" id="sandelis_miestas" class="form-control" value="{{ $sandelis->miestas }}">
                     </div>
                 </div>
                 <div class="form-row my-2">
-                    <label for="sandelis_adress" class="col-form-label col-md-3 text-right">Gatvė</label>
+                    <label for="sandelis_gatve" class="col-form-label col-md-3 text-right">Gatvė</label>
                     <div class="col-md-3">
-                        <input type="textbox" name="sandelis_adress" id="sandelis_adress" class="form-control" value="{{ $sandelis->gatve }}">
+                        <input type="textbox" name="sandelis_gatve" id="sandelis_gatve" class="form-control" value="{{ $sandelis->gatve }}">
                     </div>
                 </div>
                 <div class="form-row my-2">
-                    <label for="sandelis_size" class="col-form-label col-md-3 text-right">Talpa</label>
+                    <label for="sandelis_talpa" class="col-form-label col-md-3 text-right">Talpa</label>
                     <div class="col-md-3">
-                        <input type="textbox" name="sandelis_size" id="sandelis_size" class="form-control" value="{{ $sandelis->talpa }}">
+                        <input type="textbox" name="sandelis_talpa" id="sandelis_talpa" class="form-control" value="{{ $sandelis->talpa }}">
                     </div>
                 </div>
                 <div class="form-row my-2">
                     <label for="sandelis_boss" class="col-form-label col-md-3 text-right">Sandėlio vadovas</label>
                     <div class="col-md-3">
                         <select name="sandelis_boss" id="sandelis_boss" class="form-control">
-                            <option value="{{ $sandelis->fk_vadovasId }}" selected>Petras Petraitis</option>
+                            <option value="0" selected>Petras Petraitis</option>
                             <option value="1">Petras Petraitytis</option>
                           </select>
                     </div>
