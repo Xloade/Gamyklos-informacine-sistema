@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,8 +32,6 @@ Route::prefix('user')->group(function () {
     Route::get('/user','UserController@editprofile')->name('user.editprofile');
 });
 
-
-
 Route::prefix('gamyklos')->group(function () {
     Route::get('', 'GamyklaController@index')->name('gamyklos.index');
     Route::get('edit/{id}', 'GamyklaController@edit')->name('gamyklos.edit');
@@ -53,7 +51,6 @@ Route::prefix('tvarkarasciai')->group(function () {
     Route::get('show', 'TvarkarastisController@show')->name('tvarkarasciai.show');
 });
 
-// --------------------------------------------------------------------------------------
 Route::prefix('sandelis')->group(function () {
     Route::get('', 'SandelisController@index')->name('sandelis.index');
     Route::get('edit/{id}', 'SandelisController@edit')->name('sandelis.edit');
@@ -64,7 +61,7 @@ Route::prefix('sandelis')->group(function () {
 });
 
 Route::prefix('prekes_sandelyje')->group(function () {
-    Route::get('', 'PrekesSandelyjeController@index')->name('prekes_sandelyje.index');
+    Route::get('{id}', 'PrekesSandelyjeController@index')->name('prekes_sandelyje.index');
     Route::get('create', 'PrekesSandelyjeController@create')->name('prekes_sandelyje.create');
     Route::get('edit/{id}', 'PrekesSandelyjeController@edit')->name('prekes_sandelyje.edit');
     Route::delete('delete','PrekesSandelyjeController@delete')->name('prekes_sandelyje.delete');
@@ -89,7 +86,6 @@ Route::prefix('eparduotuve')->group(function () {
     Route::get('item/{id}', 'EParduotuveController@show')->name('eparduotuve.show');
     Route::get('complete', 'EParduotuveController@complete')->name('eparduotuve.complete');
 });
-// --------------------------------------------------------------------------------------
 
 Auth::routes();
 

@@ -6,11 +6,7 @@
             <h2 class="text-center">Gamyklos</h2>
             <div class="d-flex flex-row-reverse">
                 <div>
-                    <form action="{{ action('GamyklaController@create') }}" method="get">
-                        <button class="btn btn-default fas fas fa-plus" type="submit" value="Sukurti"> Sukurti gamyklą</button>
-                        <input type="hidden" name="_method" value="create" />
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    </form>
+                    <a class="btn btn-primary fas fas fa-plus" href="{{ action('GamyklaController@create') }}" type="submit">Sukurti gamyklą</a>
                 </div>
             </div>
         </div>
@@ -26,28 +22,28 @@
                     </tr>
                 </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">#1</td>
-                            <td class="text-center">Varžtinė</td>
-                            <td class="text-center">Klaipėda</td>
-                            <td class="text-center">
-                                <div>
-                                    <form action="{{ action('GamyklaController@edit', '1') }}" method="get">
-                                        <button class="btn btn-default fas fa-edit" type="submit" value="Keisti"> Keisti</button>
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    </form>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div>
-                                    <form action="{{ action('GamyklaController@delete', ['id' => '1']) }}" method="post">
-                                        <button class="btn btn-default fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
-                                        <input type="hidden" name="_method" value="delete" />
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    </form>
-                                </div>      
-                            </td>
-                        </tr>
+                        @foreach ($gamyklos as $gamykla)
+                            <tr>
+                                <td class="text-center">#{{$gamykla->kodas}}</td>
+                                <td class="text-center">{{$gamykla->pavadinimas}}</td>
+                                <td class="text-center">{{$gamykla->adresas}}</td>
+                                <td class="text-center">
+                                    <div>
+                                        <a href="{{ action('GamyklaController@edit', $gamykla->kodas) }}" class="btn btn-success fa fa-edit">Keisti</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <form action="{{ action('GamyklaController@delete') }}" method="post">
+                                            <button class="btn btn-danger fas fa-trash" type="submit"> Ištrinti</button>
+                                            <input type="hidden" name="_method" value="delete" />
+                                            <input type="hidden" name="id" value="{{$gamykla->kodas}}" />
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
             </table>
         </div>  

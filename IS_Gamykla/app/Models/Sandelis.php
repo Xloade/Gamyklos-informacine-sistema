@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Sandelis extends Model
 {
@@ -11,14 +12,14 @@ class Sandelis extends Model
 
     protected $table = 'sandeliai';
     protected $primaryKey = 'sandelio_kodas';
-
+    public $timestamps = false;
      /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'salis','miestas', 'gatve', 'talpa'
+        'salis', 'miestas', 'gatve', 'talpa', 'fk_vadovasId'
     ];
 
     /**
@@ -36,4 +37,14 @@ class Sandelis extends Model
      */
     protected $casts = [
     ];
+
+    public function boss()
+    {
+        return $this->hasOne(User::class, 'id', 'fk_vadovasId');
+    }
+
+    public function sandelyje()
+    {
+        return $this->hasMany(Preke_sandelyje::class, 'fk_sandelisId');
+    }
 }
