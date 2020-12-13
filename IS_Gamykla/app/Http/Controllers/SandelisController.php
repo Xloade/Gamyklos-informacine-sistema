@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sandelis;
 use App\Models\User;
-use  Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Config;
 use App\Models\Preke_sandelyje;
 use App\Models\Preke;
 

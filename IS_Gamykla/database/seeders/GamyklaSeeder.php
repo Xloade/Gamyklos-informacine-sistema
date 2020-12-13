@@ -17,19 +17,24 @@ class GamyklaSeeder extends Seeder
         DB::table('gamykla')->insert([
             ['pavadinimas' => 'Varžtinė',
             'adresas' => 'Vasario 16-Osios g. 60
-            Panevėžys'],
+            Panevėžys',
+            'fk_userId' => null],
             ['pavadinima' => 'Ratinė',
             'adresas' => 'Šiaurės pr.
-            Klaipėda'],
+            Klaipėda',
+            'fk_userId' => 7],
             ['pavadinima' => 'Sriegykla',
             'adresas' => 'Tilto g.
-            Gargždai'],
+            Gargždai',
+            'fk_userId' => 8],
             ['pavadinima' => 'Medienos pliauskos',
             'adresas' => 'Pagojo g.
-            Kvėdarna'],
+            Kvėdarna',
+            'fk_userId' => null],
             ['pavadinima' => 'Liejykla',
             'adresas' => 'J. Basanavičiaus g.
-            Šilalė']
+            Šilalė',
+            'fk_userId' => null]
         ]);
     }
 }

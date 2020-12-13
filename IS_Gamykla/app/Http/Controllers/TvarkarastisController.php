@@ -7,7 +7,7 @@ use App\Models\Tvarkarastis;
 use App\Models\Gamykla;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use Config;
+use Illuminate\Support\Facades\Config;
 
 class TvarkarastisController extends Controller
 {

@@ -18,6 +18,9 @@ class PrekeSandelyjeSeeder extends Seeder
             ['kiekis' => 125,
             'fk_sandelisId' => 1,
             'fk_prekeId' => 1],
+            ['kiekis' => 10,
+            'fk_sandelisId' => 1,
+            'fk_prekeId' => 2],
             ['kiekis' => 2000,
             'fk_sandelisId' => 3,
             'fk_prekeId' => 1]

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Gamykla;
-use Config;
+use Illuminate\Support\Facades\Config;
 use App\Models\User;
 
 class GamyklaController extends Controller
