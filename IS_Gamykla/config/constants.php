@@ -13,6 +13,10 @@ return [
     'GAM_VAD_VARDAS' => 'Gamyklos vadovas',
     'ADMINISTRATORIAUS_VARDAS' => 'Administratorius',
 
+    'UZASKYMAS_PRADETAS' => 0,
+    'UZASKYMAS_PATVIRTINTAS' => 1,
+    'UZASKYMAS_PRISTATYTAS' => 2,
+
     // 'Klientas' => 1,
     // 'Darbuotojas' => 3,
     // 'Sandėlio vadovas' => 5,
