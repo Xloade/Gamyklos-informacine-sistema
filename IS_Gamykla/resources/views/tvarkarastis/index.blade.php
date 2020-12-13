@@ -5,21 +5,39 @@
         <div class="card-header">
             <h2 class="text-center">Tvarkaraščiai</h2>
             <div class="col">
-                <div class="row">
-                    <div class="col-sm-3"> 
-                        <input class="form-control" type="date" id="date" name="date" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="{{Carbon\Carbon::now()->format('Y-m-d')}}" max="2022-12-31">
+                <form action="{{ action('TvarkarastisController@search') }}" method="get">
+                    <div class="row">
+                        <div class="col-sm-3"> 
+                            <input class="form-control" type="date" id="date" name="date" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="{{Carbon\Carbon::now()->format('Y-m-d')}}" max="2022-12-31">
+                        </div>
+                        <div class="col">                  
+                            <button type="submit" class="btn btn-success search">
+                                <i class="fas fa-search"> Ieškoti</i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col">                  
-                        <button type="button" name="search" id="search" class="btn btn-success search">
-                            <i class="fas fa-search"> Ieškoti</i>
-                        </button>
-                    </div>
-                </div>
-                <div class="d-flex flex-row-reverse">
-                    <form action="{{ action('TvarkarastisController@create') }}" method="get">
-                        <button class="btn btn-default fas fas fa-plus" type="submit" value="Sukurti"> Sukurti tvarkaraštį</button>
-                        <input type="hidden" name="_method" value="create" />
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                </form>
+                <div class="container my-2">
+                    <form action="{{ action('TvarkarastisController@create') }}" method="post">
+                        <div class="row">
+                                <div class="col">
+                                    <select name="gamykla" id="gamykla" class="form-control">
+                                        @if (Auth::user()->userlevel > 7)
+                                            @foreach ($gamyklos as $gamykla)
+                                                <option value="{{$gamykla->kodas}}">{{$gamykla->pavadinimas}}</option>
+                                            @endforeach
+                                        @endif
+                                        @if (Auth::user()->userlevel == 7)
+                                            <option value="{{$gamyklos->kodas}}">{{$gamyklos->pavadinimas}}</option>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-primary fas fas fa-plus" type="submit" value="Ištrinti"> Sukurti tvarkaraštį</button>
+                                    <input type="hidden" name="_method" value="post" />
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -31,39 +49,42 @@
                         <th scope="col">Nr</th>
                         <th scope="col">Data</th>
                         <th scope="col">Gamykla</th>
+                        <th scope="col">Darbuotojas</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($tvarkarasciai as $tvarkarastis)
+                    @php
+                    $worker = $tvarkarastis->worker;
+                    @endphp
                     <tr>
-                        <td class="text-center">#1</td>
-                        <td class="text-center">{{ Carbon\Carbon::now()->format('Y-m-d') }}</td>
-                        <td class="text-center">Varžtinė</td>
-                        <td class="text-center">
-                            <div>
-                                <form action="{{ action('TvarkarastisController@show', '1') }}" method="get">
-                                    <button class="btn btn-default fas fa-eye" type="submit" value="Perziureti"> Peržiūrėti</button>
-                                </form>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div>
-                                <form action="{{ action('TvarkarastisController@edit', '1') }}" method="get">
-                                    <button class="btn btn-default fas fa-edit" type="submit" value="Keisti"> Keisti</button>
-                                </form>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div>
-                                <form action="{{ action('TvarkarastisController@delete', ['id' => '1']) }}" method="post">
-                                    <button class="btn btn-default fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
-                                    <input type="hidden" name="_method" value="delete" />
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                </form>
-                            </div>      
-                        </td>
-                    </tr>
+                    <td class="text-center">#{{$tvarkarastis->id}}</td>
+                    <td class="text-center">{{$tvarkarastis->data}}</td>
+                    <td class="text-center">{{$worker->gamykla->pavadinimas}}</td>
+                    <td class="text-center">{{$worker->first_name}} {{$worker->last_name}}</td>
+                    <td class="text-center">
+                        <div>
+                            <a class="btn btn-primary fas fa-eye" href="{{ action('TvarkarastisController@show', $tvarkarastis->id) }}">Peržiūrėti</a>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div>
+                            <a class="btn btn-success fa fa-edit" href="{{ action('TvarkarastisController@edit', $tvarkarastis->id) }}">Keisti</a>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div>
+                            <form action="{{ action('TvarkarastisController@delete', ['id' =>  $tvarkarastis->id]) }}" method="post">
+                                <button class="btn btn-danger fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
+                                <input type="hidden" name="_method" value="delete" />
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            </form>
+                        </div>      
+                    </td>
+                </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>  

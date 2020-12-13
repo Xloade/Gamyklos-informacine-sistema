@@ -19,15 +19,6 @@
                         <input type="textbox" name="gamykla_adress" id="gamykla_adress" class="form-control" required>
                     </div>
                 </div>
-                <div class="form-row my-2">
-                    <label for="gamykla_boss" class="col-form-label col-md-3 text-right">Vadovas</label>
-                    <div class="col-md-3">
-                        <select name="gamykla_boss" id="gamykla_boss" class="form-control">
-                            <option value="0" selected>Jonas Jonaitis</option>
-                            <option value="1">Jonas Jonaitytis</option>
-                          </select>
-                    </div>
-                </div>
             </div>
             <div class="card-footer">
                 <button class="float-right btn btn-primary my-2" type="submit">
