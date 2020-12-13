@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name', 'email', 'password', 'userlevel'
+        'first_name','last_name', 'email', 'password', 'userlevel','fk_gamykla'
     ];
 
     /**
@@ -37,4 +37,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function tvarkarasciai(){
+        return $this->hasMany(Tvarkarastis::class, 'fk_darbuotojasId');
+    }
 }

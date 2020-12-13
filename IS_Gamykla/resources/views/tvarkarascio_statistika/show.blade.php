@@ -4,21 +4,23 @@
     <div class="card shadow border border-secondary">
         <div class="card-header">
             <h2 class="text-center">Tvarkaraščio statistika</h2>
-            <div class="col">
-                <div class="row">
-                    <div class="col-sm-3"> 
-                        <input class="form-control" type="date" id="date_from" name="date_from" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="1990-01-01" max="2022-12-31">
-                    </div>
-                    <div class="col-sm-3"> 
-                        <input class="form-control" type="date" id="date_to" name="date_to" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="1990-01-01" max="2022-12-31">
-                    </div>
-                    <div class="col">                  
-                        <button type="button" name="calc" id="calc" class="btn btn-success search">
-                            <i class="fas fa-chart-bar"> Apskaičiuoti</i>
-                        </button>
+            <form action="{{ route('tvarkarascio_statistika.search') }}" method="get">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-sm-3"> 
+                            <input class="form-control" type="date" id="date_from" name="date_from" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="1990-01-01" max="2022-12-31">
+                        </div>
+                        <div class="col-sm-3"> 
+                            <input class="form-control" type="date" id="date_to" name="date_to" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="1990-01-01" max="2022-12-31">
+                        </div>
+                        <div class="col">                  
+                            <button type="submit" name="search" id="search" class="btn btn-success search">
+                                <i class="fas fa-chart-bar"> Apskaičiuoti</i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <div class="card-body">
             <table class="table table-hover table-striped  p-0 m-0">
@@ -30,14 +32,16 @@
                         <th scope="col">Darbo Valandos</th>
                     </tr>
                 </thead>
-                    <tbody>
+                <tbody>
+                    @foreach($gamyklos as $gamykla)
                         <tr>
-                            <td class="text-center">Varžtinė</td>
-                            <td class="text-center">2020-11-16</td>
-                            <td class="text-center">2020-11-17</td>
-                            <td class="text-center">9</td>
+                            <td class="text-center">{{ $gamykla->pavadinimas }}</td>
+                            <td class="text-center">{{ $gamykla->nuo }}</td>
+                            <td class="text-center">{{ $gamykla->iki }}</td>
+                            <td class="text-center">{{ $gamykla->valandos }}</td>
                         </tr>
-                    </tbody>
+                    @endforeach
+                </tbody>
             </table>
         </div>  
     </div>

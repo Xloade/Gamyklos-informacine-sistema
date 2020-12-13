@@ -17,12 +17,29 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+        [
             'first_name' => 'Pirkejas',
             'last_name' => 'Pirkejas',
             'email' => 'pirkejas@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 1
-        ]);
+            'userlevel' => 1,
+        ],
+        [
+            'first_name' => 'Darbuotojas',
+            'last_name' => 'Darbuotojas',
+            'email' => 'Darbuotojas@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'userlevel' => 3
+        ],
+        [
+            'first_name' => 'Darbuotojas2',
+            'last_name' => 'Darbuotojas2',
+            'email' => 'Darbuotojas2@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'userlevel' => 3
+        ]]);
     }
 }

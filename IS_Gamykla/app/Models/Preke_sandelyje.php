@@ -18,4 +18,7 @@ class Preke_sandelyje extends Model
     {
         return $this->belongsTo(Preke::class, 'fk_prekeId');
     }
+    public function uzsakymai(){
+        return $this->hasMany(Uzsakymas_preke::class, 'fk_prekeSandelyjeId');
+    }
 }
