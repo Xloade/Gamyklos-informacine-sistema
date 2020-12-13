@@ -28,7 +28,7 @@ class EParduotuveController extends Controller
     public function cart()
     {
         $prekes = DB::table('preke')
-            ->selectRaw('uzsakymas_preke.id as id, uzsakymas_preke.kiekis as kiekis, preke.pavadinimas as pavadinimas, preke.kaina * uzsakymas_preke.kiekis as kaina, sandeliai.salis as salis, sandeliai.miestas as miestas, sandeliai.gatve as gatve')
+            ->selectRaw('uzsakymas_preke.id as id, preke_sandelyje.fk_prekeId as prekeId, uzsakymas_preke.kiekis as kiekis, preke.pavadinimas as pavadinimas, preke.kaina * uzsakymas_preke.kiekis as kaina, sandeliai.salis as salis, sandeliai.miestas as miestas, sandeliai.gatve as gatve')
             ->join('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas')
             ->join('uzsakymas_preke', 'uzsakymas_preke.fk_prekeSandelyjeId', '=', 'preke_sandelyje.id')
             ->join('sandeliai', 'uzsakymas_preke.fk_prekeSandelyjeId', '=', 'sandeliai.sandelio_kodas')

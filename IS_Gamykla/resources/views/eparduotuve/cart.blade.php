@@ -28,7 +28,7 @@
         @foreach ($prekes as $key => $preke)
             <tr>
                 <td scope="row">{{$key + 1}}</td>
-                <td><a href="#">{{$preke->pavadinimas}}</a></td>
+                <td><a href="{{route('eparduotuve.show', ['id' => $preke->prekeId])}}">{{$preke->pavadinimas}}</a></td>
                 <td>{{$preke->salis}}, {{$preke->miestas}}, {{$preke->gatve}}</td>
                 <td>{{$preke->kiekis}}</td>
                 <td>{{$preke->kaina}} €</td>
