@@ -6,11 +6,7 @@
             <h2 class="text-center">Prekės sandelyje</h2>
             <div class="d-flex flex-row-reverse">
                 <div>
-                    <form action="{{ action('PrekesSandelyjeController@create') }}" method="get">
-                        <button class="btn btn-info fas fas fa-plus" type="submit" value="Sukurti"> Užsakyti prekę</button>
-                        <input type="hidden" name="_method" value="create" />
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    </form>
+                    <a class="btn btn-info fa fa-plus" href="\prekes_sandelyje/create"  type="submit">Užsakyti prekę</a>
                 </div>
             </div>
         </div>
@@ -33,7 +29,7 @@
                             <tr>
 
 
-                                <td class="text-center">{{$nt->id}}</td>
+                                <td class="text-center">{{$nt->preke->prekes_kodas}}</td>
                                 <td class="text-center">{{$nt->preke->pavadinimas}}</td>
                                 <td class="text-center">{{$nt->kiekis}}</td>
                                 <td class="text-center">{{$nt->preke->kaina}}</td>
@@ -43,18 +39,16 @@
                                 <td class="text-center">{{$nt->preke->plotis}}</td>
                                 <td class="text-center">
                                 <div>
-                                    <form action="{{ action('PrekesSandelyjeController@edit', '1') }}" method="get">
-                                        <button class="btn btn-success fa fa-edit" type="submit" value="Keisti"> Keisti</button>
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    </form>
+                                    <a href="\prekes_sandelyje/edit/{{$nt->id}}" class="btn btn-success fa fa-edit">Keisti</a>
                                 </div>
                             </td>
                             <td class="text-center">
                                 <div>
-                                    <form action="{{ action('PrekesSandelyjeController@delete', ['id' => '1']) }}" method="post">
+                                    <form action="{{ action('PrekesSandelyjeController@delete', ['id' => $nt->id]) }}" method="post">
                                         <button class="btn btn-danger fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
                                         <input type="hidden" name="_method" value="delete" />
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="fk_sandelisId" value="{{ $nt->fk_sandelisId }}">
                                     </form>
                                 </div>
                             </td>
@@ -79,3 +73,5 @@
     }
 </script>
 @endsection
+
+{{-- {{ action('PrekesSandelyjeController@edit', $nt->id) }} --}}

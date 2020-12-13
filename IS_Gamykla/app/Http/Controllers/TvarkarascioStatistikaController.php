@@ -44,4 +44,31 @@ class TvarkarascioStatistikaController extends Controller
         ]);
         return view('tvarkarascio_statistika.show', ['gamyklos' => $gamyklos]);
     }
+
+    public function search(Request $request)
+    {
+        $gamyklos = Gamykla::all();
+        $start = $request->date_from;
+        $finish = $request->date_to;
+        foreach ($gamyklos as $gamykla){
+            $valandos = 0;
+
+            foreach($gamykla->worker as $darbuotojas){
+                foreach($darbuotojas->tvarkarasciai as $tvarkarastis){
+                    if($tvarkarastis->data >= $start && $tvarkarastis->data <= $finish){
+                        $valandos += $tvarkarastis->laikas;
+                    }
+                }
+            }
+            
+            $gamykla->valandos = $valandos;
+            $gamykla->nuo = $start;
+            $gamykla->iki = $finish;
+        }
+        
+        $gamyklos = $gamyklos->where('valandos', '>', 0)->sortBy([
+            'valanados', 'desc'
+        ]);
+        return view('tvarkarascio_statistika.show', ['gamyklos' => $gamyklos]);
+    }
 }

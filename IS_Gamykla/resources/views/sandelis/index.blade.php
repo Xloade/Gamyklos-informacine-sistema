@@ -44,10 +44,9 @@
                                 <td class="text-center">{{ $sandelis->talpa }} m&#x00B3</td>
                                 <td class="text-center">
                                     <div>
-                                        <form action="{{ action('PrekesSandelyjeController@index', $sandelis->sandelio_kodas) }}" method="get">
-                                            <button class="btn btn-info fas fa-eye" type="submit" value="Keisti"> Peržiūrėti prekes</button>
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        </form>
+
+                                        <a href="{{ action('PrekesSandelyjeController@index', $sandelis->sandelio_kodas) }}" class="btn btn-info fa fa-eye">Peržiūrėti prekes</a>
+
                                     </div>
                                 </td>
                                 <td class="text-center">

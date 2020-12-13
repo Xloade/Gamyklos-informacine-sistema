@@ -17,6 +17,9 @@ class PrekeSandelyjeSeeder extends Seeder
         DB::table('preke_sandelyje')->insert([
             ['kiekis' => 125,
             'fk_sandelisId' => 1,
+            'fk_prekeId' => 1],
+            ['kiekis' => 2000,
+            'fk_sandelisId' => 3,
             'fk_prekeId' => 1]
         ]);
     }
