@@ -1,12 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
+@switch($user->userlevel)
+    @case(Config::get('constants.KLIENTAS'))
+        @php($category = Config::get('constants.KLIENTO_VARDAS'))
+        @break
+    @case(Config::get('constants.DARBUOTOJAS'))
+        @php($category = Config::get('constants.DARBUOTOJO_VARDAS'))
+        @break
+    @case(Config::get('constants.SANDELIO_VADOVAS'))
+        @php($category = Config::get('constants.SAN_VAD_VARDAS'))
+        @break
+    @case(Config::get('constants.GAMYKLOS_VADOVAS'))
+        @php($category = Config::get('constants.GAM_VAD_VARDAS'))
+        @break
+    @case(Config::get('constants.ADMINISTRATORIUS'))
+        @php($category = Config::get('constants.ADMINISTRATORIAUS_VARDAS'))
+        @break
+    @default
+        @php($category = 'undefined')
+@endswitch
 <div class="container" id="app">
     <div class="card shadow border border-secondary">
         <h1>Vartotojo informacija</h1>
         <h2>{{$user->first_name}} {{$user->last_name}}</h2>
         <h2>{{$user->email}}</h2>
         <h3>Sukurtas: {{$user->created_at}}</h3>
+        <h3>{{$category}}</h3>
         <x-alert/>
             <form method="post" action="{{route('admin.update',$user->id)}}">
                 @csrf
@@ -69,7 +89,8 @@
 
             @endif
             @if($user->userlevel == Config::get('constants.DARBUOTOJAS'))
-                <h1>darbuotojas</h1>
+                <h2>Darbuotojas dirba gamykloje: {{$gamykla->pavadinimas}}</h2>
+                <h2>{{$gamykla->adresas}}</h2>
 
 
             @endif
@@ -79,8 +100,55 @@
 
             @endif
             @if($user->userlevel == Config::get('constants.SANDELIO_VADOVAS'))
-                <h1>san_vad</h1>
-
+                <h1>Priklausantys sandėliai</h1>
+                <table class="table table-hover table-striped  p-0 m-0">
+                    <thead>
+                        <tr class="text-center w-100">
+                            <th scope="col">Kodas</th>
+                            <th scope="col">Šalis</th>
+                            <th scope="col">Miestas</th>
+                            <th scope="col">Gatvė</th>
+                            <th scope="col">Talpa</th>
+                            <th scope="col">Prekės sandelyje</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            @foreach($sandeliai as $sandelis)
+                                <tr>
+                                    <td class="text-center">#{{ $sandelis->sandelio_kodas }}</td>
+                                    <td class="text-center">{{ $sandelis->salis }}</td>
+                                    <td class="text-center">{{ $sandelis->miestas }}</td>
+                                    <td class="text-center">{{ $sandelis->gatve }}</td>
+                                    <td class="text-center">{{ $sandelis->talpa }} m&#x00B3</td>
+                                    <td class="text-center">
+                                        <div>
+                                            <form action="{{ action('PrekesSandelyjeController@index', $sandelis->sandelio_kodas) }}" method="get">
+                                                <button class="btn btn-info fas fa-eye" type="submit" value="Keisti"> Peržiūrėti prekes</button>
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div>
+                                            <a href="{{ action('SandelisController@edit', $sandelis->sandelio_kodas) }}" class="btn btn-success fa fa-edit">Keisti</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div>
+                                            <form action="{{ action('SandelisController@delete') }}" method="post">
+                                                <button class="btn btn-danger fas fa-trash" type="submit"> Ištrinti</button>
+                                                <input type="hidden" name="_method" value="delete" />
+                                                <input type="hidden" name="id" value="{{ $sandelis->sandelio_kodas }}" />
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                </table>
 
             @endif
 

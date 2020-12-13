@@ -87,14 +87,17 @@
                         @endswitch
                         <td scope="col">{{ $category}}</td>
                         <td scope="col">{{ $user->created_at}}</td>
-                        <td scope="col"><a class="btn btn-success" href="{{route('admin.edit',$user->id)}}">Daugiau</a></td>
-                        <td scope="col"><button class="btn btn-danger" onclick="event.preventDefault();if(confirm('Do you really want to delete this user?')){
-                                    document.getElementById('form-delete-{{$user->id}}').submit()}">Ištrinti</button>
-                        </td>
-                        <form style="display:none" id="{{'form-delete-'.$user->id}}" method="post" action="{{route('admin.destroy', $user->id)}}">
-                                @csrf
-                                @method('delete')
-                        </form>   
+                        @if($user->id != Auth::id())
+                            <td scope="col"><a class="btn btn-success" href="{{route('admin.edit',$user->id)}}">Daugiau</a></td>
+                            <td scope="col"><button class="btn btn-danger" onclick="event.preventDefault();if(confirm('Do you really want to delete this user?')){
+                                        document.getElementById('form-delete-{{$user->id}}').submit()}">Ištrinti</button>
+                            </td>
+                            <form style="display:none" id="{{'form-delete-'.$user->id}}" method="post" action="{{route('admin.destroy', $user->id)}}">
+                                    @csrf
+                                    @method('delete')
+                            </form> 
+                        @else <td scope="col"></td><td scope="col"></td>
+                        @endif                
                     </tr>
                     @endforeach
                     </tbody>

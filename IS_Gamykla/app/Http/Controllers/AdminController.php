@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Gamykla;
+use App\Models\Uzsakymas;
+use App\Models\Sandelis;
 use App\Http\Requests\UserValidateRequest;
 use App\Http\Requests\UserPasswordValidateRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
+use Config;
 
 class AdminController extends Controller
 {
@@ -55,7 +59,24 @@ class AdminController extends Controller
     }
     public function edit(User $user)
     {
-        return view('admin.edit',compact('user'));
+        $userlevel = $user->userlevel;
+        switch($userlevel){
+            case Config::get('constants.KLIENTAS'):
+                $uzsakymai = Uzsakymas::where('fk_userId',$user->id)->get();
+                return view('admin.edit',compact('user', 'uzsakymai')); 
+            case Config::get('constants.DARBUOTOJAS'):
+                $gamykla = Gamykla::where('kodas',$user->fk_gamyklaId)->get();
+                return view('admin.edit',compact('user', 'gamykla')); 
+            case Config::get('constants.SANDELIO_VADOVAS'):
+                $sandeliai = Sandelis::where('fk_vadovasId',$user->id)->get();
+                return view('admin.edit',compact('user', 'sandeliai')); 
+            case Config::get('constants.GAMYKLOS_VADOVAS'):
+                $gamyklos = Gamykla::where('fk_userId',$user->id)->get();
+                return view('admin.edit',compact('user', 'gamyklos'));
+            default:
+                return view('admin.edit',compact('user'));
+        }
+       // return view('admin.edit',compact('user'));
     }
     public function update(UserValidateRequest $request, User $user)
     {
