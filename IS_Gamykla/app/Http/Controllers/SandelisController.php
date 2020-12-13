@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sandelis;
 use App\Models\User;
+use Config;
 
 class SandelisController extends Controller
 {
@@ -22,7 +23,7 @@ class SandelisController extends Controller
     public function edit($id){
         $sandelis = Sandelis::where('sandelio_kodas', $id)->first();
         $boss = $sandelis->boss;
-        $workers = User::where('userlevel', 3)->get();
+        $workers = User::where('userlevel', Config::get('constants.DARBUOTOJAS'))->get();
         return view('sandelis.edit', ['sandelis' => $sandelis, 'boss' => $boss, 'workers' => $workers]);
     }
 
@@ -31,7 +32,7 @@ class SandelisController extends Controller
         $boss = $sandelis->boss;
         if($boss != null){
             User::where('id', $boss->id)->update([
-                'userlevel' => 3
+                'userlevel' => Config::get('constants.DARBUOTOJAS')
             ]);
         }
         $vadovas = $request->sandelis_boss == -1 ? null : $request->sandelis_boss;
@@ -44,7 +45,7 @@ class SandelisController extends Controller
         ]);
         if ($vadovas > 0){
             User::where('id', $vadovas)->update([
-                'userlevel' => 5
+                'userlevel' => Config::get('constants.SANDELIO_VADOVAS')
             ]);
         }
         return redirect()->route('sandelis.index');

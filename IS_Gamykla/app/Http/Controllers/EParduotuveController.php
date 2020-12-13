@@ -24,9 +24,28 @@ class EParduotuveController extends Controller
     {
         return view('eparduotuve.index');
     }
+
     public function cart()
     {
-        return view('eparduotuve.cart');
+        $prekes = DB::table('preke')
+            ->selectRaw('uzsakymas_preke.id as id, preke_sandelyje.fk_prekeId as prekeId, uzsakymas_preke.kiekis as kiekis, preke.pavadinimas as pavadinimas, preke.kaina * uzsakymas_preke.kiekis as kaina, sandeliai.salis as salis, sandeliai.miestas as miestas, sandeliai.gatve as gatve')
+            ->join('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas')
+            ->join('uzsakymas_preke', 'uzsakymas_preke.fk_prekeSandelyjeId', '=', 'preke_sandelyje.id')
+            ->join('sandeliai', 'uzsakymas_preke.fk_prekeSandelyjeId', '=', 'sandeliai.sandelio_kodas')
+            ->join('uzsakymas', 'uzsakymas_preke.fk_uzsakymasId', '=', 'uzsakymas.id')
+            ->where("uzsakymas.fk_userId", "=", Auth::id())
+            ->where("uzsakymo_statusas", "=", Config::get('constants.UZASKYMAS_PRADETAS'))
+            ->get();
+        $isViso = DB::table('preke')
+        ->selectRaw('sum(preke.kaina * uzsakymas_preke.kiekis) as isViso')
+        ->join('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas')
+        ->join('uzsakymas_preke', 'uzsakymas_preke.fk_prekeSandelyjeId', '=', 'preke_sandelyje.id')
+        ->join('uzsakymas', 'uzsakymas_preke.fk_uzsakymasId', '=', 'uzsakymas.id')
+        ->where("uzsakymas.fk_userId", "=", Auth::id())
+        ->where("uzsakymo_statusas", "=", Config::get('constants.UZASKYMAS_PRADETAS'))
+        ->get();
+        // echo Auth::id();
+        return view('eparduotuve.cart', ['prekes' => $prekes, 'isViso' => $isViso]);
     }
     public function complete()
     {
@@ -42,7 +61,7 @@ class EParduotuveController extends Controller
             ->get();
         return view('eparduotuve.show', ['preke' => $preke, 'sandeliai' => $sandeliai]);
     }
-    public function add(Request $request){
+    public function addToCart(Request $request){
         $preke_sandelyje = Preke_sandelyje::find($request['id']);
         if(isset($preke_sandelyje)){
             $max = $preke_sandelyje->kiekis;
@@ -67,7 +86,9 @@ class EParduotuveController extends Controller
         if(Uzsakymas::where("fk_userId", "=", Auth::id())->where("uzsakymo_statusas", "=", Config::get('constants.UZASKYMAS_PRADETAS'))->doesntExist()){
             Uzsakymas::create(['fk_userId' => Auth::id(), 'uzsakymo_statusas' => Config::get('constants.UZASKYMAS_PRADETAS')]);
         }
-        $uzsakymas = Uzsakymas::where("fk_userId", "=", Auth::id())->where("uzsakymo_statusas", "=", Config::get('constants.UZASKYMAS_PRADETAS'))->first();
+        $uzsakymas = Uzsakymas::where("fk_userId", "=", Auth::id())
+            ->where("uzsakymo_statusas", "=", Config::get('constants.UZASKYMAS_PRADETAS'))
+            ->first();
         Uzsakymas_preke::create([
             'kiekis' => $request['kiekis'],
             'fk_uzsakymasId' => $uzsakymas->id,
@@ -75,5 +96,17 @@ class EParduotuveController extends Controller
         ]);
         return back()->with('message','Krepšelis sekmingai atnaujintas');
     }
-
+    public function removeFromCart($id){
+        $result = DB::table('uzsakymas_preke')
+        ->join('uzsakymas', 'uzsakymas_preke.fk_uzsakymasId', '=', 'uzsakymas.id')
+        ->where('uzsakymas_preke.id' , '=', $id)
+        ->where("uzsakymas.fk_userId", "=", Auth::id())
+        ->delete();
+        if($result){
+            return back()->with('message','Krepšelis sekmingai atnaujintas');
+        }
+        else{
+            return back()->with('error','Krepšelyje nera tokios prekes');
+        }
+    }
 }

@@ -40,7 +40,7 @@
     <h3>
         Prideti į krepšelį
     </h3>
-    <form class="form" action="/eparduotuve/add" method="post">
+    <form class="form" action="{{route('eparduotuve.addToCart')}}" method="post">
         @csrf
         <div class="form-row">
             <div class="form-group col">
