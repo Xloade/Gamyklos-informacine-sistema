@@ -22,12 +22,12 @@
                         <div class="row">
                                 <div class="col">
                                     <select name="gamykla" id="gamykla" class="form-control">
-                                        @if (Auth::user()->userlevel > 7)
+                                        @if (Auth::user()->userlevel == Config::get('constants.ADMINISTRATORIUS'))
                                             @foreach ($gamyklos as $gamykla)
                                                 <option value="{{$gamykla->kodas}}">{{$gamykla->pavadinimas}}</option>
                                             @endforeach
                                         @endif
-                                        @if (Auth::user()->userlevel == 7)
+                                        @if (Auth::user()->userlevel == Config::get('constants.GAMYKLOS_VADOVAS'))
                                             <option value="{{$gamyklos->kodas}}">{{$gamyklos->pavadinimas}}</option>
                                         @endif
                                     </select>
