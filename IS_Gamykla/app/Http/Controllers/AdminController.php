@@ -62,18 +62,24 @@ class AdminController extends Controller
             case Config::get('constants.KLIENTAS'):
                 $uzsakymai = Uzsakymas::where('fk_userId',$user->id)->get();
                 return view('admin.edit',compact('user', 'uzsakymai')); 
+            break;
             case Config::get('constants.DARBUOTOJAS'):
                 $gamykla = Gamykla::where('kodas',$user->fk_gamykla)->first();
                 $visosGamyklos = Gamykla::orderBy('pavadinimas')->get();
                 return view('admin.edit',compact('user','gamykla','visosGamyklos')); 
+            break;
             case Config::get('constants.SANDELIO_VADOVAS'):
                 $sandeliai = Sandelis::where('fk_vadovasId',$user->id)->get();
                 return view('admin.edit',compact('user', 'sandeliai')); 
+            break;
             case Config::get('constants.GAMYKLOS_VADOVAS'):
                 $gamykla = Gamykla::where('fk_userId',$user->id)->first();
-                $gamyklosDarbuotojai = User::where('userlevel',Config::get('constants.DARBUOTOJAS'))->where('fk_gamykla',$gamykla->id)->orderBy('first_name')->get();
+                if(!empty($gamykla))
+                    $gamyklosDarbuotojai = User::where('userlevel',Config::get('constants.DARBUOTOJAS'))->where('fk_gamykla',$gamykla->kodas)->orderBy('first_name')->get();
+                else $gamyklosDarbuotojai = null;
                 $visiVadovai = User::where('userlevel',Config::get('constants.GAMYKLOS_VADOVAS'))->orderBy('first_name')->get();
                 return view('admin.edit',compact('user', 'gamykla','visiVadovai','gamyklosDarbuotojai'));
+            break;
             default:
                 return view('admin.edit',compact('user'));
         }
