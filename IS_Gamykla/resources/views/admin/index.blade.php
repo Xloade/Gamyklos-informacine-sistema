@@ -39,7 +39,7 @@
                         <label for="email" class="form-label text-md-right"><b>{{ __('E-paštas') }}</b></label>
                         <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ session()->has('user_search_email') ? session()->get('user_search_email') : '' }}">
                     </div>
-                    <div class="col">                  
+                    <div class="col align-self-end">                  
                         <button type="submit" name="search" id="search" class="btn btn-success search">
                             <i class="fas fa-search"> Ieškoti</i>
                         </button>
@@ -83,13 +83,13 @@
                                 @php($category = Config::get('constants.ADMINISTRATORIAUS_VARDAS'))
                                 @break
                             @default
-                                @php($category = 'undefined'))
+                                @php($category = 'undefined')
                         @endswitch
                         <td scope="col">{{ $category}}</td>
                         <td scope="col">{{ $user->created_at}}</td>
                         <td scope="col"><a class="btn btn-success" href="{{route('admin.edit',$user->id)}}">Daugiau</a></td>
                         <td scope="col"><button class="btn btn-danger" onclick="event.preventDefault();if(confirm('Do you really want to delete this user?')){
-                                    document.getElementById('form-delete-{{$user->id}}').submit()}">Delete</button>
+                                    document.getElementById('form-delete-{{$user->id}}').submit()}">Ištrinti</button>
                         </td>
                         <form style="display:none" id="{{'form-delete-'.$user->id}}" method="post" action="{{route('admin.destroy', $user->id)}}">
                                 @csrf
