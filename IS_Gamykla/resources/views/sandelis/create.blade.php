@@ -31,15 +31,6 @@
                         <input type="textbox" name="sandelis_talpa" id="sandelis_talpa" class="form-control">
                     </div>
                 </div>
-                <div class="form-row my-2">
-                    <label for="sandelis_boss" class="col-form-label col-md-3 text-right">Sandėlio vadovas</label>
-                    <div class="col-md-3">
-                        <select name="sandelis_boss" id="sandelis_boss" class="form-control">
-                            <option value="0" selected>Petras Petraitis</option>
-                            <option value="1">Petras Petraitytis</option>
-                          </select>
-                    </div>
-                </div>
             </div>
             <div class="card-footer">
                 <button class="float-right btn btn-primary my-2" type="submit">

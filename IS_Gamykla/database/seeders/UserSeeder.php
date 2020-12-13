@@ -40,6 +40,14 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'userlevel' => 3
+        ],
+        [
+            'first_name' => 'Administratorius',
+            'last_name' => 'Administratorius',
+            'email' => 'admin2@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('admin'),
+            'userlevel' => 9
         ]]);
     }
 }

@@ -35,8 +35,17 @@
                     <label for="sandelis_boss" class="col-form-label col-md-3 text-right">Sandėlio vadovas</label>
                     <div class="col-md-3">
                         <select name="sandelis_boss" id="sandelis_boss" class="form-control">
-                            <option value="0" selected>Petras Petraitis</option>
-                            <option value="1">Petras Petraitytis</option>
+                            @if ($boss != null)
+                                <option value="{{$boss->id}}" selected>{{$boss->first_name}} {{$boss->last_name}}</option>
+                            @endif
+
+                            @foreach($workers as $worker)
+                                <option value="{{$worker->id}}">{{$worker->first_name}} {{$worker->last_name}}</option>
+                            @endforeach
+
+                            <option value="-1" @if ($boss == null)
+                            selected    
+                            @endif>Niekas</option>
                           </select>
                     </div>
                 </div>

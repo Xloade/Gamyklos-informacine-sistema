@@ -24,7 +24,7 @@ class TvarkarascioStatistikaController extends Controller
 
             foreach($gamykla->worker as $darbuotojas){
                 foreach($darbuotojas->tvarkarasciai as $tvarkarastis){
-                    $valandos += $tvarkarastis->laikas;
+                    $valandos += $tvarkarastis->darbas_iki - $tvarkarastis->darbas_nuo;
                     if($tvarkarastis->data < $start){
                         $start = $tvarkarastis->data;
                     }
@@ -56,7 +56,7 @@ class TvarkarascioStatistikaController extends Controller
             foreach($gamykla->worker as $darbuotojas){
                 foreach($darbuotojas->tvarkarasciai as $tvarkarastis){
                     if($tvarkarastis->data >= $start && $tvarkarastis->data <= $finish){
-                        $valandos += $tvarkarastis->laikas;
+                        $valandos += $tvarkarastis->darbas_iki - $tvarkarastis->darbas_nuo;
                     }
                 }
             }
