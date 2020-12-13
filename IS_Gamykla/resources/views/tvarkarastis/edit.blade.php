@@ -2,22 +2,10 @@
 @section('content')
 <div class="container" id="app">
     <div class="card shadow border border-secondary">
-        <form action="{{ route('tvarkarasciai.update', ['id' => '1']) }}" method="POST">
+        <form action="{{ route('tvarkarasciai.update', $tvarkarastis->id) }}" method="post">
+            <input type="hidden" name="id" value="{{$tvarkarastis->id}}" />
             <div class="card-header">
                 <h2 class="text-center">Tvarkaraščio forma</h2>
-                <div class="row">
-                    <div class="col-sm-5">          
-                        <label for="factory" class="col-form-label font-weight-bold">Gamykla</label>
-                        <select name="factory" id="factory" class="form-control">
-                            <option value="0" selected>Gamykla #1</option>
-                            <option value="1">Gamykla #2</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-5">
-                        <label for="date" class="col-form-label font-weight-bold">Data</label>
-                        <input class="form-control" type="date" id="date" name="date" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="{{Carbon\Carbon::now()->format('Y-m-d')}}" max="2022-12-31">
-                    </div>
-                </div>
             </div>
             <div class="card-body">
                 <div class="table" id="dynamicTable">
@@ -35,23 +23,17 @@
                     </div>
                     <div class="row my-2">
                         <div class="col">
-                            <select name="worker[0][name]" id="worker" class="form-control">
-                                <option value="0" selected>Jonas Jonaitis</option>
-                                <option value="1">Jonas Jonaitytis</option>
-                            </select>
+                            <span>{{$tvarkarastis->worker->first_name}} {{$tvarkarastis->worker->last_name}}</span>
                         </div>
                         <div class="col">
-                            <input type="number" name="worker[0][hoursFrom]" placeholder="Darbo valandos nuo" class="form-control" />
+                            <input type="number" name="hoursFrom" placeholder="Darbo valandos nuo" class="form-control" min="8" max="22" value="{{$tvarkarastis->darbas_nuo}}" required/>
                         </div>
                         <div class="col">
-                            <input type="number" name="worker[0][hoursTo]" placeholder="Darbo valandos iki" class="form-control" />
+                            <input type="number" name="hoursTo" placeholder="Darbo valandos iki" class="form-control" min="9" max="23" value="{{$tvarkarastis->darbas_iki}}" required/>
                         </div>
                         <div class="col"></div>
                     </div>
                 </div>
-                <button type="button" name="add" id="add" class="btn btn-success add-row">
-                    <i class="fas fa-user-plus"> Pridėti</i>
-                </button>
             </div>
             <div class="card-footer">
                 <button class="float-right btn btn-primary my-2" type="submit">
@@ -78,15 +60,6 @@
             button.classList.toggle('fa-expand');
         else
             button.classList.toggle('fa-compress');
-    }
-    var i = 0;
-    $(document).on('click', '.add-row',function(){
-        ++i;
-        $("#dynamicTable").append('<div class="row my-2"><div class="col"><select name="worker['+i+'][name]" id="worker" class="form-control"><option value="0" selected>Jonas Jonaitis</option><option value="1">Jonas Jonaitytis</option></select></div><div class="col"><input type="number" name="worker['+i+'][hours]" placeholder="Darbo valandos" class="form-control" /></div><div class="col"><input type="number" name="worker[0][hoursTo]" placeholder="Darbo valandos iki" class="form-control" /></div><div class="col"><button type="button" name="remove" id="remove" class="btn btn-danger remove-row"><i class="fas fa-user-times" aria-hidden="true"></i></button></div></div>');
-    });
-
-    $(document).on('click', '.remove-row', function(){  
-         $(this).parents('.row').remove();
-    });  
+    } 
 </script>
 @endsection
