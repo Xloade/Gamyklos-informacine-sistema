@@ -46,31 +46,38 @@
                                 </a>
                             </li>
                         @endif
-                        
+                        @if ($user->userlevel != Config::get('constants.KLIENTAS'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('tvarkarasciai.index') }}">
                                 <i class="fas fa-calendar-day"></i>
                                 Tvarkaraščiai
                             </a>
                         </li>
+                        @endif
+                        @if ($user->userlevel == Config::get('constants.SANDELIO_VADOVAS') || $user->userlevel == Config::get('constants.ADMINISTRATORIUS'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('sandelis.index') }}">
                                 <i class="fas fa-warehouse"></i>
                                 Sandėliai
                             </a>
                         </li>
+                        @endif
+                        @if ($user->userlevel == Config::get('constants.GAMYKLOS_VADOVAS') || $user->userlevel == Config::get('constants.ADMINISTRATORIUS'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('tvarkarascio_statistika.show') }}">
                                 <i class="fas fa-chart-bar"></i>
                                 Tvarkaraščio statisktika
                             </a>
                         </li>
+                        @endif
+                        @if ($user->userlevel == Config::get('constants.SANDELIO_VADOVAS') || $user->userlevel == Config::get('constants.ADMINISTRATORIUS'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('populiariausios_prekes.show') }}">
                                 <i class="fas fa-chart-line"></i>
                                 Populiariausios prekės
                             </a>
                         </li>
+                        @endif
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-store"></i>
@@ -82,12 +89,14 @@
                                 <a class="dropdown-item" href="{{ route('eparduotuve.cart') }}"><i class="fas fa-shopping-cart"></i>Krepšelis</a>
                             </div>
                         </li>
+                        @if ($user->userlevel == Config::get('constants.ADMINISTRATORIUS'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.index') }}">
                                 <!-- <i class="fas fa-user"></i> -->
                                 Admin
                             </a>
                         </li>
+                        @endif
                     </ul>
                     @endauth
                     <!-- Right Side Of Navbar -->
