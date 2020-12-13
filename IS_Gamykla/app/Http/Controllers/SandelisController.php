@@ -27,7 +27,14 @@ class SandelisController extends Controller
     }
 
     public function update(Request $request){
-        $vadovas = $request->gsandelis_boss == -1 ? null : $request->sandelis_boss;
+        $sandelis = Sandelis::where('sandelio_kodas', $request->id)->first();
+        $boss = $sandelis->boss;
+        if($boss != null){
+            User::where('id', $boss->id)->update([
+                'userlevel' => 3
+            ]);
+        }
+        $vadovas = $request->sandelis_boss == -1 ? null : $request->sandelis_boss;
         Sandelis::where('sandelio_kodas', $request->id)->update([
             'salis' => $request->sandelis_salis,
             'miestas' => $request->sandelis_miestas,
@@ -35,6 +42,11 @@ class SandelisController extends Controller
             'talpa' => $request->sandelis_talpa,
             'fk_vadovasId' => $vadovas
         ]);
+        if ($vadovas > 0){
+            User::where('id', $vadovas)->update([
+                'userlevel' => 5
+            ]);
+        }
         return redirect()->route('sandelis.index');
     }
 
