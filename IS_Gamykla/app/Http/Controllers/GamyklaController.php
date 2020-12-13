@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Gamykla;
+use Config;
+use App\Models\User;
 
 class GamyklaController extends Controller
 {
@@ -26,6 +28,15 @@ class GamyklaController extends Controller
 
     public function update(Request $request){
         $vadovas = $request->gamykla_boss == -1 ? null : $request->gamykla_boss;
+        $gamykla = Gamykla::where('kodas', $request->id)->first();
+        if($gamykla->fk_userId != null){
+            if($gamykla->fk_userId != $vadovas){
+                User::where('id', $gamykla->fk_userId)->update(['userlevel' => Config::get('constants.DARBUOTOJAS')]);
+            }
+            if ($vadovas != null){
+                User::where('id', $vadovas)->update(['userlevel' => Config::get('constants.GAMYKLOS_VADOVAS')]);
+            }
+        }
         Gamykla::where('kodas', $request->id)->update(['pavadinimas' => $request->gamykla_name, 'adresas' => $request->gamykla_adress, 'fk_userId' => $vadovas]);
         return redirect()->route('gamyklos.index');
     }

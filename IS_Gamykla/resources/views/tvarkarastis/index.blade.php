@@ -71,6 +71,7 @@
                             <a class="btn btn-primary fas fa-eye" href="{{ action('TvarkarastisController@show', $tvarkarastis->id) }}">Peržiūrėti</a>
                         </div>
                     </td>
+                    @if (Auth::user()->userlevel == Config::get('constants.ADMINISTRATORIUS') || Auth::user()->userlevel == Config::get('constants.GAMYKLOS_VADOVAS'))
                     <td class="text-center">
                         <div>
                             <a class="btn btn-success fa fa-edit" href="{{ action('TvarkarastisController@edit', $tvarkarastis->id) }}">Keisti</a>
@@ -85,6 +86,7 @@
                             </form>
                         </div>      
                     </td>
+                    @endif
                 </tr>
                     @endforeach
                 </tbody>
