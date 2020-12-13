@@ -35,7 +35,7 @@ class SandelisController extends Controller
             ]);
         }
         $vadovas = $request->sandelis_boss == -1 ? null : $request->sandelis_boss;
-        Sandelis::where('sandelio_kodas', $request->id)->update([
+        $sandelis->update([
             'salis' => $request->sandelis_salis,
             'miestas' => $request->sandelis_miestas,
             'gatve' => $request->sandelis_gatve,
