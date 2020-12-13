@@ -62,6 +62,8 @@ Route::prefix('prekes_sandelyje')->group(function () {
     Route::get('{id}', 'PrekesSandelyjeController@index')->name('prekes_sandelyje.index');
     Route::get('create', 'PrekesSandelyjeController@create')->name('prekes_sandelyje.create');
     Route::get('edit/{id}', 'PrekesSandelyjeController@edit')->name('prekes_sandelyje.edit');
+    Route::post('edit/{id}', 'PrekesSandelyjeController@update')->name('prekes_sandelyje.update');
+
     Route::delete('delete','PrekesSandelyjeController@delete')->name('prekes_sandelyje.delete');
     Route::post('create', 'PrekesSandelyjeController@store')->name('prekes_sandelyje.store');
 });

@@ -6,11 +6,7 @@
             <h2 class="text-center">Prekės sandelyje</h2>
             <div class="d-flex flex-row-reverse">
                 <div>
-                    <form action="{{ action('PrekesSandelyjeController@create') }}" method="get">
-                        <button class="btn btn-info fas fas fa-plus" type="submit" value="Sukurti"> Užsakyti prekę</button>
-                        <input type="hidden" name="_method" value="create" />
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    </form>
+                    <a href="{{ action('PrekesSandelyjeController@create') }}" class="btn btn-info fa fa-plus">Užsakyti prekę</a>
                 </div>
             </div>
         </div>
@@ -43,10 +39,7 @@
                                 <td class="text-center">{{$nt->preke->plotis}}</td>
                                 <td class="text-center">
                                 <div>
-                                    <form action="{{ action('PrekesSandelyjeController@edit', '1') }}" method="get">
-                                        <button class="btn btn-success fa fa-edit" type="submit" value="Keisti"> Keisti</button>
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    </form>
+                                    <a href="\prekes_sandelyje/edit/{{$nt->id}}" class="btn btn-success fa fa-edit">Keisti</a>
                                 </div>
                             </td>
                             <td class="text-center">
@@ -79,3 +72,5 @@
     }
 </script>
 @endsection
+
+{{-- {{ action('PrekesSandelyjeController@edit', $nt->id) }} --}}

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Preke_sandelyje;
 use App\Models\Preke;
 use App\Models\sandelis;
+use Illuminate\Support\Facades\Redirect;
+
 class PrekesSandelyjeController extends Controller
 {
     public function __construct()
@@ -24,11 +26,31 @@ class PrekesSandelyjeController extends Controller
     }
 
     public function edit($id){
-        return view('prekes_sandelyje.edit');
+        $preke = preke_sandelyje::where('id',$id)
+        ->with('preke')
+        ->first();
+
+        return view('prekes_sandelyje.edit', compact('preke'));
     }
 
-    public function update($id){
-        return redirect()->route('prekes_sandelyje.index');
+    public function update(Request $request){
+
+        //  $back = $request->fk_sandelisId;
+        Preke_sandelyje::where('id', $request->id)->update([
+            'kiekis' => $request->preke_count
+            ]);
+        // $prekesid = preke_sandelyje::where('fk')
+        Preke::where('prekes_kodas', $request->fk_prekeId)->update([
+            'pavadinimas' => $request->preke_name,
+            'kaina' => $request->preke_cost,
+            'svoris' => $request->preke_weight,
+            'aukstis' => $request->preke_height,
+            'ilgis' => $request->preke_length,
+            'plotis' => $request->preke_width
+        ]);
+        // die($request->fk_sandelisId);
+        // die($request->id);
+        return Redirect()->route('prekes_sandelyje.index', ['id' => $request->fk_sandelisId]);
     }
 
     public function create(){
