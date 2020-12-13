@@ -23,7 +23,8 @@ class UserSeeder extends Seeder
             'email' => 'pirkejas@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 1
+            'userlevel' => 1,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Jonas',
@@ -31,7 +32,8 @@ class UserSeeder extends Seeder
             'email' => 'pirkejas1@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 1
+            'userlevel' => 1,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Stasys',
@@ -39,7 +41,8 @@ class UserSeeder extends Seeder
             'email' => 'pirkejas2@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 1
+            'userlevel' => 1,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Darbuotojas',
@@ -47,7 +50,8 @@ class UserSeeder extends Seeder
             'email' => 'Darbuotojas@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 3
+            'userlevel' => 3,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Darbuotojas2',
@@ -55,7 +59,8 @@ class UserSeeder extends Seeder
             'email' => 'Darbuotojas2@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 3
+            'userlevel' => 3,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Vadovas',
@@ -63,7 +68,8 @@ class UserSeeder extends Seeder
             'email' => 'vad1@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 5
+            'userlevel' => 5,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Vadovas',
@@ -71,7 +77,8 @@ class UserSeeder extends Seeder
             'email' => 'vad2@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 3
+            'userlevel' => 7,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Vadovas',
@@ -79,7 +86,8 @@ class UserSeeder extends Seeder
             'email' => 'vad4@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 3
+            'userlevel' => 7,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Vadovas',
@@ -87,7 +95,8 @@ class UserSeeder extends Seeder
             'email' => 'vad3@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 3
+            'userlevel' => 3,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Antanas',
@@ -95,7 +104,8 @@ class UserSeeder extends Seeder
             'email' => 'Darbuotojas3@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 3
+            'userlevel' => 3,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Ąžuolas',
@@ -103,7 +113,8 @@ class UserSeeder extends Seeder
             'email' => 'Darbuotojas4@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 3
+            'userlevel' => 3,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Administratorius',
@@ -111,7 +122,8 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('admin'),
-            'userlevel' => 9
+            'userlevel' => 9,
+            'fk_gamykla' => null,
         ],
         [
             'first_name' => 'Administratorius2',
@@ -119,7 +131,8 @@ class UserSeeder extends Seeder
             'email' => 'admin2@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('admin'),
-            'userlevel' => 9
+            'userlevel' => 9,
+            'fk_gamykla' => null,
         ]]);
     }
 }

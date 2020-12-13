@@ -22,11 +22,11 @@ class GamyklaSeeder extends Seeder
             ['pavadinima' => 'Ratinė',
             'adresas' => 'Šiaurės pr.
             Klaipėda',
-            'fk_userId' => 7],
+            'fk_userId' => null],
             ['pavadinima' => 'Sriegykla',
             'adresas' => 'Tilto g.
             Gargždai',
-            'fk_userId' => 8],
+            'fk_userId' => null],
             ['pavadinima' => 'Medienos pliauskos',
             'adresas' => 'Pagojo g.
             Kvėdarna',
