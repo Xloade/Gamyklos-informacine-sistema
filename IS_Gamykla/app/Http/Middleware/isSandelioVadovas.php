@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Config;
 
-class isGamyklosVadovas
+class isSandelioVadovas
 {
     /**
      * Handle an incoming request.
@@ -21,7 +21,7 @@ class isGamyklosVadovas
         if (!auth()->check()) {
             return redirect()->route('login');
         }
-        if (auth()->user()->userlevel == Config::get('constants.GAMYKLOS_VADOVAS') || auth()->user()->userlevel == Config::get('constants.ADMINISTRATORIUS')) {
+        if (auth()->user()->userlevel == Config::get('constants.SANDELIO_VADOVAS') || auth()->user()->userlevel == Config::get('constants.ADMINISTRATORIUS')) {
             return $next($request);
         }
         return redirect()->route('home');
