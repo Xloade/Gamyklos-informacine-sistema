@@ -51,8 +51,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::prefix('tvarkarasciai')->group(function () {
             Route::get('', 'TvarkarastisController@index')->name('tvarkarasciai.index');
             Route::get('show/{id}', 'TvarkarastisController@show')->name('tvarkarasciai.show');
+            Route::get('search', 'TvarkarastisController@search')->name('tvarkarasciai.search');
             Route::group(['middleware' => 'isgvadovas'], function () {
-                Route::get('search', 'TvarkarastisController@search')->name('tvarkarasciai.search');
                 Route::get('edit/{id}', 'TvarkarastisController@edit')->name('tvarkarasciai.edit');
                 Route::post('edit/{id}', 'TvarkarastisController@update')->name('tvarkarasciai.update');
                 Route::delete('delete','TvarkarastisController@delete')->name('tvarkarasciai.delete');
