@@ -61,7 +61,9 @@ class PrekesSandelyjeController extends Controller
         return redirect()->route('prekes_sandelyje.index');
     }
 
-    public function delete(){
-        return redirect()->route('prekes_sandelyje.index');
+    public function delete(Request $request){
+        Preke_sandelyje::where('id', $request->id)->delete();
+
+        return Redirect()->route('prekes_sandelyje.index', ['id' => $request->fk_sandelisId]);
     }
 }
