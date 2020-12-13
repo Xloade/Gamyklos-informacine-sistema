@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserValidateRequest;
+use App\Http\Requests\UserPasswordValidateRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 
 class AdminController extends Controller
 {
-    public function __construct()
-    {
-
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('admin');
     }
 
     public function index()
@@ -59,7 +60,7 @@ class AdminController extends Controller
     public function update(UserValidateRequest $request, User $user)
     {
         $user->update(['userlevel' => $request->userlevel]);
-        return redirect()->route('admin.index')->with('message','User has been updated');
+        return redirect()->route('admin.index')->with('message','Vartotojo kategorija buvo redaguota');
     }
     public function destroy(User $user){
         $user->delete();
@@ -96,5 +97,10 @@ class AdminController extends Controller
 
         $users = $result->get();
         return view('admin.index',compact('users', 'userlevel'));
+    }
+
+    public function change_password(UserPasswordValidateRequest $request, User $user){
+        $user->update(['password' =>  Hash::make($request['password'])]);
+        return redirect()->route('admin.edit',$user->id)->with('message','Slaptažodis pakeistas');
     }
 }

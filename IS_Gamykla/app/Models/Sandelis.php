@@ -40,7 +40,7 @@ class Sandelis extends Model
 
     public function boss()
     {
-        return $this->hasOne(User::class, 'id', 'fk_vadovasId');
+        return $this->hasOne(User::class, 'fk_vadovasId', 'id');
     }
 
     public function sandelyje()
