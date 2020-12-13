@@ -1,6 +1,17 @@
 @extends('layouts.app')
 @section('content')
 <div class="container" id="app">
+    <h2>Krepšelis</h2>
+    @if (session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <table class="table">
         <thead>
             <tr>
@@ -13,25 +24,29 @@
             </tr>
         </thead>
         <tbody>
+        
+        @foreach ($prekes as $key => $preke)
             <tr>
-                <td scope="row">1</td>
-                <td><a href="#">Škyvas 125x50x100</a></td>
-                <td>Vilniaus</td>
-                <td>15</td>
-                <td>1542.25 €</td>
-                <td><button type="button" class="btn btn-warning">X</button></td>
+                <td scope="row">{{$key + 1}}</td>
+                <td><a href="#">{{$preke->pavadinimas}}</a></td>
+                <td>{{$preke->salis}}, {{$preke->miestas}}, {{$preke->gatve}}</td>
+                <td>{{$preke->kiekis}}</td>
+                <td>{{$preke->kaina}} €</td>
+                <td>
+                <button class="btn btn-danger" onclick="event.preventDefault();if(confirm('Ar tikrai norite pašalinti preke iš krepšelio?')){
+                                    document.getElementById('form-delete-{{$preke->id}}').submit()}">Ištrinti</button>
+                    <form style="display:none" id="{{'form-delete-'.$preke->id}}" method="post" action="{{route('eparduotuve.removeFromCart', ['id' => $preke->id])}}">
+                            @csrf
+                            @method('delete')
+                    </form> 
+                </td>
+
+                <!-- <td><a type="button" class="btn btn-warning" href="{{route('eparduotuve.removeFromCart', ['id' => 1])}}">X</a></td> -->
             </tr>
-            <tr>
-                <td scope="row">2</td>
-                <td><a href="#">Guoliaviete</a></td>
-                <td>Kauno</td>
-                <td>125</td>
-                <td>5264.01 €</td>
-                <td><button type="button" class="btn btn-warning">X</button></td>
-            </tr>
+        @endforeach
             <tr>
                 <td colspan="4" class="text-right">Iš viso:</td>
-                <td colspan="2">6806.26 €</td>
+                <td colspan="2">{{$isViso[0]->isViso}} €</td>
             </tr>
         </tbody>
     </table>

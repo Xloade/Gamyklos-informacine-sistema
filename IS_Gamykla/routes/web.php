@@ -91,7 +91,8 @@ Route::prefix('eparduotuve')->group(function () {
     Route::get('cart', 'EParduotuveController@cart')->name('eparduotuve.cart');
     Route::get('item/{id}', 'EParduotuveController@show')->name('eparduotuve.show');
     Route::get('complete', 'EParduotuveController@complete')->name('eparduotuve.complete');
-    Route::post('add', 'EParduotuveController@add')->name('eparduotuve.add');
+    Route::post('add', 'EParduotuveController@addToCart')->name('eparduotuve.addToCart');
+    Route::delete('remove/{id}', 'EParduotuveController@removeFromCart')->name('eparduotuve.removeFromCart');
 });
 
 Auth::routes();
