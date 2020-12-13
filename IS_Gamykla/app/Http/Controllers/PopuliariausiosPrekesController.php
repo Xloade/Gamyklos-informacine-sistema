@@ -22,27 +22,25 @@ class PopuliariausiosPrekesController extends Controller
             $start = Carbon::now(); // currentTime/ taip pat galima nustatyti
             $finish = Carbon::create(1990, 1, 1, 0, 0, 0);; // startOfTime/ taip pat galima nustatyti
 
-            // foreach($preke->sandeliuose as $sandelyje){
-            //     foreach($sandelyje->uzsakymai as $uzsakymas){
-            //         $kiekis += $uzsakymas->kiekis;
-            //         $uzsakymoDetales = $uzsakymas->info;
-            //         if($uzsakymoDetales->created_at < $start){
-            //             $start = $uzsakymoDetales->created_at;
-            //         }
-            //         if($uzsakymoDetales->created_at > $finish){
-            //             $finish = $uzsakymoDetales->created_at;
-            //         }
-            //     }
-            // }
-            $start = Carbon::create(1990, 1, 1); //istrint
-            $finish = Carbon::now(); //istrint
+            foreach($preke->sandeliuose as $sandelyje){
+                foreach($sandelyje->uzsakymai as $uzsakymas){
+                    $kiekis += $uzsakymas->kiekis;
+                    $uzsakymoDetales = $uzsakymas->info;
+                    if($uzsakymoDetales->created_at < $start){
+                        $start = $uzsakymoDetales->created_at;
+                    }
+                    if($uzsakymoDetales->created_at > $finish){
+                        $finish = $uzsakymoDetales->created_at;
+                    }
+                }
+            }
             
             $preke->kiekis = $kiekis;
             $preke->nuo = $start;
             $preke->iki = $finish;
         }
         
-        $prekes = $prekes->where('kiekis', '>=', 0)->sortBy([
+        $prekes = $prekes->where('kiekis', '>', 0)->sortBy([
             'kiekis', 'desc'
         ]);
         

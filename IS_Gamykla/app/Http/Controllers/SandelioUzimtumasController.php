@@ -18,8 +18,7 @@ class SandelioUzimtumasController extends Controller
         $sandeliai = Sandelis::all();        
         foreach($sandeliai as $sandelis){
             $uzimta = 0;
-            $sandelyje = $sandelis->sandelyje;
-            foreach ($sandelyje as $prekeSandelyje){
+            foreach ($sandelis->sandelyje as $prekeSandelyje){
                 $preke = $prekeSandelyje->preke;
                 $uzimta += (($preke->aukstis / 100) *  ($preke->ilgis / 100) * ($preke->plotis / 100)) * $prekeSandelyje->kiekis;
             }

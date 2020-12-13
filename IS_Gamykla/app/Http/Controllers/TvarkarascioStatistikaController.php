@@ -19,29 +19,27 @@ class TvarkarascioStatistikaController extends Controller
         $gamyklos = Gamykla::all();
         foreach ($gamyklos as $gamykla){
             $valandos = 0;
-            $start = Carbon::now(); // currentTime/ taip pat galima nustatyti
-            $finish = Carbon::create(1990, 1, 1, 0, 0, 0);; // startOfTime/ taip pat galima nustatyti
+            $start = Carbon::now();
+            $finish = Carbon::create(1990, 1, 1);
 
-            // foreach($gamykla->worker as $darbuotojas){
-            //     foreach($darbuotojas->tvarkarasciai as $tvarkarastis){
-            //         $valandos += $tvarkarastis->laikas;
-            //         if($tvarkarastis->data < $start){
-            //             $start = $tvarkarastis->data;
-            //         }
-            //         if($tvarkarastis->data > $finish){
-            //             $finish = $tvarkarastis->data;
-            //         }
-            //     }
-            // }
-            $start = Carbon::create(1990, 1, 1); //istrint
-            $finish = Carbon::now(); //istrint
+            foreach($gamykla->worker as $darbuotojas){
+                foreach($darbuotojas->tvarkarasciai as $tvarkarastis){
+                    $valandos += $tvarkarastis->laikas;
+                    if($tvarkarastis->data < $start){
+                        $start = $tvarkarastis->data;
+                    }
+                    if($tvarkarastis->data > $finish){
+                        $finish = $tvarkarastis->data;
+                    }
+                }
+            }
             
             $gamykla->valandos = $valandos;
             $gamykla->nuo = $start;
             $gamykla->iki = $finish;
         }
         
-        $gamyklos = $gamyklos->where('valandos', '>=', 0)->sortBy([
+        $gamyklos = $gamyklos->where('valandos', '>', 0)->sortBy([
             'valanados', 'desc'
         ]);
         return view('tvarkarascio_statistika.show', ['gamyklos' => $gamyklos]);
