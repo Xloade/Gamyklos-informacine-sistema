@@ -57,6 +57,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if (Auth::user()->userlevel != Config::get('constants.SANDELIO_VADOVAS')) 
                     @foreach ($tvarkarasciai as $tvarkarastis)
                     @php
                     $worker = $tvarkarastis->worker;
@@ -89,6 +90,7 @@
                     @endif
                 </tr>
                     @endforeach
+                    @endif   
                 </tbody>
             </table>
         </div>  

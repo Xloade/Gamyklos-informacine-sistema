@@ -34,7 +34,7 @@ class GamyklaController extends Controller
                 User::where('id', $gamykla->fk_userId)->update(['userlevel' => Config::get('constants.DARBUOTOJAS')]);
             }
             if ($vadovas != null){
-                User::where('id', $vadovas)->update(['userlevel' => Config::get('constants.GAMYKLOS_VADOVAS')]);
+                User::where('id', $request->gamykla_boss)->update(['userlevel' => Config::get('constants.GAMYKLOS_VADOVAS')]);
             }
         }
         Gamykla::where('kodas', $request->id)->update(['pavadinimas' => $request->gamykla_name, 'adresas' => $request->gamykla_adress, 'fk_userId' => $vadovas]);
