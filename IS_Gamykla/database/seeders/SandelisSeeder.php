@@ -26,7 +26,7 @@ class SandelisSeeder extends Seeder
             ['salis' => 'Latvija',
             'miestas' => 'Ryga',
             'gatve' => 'Andreja Saharova  g. 14',
-            'talpa' => 1000]
+            'talpa' => 100]
         ]);
     }
 }

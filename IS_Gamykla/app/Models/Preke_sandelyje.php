@@ -10,7 +10,7 @@ class Preke_sandelyje extends Model
 {
     use HasFactory;
     protected $table = 'preke_sandelyje';
-
+    public $timestamps = false;
     /**
      * Get the comments for the blog post.
      */

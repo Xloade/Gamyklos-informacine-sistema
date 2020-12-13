@@ -10,7 +10,7 @@ class Preke extends Model
     use HasFactory;
     protected $table = 'preke';
     protected $primaryKey = 'prekes_kodas';
-
+    public $timestamps = false;
 
     public function sandeliuose(){
         return $this->hasMany(Preke_sandelyje::class, 'fk_prekeId');
