@@ -62,27 +62,29 @@ Route::group(['middleware' => 'auth'], function () {
         });
     });
     
-    Route::prefix('sandelis')->group(function () {
-        Route::get('', 'SandelisController@index')->name('sandelis.index');
-        Route::get('edit/{id}', 'SandelisController@edit')->name('sandelis.edit');
-        Route::post('edit/{id}', 'SandelisController@update')->name('sandelis.update');
-        Route::delete('delete','SandelisController@delete')->name('sandelis.delete');
-        Route::get('create', 'SandelisController@create')->name('sandelis.create');
-        Route::post('create', 'SandelisController@store')->name('sandelis.store');
-    });
+    Route::group(['middleware' => 'issvadovas'], function () {
+        Route::prefix('sandelis')->group(function () {
+            Route::get('', 'SandelisController@index')->name('sandelis.index');
+            Route::get('edit/{id}', 'SandelisController@edit')->name('sandelis.edit');
+            Route::post('edit/{id}', 'SandelisController@update')->name('sandelis.update');
+            Route::delete('delete','SandelisController@delete')->name('sandelis.delete');
+            Route::get('create', 'SandelisController@create')->name('sandelis.create');
+            Route::post('create', 'SandelisController@store')->name('sandelis.store');
+        });
     
-    Route::prefix('prekes_sandelyje')->group(function () {
-        Route::get('{id}', 'PrekesSandelyjeController@index')->name('prekes_sandelyje.index');
-        Route::get('edit/{id}', 'PrekesSandelyjeController@edit')->name('prekes_sandelyje.edit');
-        Route::post('edit/{id}', 'PrekesSandelyjeController@update')->name('prekes_sandelyje.update');
-        Route::delete('delete','PrekesSandelyjeController@delete')->name('prekes_sandelyje.delete');
-        Route::get('create', 'PrekesSandelyjeController@create')->name('prekes_sandelyje.create');
-        Route::post('create', 'PrekesSandelyjeController@store')->name('prekes_sandelyje.store');
     
-    });
+        Route::prefix('prekes_sandelyje')->group(function () {
+            Route::get('{id}', 'PrekesSandelyjeController@index')->name('prekes_sandelyje.index');
+            Route::get('edit/{id}', 'PrekesSandelyjeController@edit')->name('prekes_sandelyje.edit');
+            Route::post('edit/{id}', 'PrekesSandelyjeController@update')->name('prekes_sandelyje.update');
+            Route::delete('delete','PrekesSandelyjeController@delete')->name('prekes_sandelyje.delete');
+            Route::get('create', 'PrekesSandelyjeController@create')->name('prekes_sandelyje.create');
+            Route::post('create', 'PrekesSandelyjeController@store')->name('prekes_sandelyje.store');
+        });
     
-    Route::prefix('sandelio_uzimtumas')->group(function () {
-        Route::get('show', 'SandelioUzimtumasController@show')->name('sandelio_uzimtumas.show');
+        Route::prefix('sandelio_uzimtumas')->group(function () {
+            Route::get('show', 'SandelioUzimtumasController@show')->name('sandelio_uzimtumas.show');
+        });
     });
     
     Route::prefix('populiariausios_prekes')->group(function () {
