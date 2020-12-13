@@ -17,6 +17,7 @@
                         </div>
                     </div>
                 </form>
+                @if (Auth::user()->userlevel == Config::get('constants.ADMINISTRATORIUS') || Auth::user()->userlevel == Config::get('constants.GAMYKLOS_VADOVAS'))
                 <div class="container my-2">
                     <form action="{{ action('TvarkarastisController@create') }}" method="post">
                         <div class="row">
@@ -40,6 +41,7 @@
                         </div>
                     </form>
                 </div>
+                @endif
             </div>
         </div>
         <div class="card-body">
