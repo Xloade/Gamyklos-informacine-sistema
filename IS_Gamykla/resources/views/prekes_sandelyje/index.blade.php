@@ -6,7 +6,7 @@
             <h2 class="text-center">Prekės sandelyje</h2>
             <div class="d-flex flex-row-reverse">
                 <div>
-                    <a href="{{ action('PrekesSandelyjeController@create') }}" class="btn btn-info fa fa-plus">Užsakyti prekę</a>
+                    <a class="btn btn-info fa fa-plus" href="{{ action('PrekesSandelyjeController@create') }}"  type="submit">Užsakyti prekę</a>
                 </div>
             </div>
         </div>
@@ -48,6 +48,7 @@
                                         <button class="btn btn-danger fas fa-trash" type="submit" value="Ištrinti"> Ištrinti</button>
                                         <input type="hidden" name="_method" value="delete" />
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="fk_sandelisId" value="{{ $nt->fk_sandelisId }}">
                                     </form>
                                 </div>
                             </td>
