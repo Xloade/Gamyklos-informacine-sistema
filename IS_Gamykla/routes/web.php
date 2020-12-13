@@ -74,10 +74,12 @@ Route::prefix('sandelio_uzimtumas')->group(function () {
 
 Route::prefix('populiariausios_prekes')->group(function () {
     Route::get('show', 'PopuliariausiosPrekesController@show')->name('populiariausios_prekes.show');
+    Route::get('search','PopuliariausiosPrekesController@search')->name('populiariausios_prekes.search');
 });
 
 Route::prefix('tvarkarascio_statistika')->group(function () {
     Route::get('show', 'TvarkarascioStatistikaController@show')->name('tvarkarascio_statistika.show');
+    Route::get('search','TvarkarascioStatistikaController@search')->name('tvarkarascio_statistika.search');
 });
 
 Route::prefix('eparduotuve')->group(function () {
