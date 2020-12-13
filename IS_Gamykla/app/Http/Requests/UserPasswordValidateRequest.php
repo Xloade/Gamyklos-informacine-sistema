@@ -31,10 +31,10 @@ class UserPasswordValidateRequest extends FormRequest
     public function messages()
     {
         return [
-            'password.required' => 'Please enter password',
-            'password.min' => 'Password has to be at least 8 characters long',
-            'password_confirmation.required' => 'Please confirm password',
-            'password_confirmation.same' => 'Passwords do not match',
+            'password.required' => 'Įrašykite slaptažodį',
+            'password.min' => 'Slaptažodis turi būti bent 8 simbolių',
+            'password_confirmation.required' => 'Patvirtinkite slaptažodį',
+            'password_confirmation.same' => 'Slaptažodžiai nevienodi',
         ];
     }
 }

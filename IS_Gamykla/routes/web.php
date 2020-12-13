@@ -22,6 +22,8 @@ Route::prefix('admin')->group(function () {
     Route::get('change_category','AdminController@change_category')->name('admin.change_category');
     Route::get('search','AdminController@search')->name('admin.search');
     Route::patch('{user}','AdminController@change_password')->name('admin.change_password');
+    Route::patch('{user}/change_worker_info','AdminController@change_worker_info')->name('admin.change_worker_info');
+    Route::patch('{user}/change_gam_vad_info','AdminController@change_gam_vad_info')->name('admin.change_gam_vad_info');
 
     Route::get('create','AdminController@create')->name('admin.create');
     Route::post('store','AdminController@store')->name('admin.store');

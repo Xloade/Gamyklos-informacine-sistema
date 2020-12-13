@@ -37,12 +37,10 @@ class AdminController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required','same:password'],
         ], [
-            'password_confirmation.same' => 'passwords do not match',
-        ],[
-            'password.required' => 'Please enter password',
-            'password.min' => 'Password has to be at least 8 characters long',
-            'password_confirmation.required' => 'Please confirm password',
-            'password_confirmation.same' => 'Passwords do not match',
+            'password.required' => 'Įrašykite slaptažodį',
+            'password.min' => 'Slaptažodis turi būti bent 8 simbolių',
+            'password_confirmation.required' => 'Patvirtinkite slaptažodį',
+            'password_confirmation.same' => 'Slaptažodžiai nevienodi',
         ]);
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput();
@@ -65,14 +63,17 @@ class AdminController extends Controller
                 $uzsakymai = Uzsakymas::where('fk_userId',$user->id)->get();
                 return view('admin.edit',compact('user', 'uzsakymai')); 
             case Config::get('constants.DARBUOTOJAS'):
-                $gamykla = Gamykla::where('kodas',$user->fk_gamyklaId)->get();
-                return view('admin.edit',compact('user', 'gamykla')); 
+                $gamykla = Gamykla::where('kodas',$user->fk_gamykla)->first();
+                $visosGamyklos = Gamykla::orderBy('pavadinimas')->get();
+                return view('admin.edit',compact('user','gamykla','visosGamyklos')); 
             case Config::get('constants.SANDELIO_VADOVAS'):
                 $sandeliai = Sandelis::where('fk_vadovasId',$user->id)->get();
                 return view('admin.edit',compact('user', 'sandeliai')); 
             case Config::get('constants.GAMYKLOS_VADOVAS'):
-                $gamyklos = Gamykla::where('fk_userId',$user->id)->get();
-                return view('admin.edit',compact('user', 'gamyklos'));
+                $gamykla = Gamykla::where('fk_userId',$user->id)->first();
+                $gamyklosDarbuotojai = User::where('userlevel',Config::get('constants.DARBUOTOJAS'))->where('fk_gamykla',$gamykla->id)->orderBy('first_name')->get();
+                $visiVadovai = User::where('userlevel',Config::get('constants.GAMYKLOS_VADOVAS'))->orderBy('first_name')->get();
+                return view('admin.edit',compact('user', 'gamykla','visiVadovai','gamyklosDarbuotojai'));
             default:
                 return view('admin.edit',compact('user'));
         }
@@ -123,5 +124,24 @@ class AdminController extends Controller
     public function change_password(UserPasswordValidateRequest $request, User $user){
         $user->update(['password' =>  Hash::make($request['password'])]);
         return redirect()->route('admin.edit',$user->id)->with('message','Slaptažodis pakeistas');
+    }
+
+    public function change_worker_info(Request $request,User $user){
+        $validator = Validator::make($request->all(), [
+            'atlyginimas' => ['required','numeric', 'min:325'],
+        ], [
+            'atlyginimas.required' => 'įrašykite atlyginimą',
+            'atlyginimas.numeric' => 'Atlyginimas turi būti skaičius',
+            'atlyginimas.min' => 'Atlyginimas ne mažesnis nei 325',
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        //dd($request['atlyginimas']);
+        $user->update([
+            'atlyginimas' => $request['atlyginimas'],
+            'fk_gamykla' => $request['darbuotojo_gamykla'],
+        ]);
+        return redirect()->route('admin.edit',$user->id)->with('message','Darbuotojo duomenys pakeisti');
     }
 }
