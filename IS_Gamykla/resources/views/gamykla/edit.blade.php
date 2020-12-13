@@ -25,12 +25,14 @@
                     <div class="col-md-3">
                         <select name="gamykla_boss" id="gamykla_boss" class="form-control">
                             @foreach ($gamykla->worker as $worker)
-                            @if ($boss != $worker)
-                                <option value="{{$worker->id}}">{{$worker->first_name}} {{$worker->last_name}}</option>
+                            @if ($worker->userlevel != Config::get('constants.ADMINISTRATORIUS'))
+                                @if ($boss != $worker)
+                                    <option value="{{$worker->id}}">{{$worker->first_name}} {{$worker->last_name}}</option>
+                                @endif
+                                @if ($boss == $worker)
+                                    <option value="{{$worker->id}}" selected>{{$worker->first_name}} {{$worker->last_name}}</option>
+                                @endif   
                             @endif
-                            @if ($boss == $worker)
-                            <option value="{{$worker->id}}" selected>{{$worker->first_name}} {{$worker->last_name}}</option>
-                            @endif   
                             @endforeach
                             <option value="-1" @if ($boss == null)
                             selected    

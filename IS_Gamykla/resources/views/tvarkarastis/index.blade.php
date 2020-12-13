@@ -17,17 +17,18 @@
                         </div>
                     </div>
                 </form>
+                @if (Auth::user()->userlevel == Config::get('constants.ADMINISTRATORIUS') || Auth::user()->userlevel == Config::get('constants.GAMYKLOS_VADOVAS'))
                 <div class="container my-2">
                     <form action="{{ action('TvarkarastisController@create') }}" method="post">
                         <div class="row">
                                 <div class="col">
                                     <select name="gamykla" id="gamykla" class="form-control">
-                                        @if (Auth::user()->userlevel > 7)
+                                        @if (Auth::user()->userlevel == Config::get('constants.ADMINISTRATORIUS'))
                                             @foreach ($gamyklos as $gamykla)
                                                 <option value="{{$gamykla->kodas}}">{{$gamykla->pavadinimas}}</option>
                                             @endforeach
                                         @endif
-                                        @if (Auth::user()->userlevel == 7)
+                                        @if (Auth::user()->userlevel == Config::get('constants.GAMYKLOS_VADOVAS'))
                                             <option value="{{$gamyklos->kodas}}">{{$gamyklos->pavadinimas}}</option>
                                         @endif
                                     </select>
@@ -40,6 +41,7 @@
                         </div>
                     </form>
                 </div>
+                @endif
             </div>
         </div>
         <div class="card-body">
@@ -55,6 +57,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if (Auth::user()->userlevel != Config::get('constants.SANDELIO_VADOVAS')) 
                     @foreach ($tvarkarasciai as $tvarkarastis)
                     @php
                     $worker = $tvarkarastis->worker;
@@ -69,6 +72,7 @@
                             <a class="btn btn-primary fas fa-eye" href="{{ action('TvarkarastisController@show', $tvarkarastis->id) }}">Peržiūrėti</a>
                         </div>
                     </td>
+                    @if (Auth::user()->userlevel == Config::get('constants.ADMINISTRATORIUS') || Auth::user()->userlevel == Config::get('constants.GAMYKLOS_VADOVAS'))
                     <td class="text-center">
                         <div>
                             <a class="btn btn-success fa fa-edit" href="{{ action('TvarkarastisController@edit', $tvarkarastis->id) }}">Keisti</a>
@@ -83,8 +87,10 @@
                             </form>
                         </div>      
                     </td>
+                    @endif
                 </tr>
                     @endforeach
+                    @endif   
                 </tbody>
             </table>
         </div>  

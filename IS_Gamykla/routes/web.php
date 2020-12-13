@@ -52,8 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::prefix('tvarkarasciai')->group(function () {
             Route::get('', 'TvarkarastisController@index')->name('tvarkarasciai.index');
             Route::get('show/{id}', 'TvarkarastisController@show')->name('tvarkarasciai.show');
+            Route::get('search', 'TvarkarastisController@search')->name('tvarkarasciai.search');
             Route::group(['middleware' => 'isgvadovas'], function () {
-                Route::get('search', 'TvarkarastisController@search')->name('tvarkarasciai.search');
                 Route::get('edit/{id}', 'TvarkarastisController@edit')->name('tvarkarasciai.edit');
                 Route::post('edit/{id}', 'TvarkarastisController@update')->name('tvarkarasciai.update');
                 Route::delete('delete','TvarkarastisController@delete')->name('tvarkarasciai.delete');
@@ -63,34 +63,33 @@ Route::group(['middleware' => 'auth'], function () {
         });
     });
 
-    Route::prefix('sandelis')->group(function () {
-        Route::get('', 'SandelisController@index')->name('sandelis.index');
-        Route::get('edit/{id}', 'SandelisController@edit')->name('sandelis.edit');
-        Route::post('edit/{id}', 'SandelisController@update')->name('sandelis.update');
-        Route::delete('delete','SandelisController@delete')->name('sandelis.delete');
-        Route::get('create', 'SandelisController@create')->name('sandelis.create');
-        Route::post('create', 'SandelisController@store')->name('sandelis.store');
-        Route::get('add', 'SandelisController@add')->name('sandelis.add');
-        Route::post('add', 'SandelisController@ideti')->name('sandelis.ideti');
-        Route::get('uzsakyti', 'SandelisController@uzsakyti')->name('sandelis.uzsakyti');
-        Route::post('uzsakyti', 'SandelisController@uzsakymasideti')->name('sandelis.uzsakymasideti');
-    });
+    Route::group(['middleware' => 'issvadovas'], function () {
+        Route::prefix('sandelis')->group(function () {
+            Route::get('', 'SandelisController@index')->name('sandelis.index');
+            Route::get('edit/{id}', 'SandelisController@edit')->name('sandelis.edit');
+            Route::post('edit/{id}', 'SandelisController@update')->name('sandelis.update');
+            Route::delete('delete','SandelisController@delete')->name('sandelis.delete');
+            Route::get('create', 'SandelisController@create')->name('sandelis.create');
+            Route::post('create', 'SandelisController@store')->name('sandelis.store');
+            Route::get('add', 'SandelisController@add')->name('sandelis.add');
+            Route::post('add', 'SandelisController@ideti')->name('sandelis.ideti');
+            Route::get('uzsakyti', 'SandelisController@uzsakyti')->name('sandelis.uzsakyti');
+            Route::post('uzsakyti', 'SandelisController@uzsakymasideti')->name('sandelis.uzsakymasideti');
+        });
 
-    Route::prefix('prekes_sandelyje')->group(function () {
-        Route::group(['middleware' => 'issvadovas'], function () {
 
+        Route::prefix('prekes_sandelyje')->group(function () {
             Route::get('{id}', 'PrekesSandelyjeController@index')->name('prekes_sandelyje.index');
             Route::get('edit/{id}', 'PrekesSandelyjeController@edit')->name('prekes_sandelyje.edit');
             Route::post('edit/{id}', 'PrekesSandelyjeController@update')->name('prekes_sandelyje.update');
             Route::delete('delete','PrekesSandelyjeController@delete')->name('prekes_sandelyje.delete');
             Route::get('create', 'PrekesSandelyjeController@create')->name('prekes_sandelyje.create');
             Route::post('create', 'PrekesSandelyjeController@store')->name('prekes_sandelyje.store');
-            Route::get('uzsakyti', 'PrekesSandelyjeController@uzsakyti')->name('prekes_sandelyje.uzsakyti');
         });
-    });
 
-    Route::prefix('sandelio_uzimtumas')->group(function () {
-        Route::get('show', 'SandelioUzimtumasController@show')->name('sandelio_uzimtumas.show');
+        Route::prefix('sandelio_uzimtumas')->group(function () {
+            Route::get('show', 'SandelioUzimtumasController@show')->name('sandelio_uzimtumas.show');
+        });
     });
 
     Route::prefix('populiariausios_prekes')->group(function () {
@@ -108,7 +107,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('cart', 'EParduotuveController@cart')->name('eparduotuve.cart');
         Route::get('item/{id}', 'EParduotuveController@show')->name('eparduotuve.show');
         Route::get('complete', 'EParduotuveController@complete')->name('eparduotuve.complete');
-        Route::post('add', 'EParduotuveController@add')->name('eparduotuve.add');
+        Route::post('add', 'EParduotuveController@addToCart')->name('eparduotuve.addToCart');
+        Route::delete('remove/{id}', 'EParduotuveController@removeFromCart')->name('eparduotuve.removeFromCart');
     });
 });
 

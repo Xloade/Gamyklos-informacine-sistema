@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sandelis;
 use App\Models\User;
+use  Illuminate\Support\Facades\Config;
 use App\Models\Preke_sandelyje;
 use App\Models\Preke;
 
@@ -24,19 +25,31 @@ class SandelisController extends Controller
     public function edit($id){
         $sandelis = Sandelis::where('sandelio_kodas', $id)->first();
         $boss = $sandelis->boss;
-        $workers = User::where('userlevel', 3)->get();
+        $workers = User::where('userlevel', Config::get('constants.DARBUOTOJAS'))->get();
         return view('sandelis.edit', ['sandelis' => $sandelis, 'boss' => $boss, 'workers' => $workers]);
     }
 
     public function update(Request $request){
-        $vadovas = $request->gsandelis_boss == -1 ? null : $request->sandelis_boss;
-        Sandelis::where('sandelio_kodas', $request->id)->update([
+        $sandelis = Sandelis::where('sandelio_kodas', $request->id)->first();
+        $boss = $sandelis->boss;
+        if($boss != null){
+            User::where('id', $boss->id)->update([
+                'userlevel' => Config::get('constants.DARBUOTOJAS')
+            ]);
+        }
+        $vadovas = $request->sandelis_boss == -1 ? null : $request->sandelis_boss;
+        $sandelis->update([
             'salis' => $request->sandelis_salis,
             'miestas' => $request->sandelis_miestas,
             'gatve' => $request->sandelis_gatve,
             'talpa' => $request->sandelis_talpa,
             'fk_vadovasId' => $vadovas
         ]);
+        if ($vadovas > 0){
+            User::where('id', $vadovas)->update([
+                'userlevel' => Config::get('constants.SANDELIO_VADOVAS')
+            ]);
+        }
         return redirect()->route('sandelis.index');
     }
 

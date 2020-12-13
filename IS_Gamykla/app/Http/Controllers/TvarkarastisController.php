@@ -7,6 +7,7 @@ use App\Models\Tvarkarastis;
 use App\Models\Gamykla;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Config;
 
 class TvarkarastisController extends Controller
 {
@@ -18,21 +19,21 @@ class TvarkarastisController extends Controller
     {   
         $user = Auth::user();
         $tvarkarasciai = null;
-        if($user->userlevel == 7){
-            $tvarkarasciai = $user->tvarkarasciaiBoss();
+        if($user->userlevel == Config::get('constants.GAMYKLOS_VADOVAS')){
+            $tvarkarasciai = $user->tvarkarasciaiBoss;
         }
-        else if($user->userlevel == 3){
-            $tvarkarasciai = $user->tvarkarasciai();
+        else if($user->userlevel == Config::get('constants.DARBUOTOJAS')){
+            $tvarkarasciai = $user->tvarkarasciai;
         }
-        else if ($user->userlevel > 7){
+        else if ($user->userlevel == Config::get('constants.ADMINISTRATORIUS')){
             $tvarkarasciai = Tvarkarastis::all();
         }
 
         $gamyklos = null;
-        if($user->userlevel == 7){
-            $gamyklos = $user->gamyklaBoss();
+        if($user->userlevel == Config::get('constants.GAMYKLOS_VADOVAS')){
+            $gamyklos = $user->gamyklaBoss;
         }
-        else if ($user->userlevel > 7){
+        else if ($user->userlevel == Config::get('constants.ADMINISTRATORIUS')){
             $gamyklos = Gamykla::all();
         }
         return view('tvarkarastis.index', ['tvarkarasciai' => $tvarkarasciai, 'gamyklos' => $gamyklos]);
@@ -69,22 +70,22 @@ class TvarkarastisController extends Controller
     public function search(Request $request){
         $user = Auth::user();
         $tvarkarasciai = null;
-        if($user->userlevel == 7){
-            $tvarkarasciai = $user->tvarkarasciaiBoss()->where('data', $request->date);
+        if($user->userlevel== Config::get('constants.GAMYKLOS_VADOVAS')){
+            $tvarkarasciai = $user->tvarkarasciaiBoss->where('data', $request->date);
         }
-        else if($user->userlevel == 3){
-            $tvarkarasciai = $user->tvarkarasciai()->where('data', $request->date);
+        else if($user->userlevel == Config::get('constants.DARBUOTOJAS')){
+            $tvarkarasciai = $user->tvarkarasciai->where('data', $request->date);
         }
-        else if ($user->userlevel > 7){
+        else if ($user->userlevel == Config::get('constants.ADMINISTRATORIUS')){
             $tvarkarasciai = Tvarkarastis::all()->where('data', $request->date);
         }
         //$tvarkarasciai = Tvarkarastis::where('data', $request->date);
 
         $gamyklos = null;
-        if($user->userlevel == 7){
-            $gamyklos = $user->gamyklaBoss();
+        if($user->userlevel == Config::get('constants.GAMYKLOS_VADOVAS')){
+            $gamyklos = $user->gamyklaBoss;
         }
-        else if ($user->userlevel > 7){
+        else if ($user->userlevel == Config::get('constants.ADMINISTRATORIUS')){
             $gamyklos = Gamykla::all();
         }
 

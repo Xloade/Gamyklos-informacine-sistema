@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function gamyklaBoss()
     {
-        return $this->hasOne(Gamykla::class, 'fk_vadovasId', 'id');
+        return $this->hasOne(Gamykla::class, 'fk_userId', 'id');
     }
 
     public function gamykla()
