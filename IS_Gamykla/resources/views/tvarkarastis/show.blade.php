@@ -9,21 +9,23 @@
         </div>
         <div class="card-body">
             <table class="table table-hover table-striped table-bordered">
-                @for ($e = 0; $e < 7; $e++)
-                    <tr>
-                        <th scope="col" style="width: 10%">Data</th>
-                        <th scope="col">{{ Carbon\Carbon::now()->addDays($e)->format('Y-m-d') }}</th>
-                    </tr>
-                    @for ($i = 8; $i < 18; $i++)
+                <tr>
+                    <th scope="col" style="width: 10%">Data</th>
+                    <th scope="col">{{$tvarkarastis->data}}</th>
+                </tr>
+                @for ($i = 8; $i < 24; $i++)
                     <tr>
                         <td scope="col" class="bg-light">{{$i}}:00</td>
                         @if ($i == 12)
-                            <td scope="col" class="{{$e % 2 == 0 ? 'bg-success' : '' }}"> {{$e % 2 == 0 ? 'Pietų pertrauka' : '' }}</td>
+                            <td scope="col" class="bg-success">Pietų pertrauka</td>
                         @else
-                            <td scope="col" class="{{$e % 2 == 0 ? 'bg-primary' : '' }}"> {{$e % 2 == 0 ? 'Darbas' : '' }}</td>
+                            @if ($i >= $tvarkarastis->darbas_nuo && $i <= $tvarkarastis->darbas_iki)
+                                <td scope="col" class="bg-primary">Dirba: {{$tvarkarastis->worker->first_name}} {{$tvarkarastis->worker->last_name}}</td>
+                            @else
+                                <td scope="col" class="bg-secondary"></td>
+                            @endif
                         @endif
                     </tr>
-                    @endfor
                 @endfor
             </table>
         </div>  

@@ -41,7 +41,7 @@ class Gamykla extends Model
 
     public function boss()
     {
-        return $this->hasOne(User::class, 'fk_userId', 'id');
+        return $this->hasOne(User::class, 'id', 'fk_userId');
     }
 
     public function worker(){

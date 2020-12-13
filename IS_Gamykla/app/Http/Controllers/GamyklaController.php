@@ -20,12 +20,12 @@ class GamyklaController extends Controller
 
     public function edit($id){
         $gamykla = Gamykla::where('kodas',$id)->first();
-        return view('gamykla.edit', ['gamykla' => $gamykla]);
+        $boss = $gamykla->boss;
+        return view('gamykla.edit', ['gamykla' => $gamykla, 'boss' => $boss]);
     }
 
     public function update(Request $request){
-        //$vadovas = $request->gamykla_boss == -1 ? null : $request->gamykla_boss;
-        $vadovas = null;
+        $vadovas = $request->gamykla_boss == -1 ? null : $request->gamykla_boss;
         Gamykla::where('kodas', $request->id)->update(['pavadinimas' => $request->gamykla_name, 'adresas' => $request->gamykla_adress, 'fk_userId' => $vadovas]);
         return redirect()->route('gamyklos.index');
     }
@@ -35,9 +35,7 @@ class GamyklaController extends Controller
     }
 
     public function store(Request $request){
-        //$vadovas = $request->gamykla_boss == -1 ? null : $request->gamykla_boss;
-        $vadovas = null;
-        Gamykla::create(['pavadinimas' => $request->gamykla_name, 'adresas' => $request->gamykla_adress, 'fk_userId' => $vadovas]);
+        Gamykla::create(['pavadinimas' => $request->gamykla_name, 'adresas' => $request->gamykla_adress, 'fk_userId' => null]);
         return redirect()->route('gamyklos.index');
     }
 

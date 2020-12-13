@@ -45,12 +45,13 @@ Route::prefix('gamyklos')->group(function () {
 
 Route::prefix('tvarkarasciai')->group(function () {
     Route::get('', 'TvarkarastisController@index')->name('tvarkarasciai.index');
+    Route::get('search', 'TvarkarastisController@search')->name('tvarkarasciai.search');
     Route::get('edit/{id}', 'TvarkarastisController@edit')->name('tvarkarasciai.edit');
     Route::post('edit/{id}', 'TvarkarastisController@update')->name('tvarkarasciai.update');
     Route::delete('delete','TvarkarastisController@delete')->name('tvarkarasciai.delete');
-    Route::get('create', 'TvarkarastisController@create')->name('tvarkarasciai.create');
-    Route::post('create', 'TvarkarastisController@store')->name('tvarkarasciai.store');
-    Route::get('show', 'TvarkarastisController@show')->name('tvarkarasciai.show');
+    Route::post('create', 'TvarkarastisController@create')->name('tvarkarasciai.create');
+    Route::post('store', 'TvarkarastisController@store')->name('tvarkarasciai.store');
+    Route::get('show/{id}', 'TvarkarastisController@show')->name('tvarkarasciai.show');
 });
 
 Route::prefix('sandelis')->group(function () {
