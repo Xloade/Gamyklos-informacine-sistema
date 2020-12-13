@@ -38,23 +38,28 @@ Route::group(['middleware' => 'auth'], function () {
     });
     
     Route::prefix('gamyklos')->group( function () {
-        Route::get('', 'GamyklaController@index')->name('gamyklos.index');
-        Route::get('edit/{id}', 'GamyklaController@edit')->name('gamyklos.edit')->middleware('isgvadovas');
-        Route::post('edit/{id}', 'GamyklaController@update')->name('gamyklos.update')->middleware('isgvadovas');
-        Route::delete('delete','GamyklaController@delete')->name('gamyklos.delete')->middleware('isgvadovas');
-        Route::get('create', 'GamyklaController@create')->name('gamyklos.create')->middleware('admin');
-        Route::post('create', 'GamyklaController@store')->name('gamyklos.store')->middleware('admin');
+        Route::group(['middleware' => 'isgvadovas'], function () {
+            Route::get('', 'GamyklaController@index')->name('gamyklos.index');
+            Route::get('edit/{id}', 'GamyklaController@edit')->name('gamyklos.edit');
+            Route::post('edit/{id}', 'GamyklaController@update')->name('gamyklos.update');
+            Route::delete('delete','GamyklaController@delete')->name('gamyklos.delete');
+            Route::get('create', 'GamyklaController@create')->name('gamyklos.create');
+            Route::post('create', 'GamyklaController@store')->name('gamyklos.store');
+        });
     });
-    
-    Route::prefix('tvarkarasciai')->group(function () {
-        Route::get('', 'TvarkarastisController@index')->name('tvarkarasciai.index')->middleware('auth');
-        Route::get('search', 'TvarkarastisController@search')->name('tvarkarasciai.search');
-        Route::get('edit/{id}', 'TvarkarastisController@edit')->name('tvarkarasciai.edit');
-        Route::post('edit/{id}', 'TvarkarastisController@update')->name('tvarkarasciai.update');
-        Route::delete('delete','TvarkarastisController@delete')->name('tvarkarasciai.delete');
-        Route::post('create', 'TvarkarastisController@create')->name('tvarkarasciai.create');
-        Route::post('store', 'TvarkarastisController@store')->name('tvarkarasciai.store');
-        Route::get('show/{id}', 'TvarkarastisController@show')->name('tvarkarasciai.show');
+    Route::group(['middleware' => 'isdarbuotojas'], function () {
+        Route::prefix('tvarkarasciai')->group(function () {
+            Route::get('', 'TvarkarastisController@index')->name('tvarkarasciai.index');
+            Route::get('show/{id}', 'TvarkarastisController@show')->name('tvarkarasciai.show');
+            Route::group(['middleware' => 'isgvadovas'], function () {
+                Route::get('search', 'TvarkarastisController@search')->name('tvarkarasciai.search');
+                Route::get('edit/{id}', 'TvarkarastisController@edit')->name('tvarkarasciai.edit');
+                Route::post('edit/{id}', 'TvarkarastisController@update')->name('tvarkarasciai.update');
+                Route::delete('delete','TvarkarastisController@delete')->name('tvarkarasciai.delete');
+                Route::post('create', 'TvarkarastisController@create')->name('tvarkarasciai.create');
+                Route::post('store', 'TvarkarastisController@store')->name('tvarkarasciai.store');
+            });
+        });
     });
     
     Route::prefix('sandelis')->group(function () {

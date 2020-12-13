@@ -34,13 +34,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     @auth
+                    @php
+                    $user = Auth::user();    
+                    @endphp
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('gamyklos.index') }}">
-                                <i class="fas fa-industry"></i>
-                                Gamyklos
-                            </a>
-                        </li>
+                        @if ($user->userlevel == Config::get('constants.GAMYKLOS_VADOVAS') || $user->userlevel == Config::get('constants.ADMINISTRATORIUS'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gamyklos.index') }}">
+                                    <i class="fas fa-industry"></i>
+                                    Gamyklos
+                                </a>
+                            </li>
+                        @endif
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('tvarkarasciai.index') }}">
                                 <i class="fas fa-calendar-day"></i>

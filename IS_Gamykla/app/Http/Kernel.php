@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isgvadovas' => \App\Http\Middleware\isGamyklosVadovas::class,
         'issvadovas' => \App\Http\Middleware\isSandelioVadovas::class,
+        'isdarbuotojas' => \App\Http\Middleware\isDarbuotojas::class,
     ];
 }
