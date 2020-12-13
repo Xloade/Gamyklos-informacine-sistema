@@ -66,7 +66,4 @@ class PrekesSandelyjeController extends Controller
 
         return Redirect()->route('prekes_sandelyje.index', ['id' => $request->fk_sandelisId]);
     }
-    public function uzsakyti(){
-        return view('prekes_sandelyje.uzsakyti');
-    }
 }
