@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sandelis;
 use App\Models\User;
+use App\Models\Preke_sandelyje;
+use App\Models\Preke;
 
 class SandelisController extends Controller
 {
@@ -55,6 +57,37 @@ class SandelisController extends Controller
 
     public function delete(Request $request){
         Sandelis::where('sandelio_kodas', $request->id)->delete();
+        return redirect()->route('sandelis.index');
+    }
+
+    public function add(){
+        return view('sandelis.add');
+    }
+
+    public function ideti(Request $request){
+        Preke::create([
+            'pavadinimas' => $request->preke_name,
+            'kaina' => $request->preke_cost,
+            'svoris' => $request->preke_weight,
+            'aukstis' => $request->preke_height,
+            'ilgis' =>  $request->preke_length,
+            'plotis' =>  $request->preke_width,
+        ]);
+        return redirect()->route('sandelis.index');
+    }
+
+    public function uzsakyti(){
+        $sandeliai = Preke_sandelyje::with('sandelis')->get();
+        $preke = Preke::all();
+        return view('sandelis.uzsakyti', compact('sandeliai', 'preke'));
+    }
+
+    public function uzsakymasideti(Request $request){
+        Preke_sandelyje::create([
+            'kiekis' => $request->preke_count,
+            'fk_sandelisId' => $request->fk_sandelisId,
+            'fk_prekeId' => $request->fk_prekeId
+        ]);
         return redirect()->route('sandelis.index');
     }
 }

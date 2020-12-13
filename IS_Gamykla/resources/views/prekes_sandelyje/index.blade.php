@@ -6,7 +6,7 @@
             <h2 class="text-center">Prekės sandelyje</h2>
             <div class="d-flex flex-row-reverse">
                 <div>
-                    <a class="btn btn-info fa fa-plus" href="{{ action('PrekesSandelyjeController@create') }}" type="submit">Užsakyti prekę</a>
+                    <a class="btn btn-info fa fa-plus" href="{{ action('PrekesSandelyjeController@uzsakyti') }}" type="submit">Užsakyti prekę</a>
                 </div>
             </div>
         </div>

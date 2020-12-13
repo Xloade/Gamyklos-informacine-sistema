@@ -12,6 +12,10 @@ class Preke extends Model
     protected $primaryKey = 'prekes_kodas';
     public $timestamps = false;
 
+    protected $fillable = [
+        'pavadinimas', 'kaina', 'svoris', 'aukstis', 'ilgis', 'plotis'
+    ];
+
     public function sandeliuose(){
         return $this->hasMany(Preke_sandelyje::class, 'fk_prekeId');
     }

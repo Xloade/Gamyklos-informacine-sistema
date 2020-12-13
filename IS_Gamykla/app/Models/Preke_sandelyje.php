@@ -21,4 +21,12 @@ class Preke_sandelyje extends Model
     public function uzsakymai(){
         return $this->hasMany(Uzsakymas_preke::class, 'fk_prekeSandelyjeId');
     }
+    public function sandelis()
+    {
+        return $this->belongsTo(Sandelis::class, 'fk_sandelisId');
+    }
+
+    protected $fillable = [
+        'kiekis', 'fk_sandelisId', 'fk_prekeId'
+    ];
 }

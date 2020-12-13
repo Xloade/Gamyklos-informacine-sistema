@@ -12,11 +12,19 @@
                             <i class="fas fa-chart-bar"> Tikrinti sandėlių užimtumą</i>
                         </button>
                     </form>
+                    <p></p>
+                    <form action="{{ action('SandelisController@uzsakyti') }}" method="get">
+                        <button type="submit" name="calculate" id="calculate" class="btn btn-info">
+                            <i class="fas fa-plus"> Užsakyti prekę</i>
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="d-flex flex-row-reverse">
                 <div>
                     <a class="btn btn-info fas fas fa-plus" href="{{ action('SandelisController@create') }}" type="submit">Sukurti sandėlį</a>
+                    <a class="btn btn-info fas fas fa-plus" href="{{ action('SandelisController@add') }}" type="submit">Pridėti prekę</a>
+
                 </div>
             </div>
         </div>
