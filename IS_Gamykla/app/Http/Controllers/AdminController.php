@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Gamykla;
 use App\Models\Uzsakymas;
 use App\Models\Sandelis;
+use App\Models\Banko_kortele;
 use App\Http\Requests\UserValidateRequest;
 use App\Http\Requests\UserPasswordValidateRequest;
 use Illuminate\Support\Facades\Validator;
@@ -77,8 +78,9 @@ class AdminController extends Controller
                 if(!empty($gamykla))
                     $gamyklosDarbuotojai = User::where('userlevel',Config::get('constants.DARBUOTOJAS'))->where('fk_gamykla',$gamykla->kodas)->orderBy('first_name')->get();
                 else $gamyklosDarbuotojai = null;
-                $visiVadovai = User::where('userlevel',Config::get('constants.GAMYKLOS_VADOVAS'))->orderBy('first_name')->get();
-                return view('admin.edit',compact('user', 'gamykla','visiVadovai','gamyklosDarbuotojai'));
+                //$visiVadovai = User::where('userlevel',Config::get('constants.GAMYKLOS_VADOVAS'))->orderBy('first_name')->get();
+                $visosGamyklos = Gamykla::orderBy('pavadinimas')->get();
+                return view('admin.edit',compact('user', 'gamykla','visosGamyklos','gamyklosDarbuotojai'));
             break;
             default:
                 return view('admin.edit',compact('user'));
@@ -87,10 +89,52 @@ class AdminController extends Controller
     }
     public function update(UserValidateRequest $request, User $user)
     {
-        $user->update(['userlevel' => $request->userlevel]);
+        $previousUserlevel = $user->userlevel;
+        $newUserlevel = $request->userlevel;
+        if($previousUserlevel != $newUserlevel){
+            switch($previousUserlevel){
+                case Config::get('constants.KLIENTAS'):
+                    Uzsakymas::where('fk_userId',$user->id)->delete();
+                    Banko_kortele::where('fk_userId',$user->id)->delete();
+                break;
+                case Config::get('constants.DARBUOTOJAS'):
+                    $user->update(['fk_gamykla' => null]);
+                break;
+                case Config::get('constants.GAMYKLOS_VADOVAS'):
+                    $gamykla = Gamykla::where('fk_userId',$user->id)->first();
+                    $gamykla->update(['fk_userId' => null]);
+                break;
+                case Config::get('constants.SANDELIO_VADOVAS'):
+                    Sandelis::where('fk_vadovasId',$user->id)->update(['fk_vadovasId' => null]);
+                break;
+                default:
+            }
+            if($newUserlevel == Config::get('constants.KLIENTAS')){
+                $user->update(['atyginimas' => null, 'fk_gamykla' => null]);
+
+            }
+            $user->update(['userlevel' => $request->userlevel]);
+        }
+        
         return redirect()->route('admin.index')->with('message','Vartotojo kategorija buvo redaguota');
     }
+    
     public function destroy(User $user){
+        switch($user->userlevel){
+            case Config::get('constants.KLIENTAS'):
+                Uzsakymas::where('fk_userId',$user->id)->delete();
+                Banko_kortele::where('fk_userId',$user->id)->delete();
+            break;
+            case Config::get('constants.GAMYKLOS_VADOVAS'):
+                $gamykla = Gamykla::where('fk_userId',$user->id)->first();
+                $gamykla->update(['fk_userId' => null]);
+            case Config::get('constants.SANDELIO_VADOVAS'):
+                Sandelis::where('fk_vadovasId',$user->id)->update(['fk_vadovasId' => null]);
+            default:
+        }
+        if($newUserlevel == Config::get('constants.KLIENTAS')){
+            $user->update(['atyginimas' => null]);
+        }
         $user->delete();
         return redirect()->route('admin.index')->with('message','User deleted');
     }
@@ -143,11 +187,30 @@ class AdminController extends Controller
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        //dd($request['atlyginimas']);
-        $user->update([
+        if(empty($request['atlyginimas'])){
+            $user->update(['fk_gamykla' => $request['darbuotojo_gamykla']]);
+        }
+        else $user->update([
             'atlyginimas' => $request['atlyginimas'],
             'fk_gamykla' => $request['darbuotojo_gamykla'],
         ]);
+        return redirect()->route('admin.edit',$user->id)->with('message','Darbuotojo duomenys pakeisti');
+    }
+
+    public function change_gam_vad_info(Request $request,User $user){
+        $validator = Validator::make($request->all(), [
+            'atlyginimas' => ['required','numeric', 'min:325'],
+        ], [
+            'atlyginimas.required' => 'įrašykite atlyginimą',
+            'atlyginimas.numeric' => 'Atlyginimas turi būti skaičius',
+            'atlyginimas.min' => 'Atlyginimas ne mažesnis nei 325',
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $user->update(['atlyginimas' => $request['atlyginimas']]);
+        $gamykla = Gamykla::where('kodas',$request['darbuotojo_gamykla'])->first();
+        $gamykla->update(['fk_userId' => $user->id]);
         return redirect()->route('admin.edit',$user->id)->with('message','Darbuotojo duomenys pakeisti');
     }
 }

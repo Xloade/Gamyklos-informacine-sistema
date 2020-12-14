@@ -54,7 +54,48 @@
                         </button>
                     </div>
                 </div>
-            </form>
+        </form>
+        <!-- KLIENTAS-------------------------------------------------------------------------------------------------------- -->
+
+        <!-- DARBUOTOJAS-------------------------------------------------------------------------------------------------------- -->
+        @if(Auth::user()->userlevel == Config::get('constants.DARBUOTOJAS'))
+            @if(empty($gamykla))
+                <h3>Šiuo metu darbuotojas nepriklauso jokiai gamyklai</h3>
+            @else
+                <h2>Darbuotojas dirba gamykloje: {{$gamykla->pavadinimas}}</h2>
+                <h2>{{$gamykla->adresas}}</h2>
+                @if(!empty(Auth::user()->atlyginimas))
+                    <h2>Darbuotojo atlyginimas: {{Auth::user()->atlyginimas}} Eur</h2>
+                @else
+                    <h4>Atlyginimas nenustatytas</h4>
+                @endif
+            @endif
+        @endif
+        <!-- GAM_VADOVAS-------------------------------------------------------------------------------------------------------- -->
+        @if(Auth::user()->userlevel == Config::get('constants.GAMYKLOS_VADOVAS'))
+            @if(!empty($user->atlyginimas))
+                <h2>Atlyginimas: {{$user->atlyginimas}} Eur</h2>
+            @else
+                <h4>Atlyginimas nenustatytas</h4>
+            @endif
+        @endif
+        <!-- SAN-VADOVAS-------------------------------------------------------------------------------------------------------- -->
+        @if(Auth::user()->userlevel == Config::get('constants.SANDELIO_VADOVAS'))
+            @if(!empty($user->atlyginimas))
+                <h2>Atlyginimas: {{$user->atlyginimas}} Eur</h2>
+            @else
+                <h4>Atlyginimas nenustatytas</h4>
+            @endif
+        @endif
+        <!--ADMINISTRATORIUS-------------------------------------------------------------------------------------------------------- -->
+        @if(Auth::user()->userlevel == Config::get('constants.ADMINISTRATORIUS'))
+            @if(!empty($user->atlyginimas))
+                <h2>Atlyginimas: {{$user->atlyginimas}} Eur</h2>
+            @else
+                <h4>Atlyginimas nenustatytas</h4>
+            @endif
+        @endif
+        <!----------------------------------------------------------------------------------------------------------------------- -->
         <div class="card-footer">
             <a class="float-left mr-2 btn btn-secondary my-2" href="{{route('home')}}">
                 Atgal

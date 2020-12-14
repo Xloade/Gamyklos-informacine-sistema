@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('add', 'SandelisController@ideti')->name('sandelis.ideti');
             Route::get('uzsakyti', 'SandelisController@uzsakyti')->name('sandelis.uzsakyti');
             Route::post('uzsakyti', 'SandelisController@uzsakymasideti')->name('sandelis.uzsakymasideti');
+            Route::get('search', 'SandelisController@search')->name('sandelis.search');
         });
 
 
