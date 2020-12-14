@@ -77,7 +77,7 @@ class UserSeeder extends Seeder
             'email' => 'vad2@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 7,
+            'userlevel' => 3,
             'fk_gamykla' => null,
         ],
         [
@@ -86,7 +86,7 @@ class UserSeeder extends Seeder
             'email' => 'vad4@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'userlevel' => 7,
+            'userlevel' => 3,
             'fk_gamykla' => null,
         ],
         [
