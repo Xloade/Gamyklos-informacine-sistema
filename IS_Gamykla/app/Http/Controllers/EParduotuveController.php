@@ -254,8 +254,10 @@ class EParduotuveController extends Controller
                     'salis' => $userInfo->salis,
                     'miestas' => $userInfo->miestas,
                     'gatve' => $userInfo->gatve,
-                    'buto_nr' => isset($userInfo->butoNr)?$userInfo->butoNr:null,
-                    'duru_kodas' => isset($userInfo->duruKodas)?$userInfo->duruKodas:null,
+                    'buto_nr' => $userInfo->buto_nr,
+                    //gatveisset($userInfo->buto_nr)?$userInfo->buto_nr:null,
+                    'duru_kodas' => $userInfo->duru_kodas,
+                    //isset($userInfo->duru_kodas)?$userInfo->duru_kodas:null,
                     'uzsakymo_statusas' => Config::get('constants.UZASKYMAS_PATVIRTINTAS'),
                     'fk_bankoKorteleId' => $kortele_id,
                 ]);
