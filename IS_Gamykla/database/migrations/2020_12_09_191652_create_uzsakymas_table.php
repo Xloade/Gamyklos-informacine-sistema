@@ -16,15 +16,15 @@ class CreateUzsakymasTable extends Migration
         Schema::create('uzsakymas', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('salis');
-            $table->string('miestas');
-            $table->string('gatve');
-            $table->string('buto_nr');
+            $table->string('salis')->nullable();
+            $table->string('miestas')->nullable();
+            $table->string('gatve')->nullable();
+            $table->string('buto_nr')->nullable();
             $table->string('uzsakymo_statusas');
             $table->string('pristatymo_komentaras')->nullable();
             $table->integer('duru_kodas')->nullable();
             $table->integer('fk_userId')->unsigned();
-            $table->integer('fk_bankoKorteleId')->unsigned();
+            $table->bigInteger('fk_bankoKorteleId')->unsigned()->nullable();
             $table->foreign('fk_userId')->references('id')->on('users');
             $table->foreign('fk_bankoKorteleId')->references('korteles_numeris')->on('banko_korteles');
         });

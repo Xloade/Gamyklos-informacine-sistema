@@ -37,7 +37,7 @@
                 <td>{{$preke->kiekis}}</td>
                 <td>{{$preke->kaina}} €</td>
                 <td>
-                <button class="btn btn-danger" onclick="event.preventDefault();if(confirm('Ar tikrai norite pašalinti preke iš krepšelio?')){
+                <button class="btn btn-danger fas fa-trash" onclick="event.preventDefault();if(confirm('Ar tikrai norite pašalinti preke iš krepšelio?')){
                                     document.getElementById('form-delete-{{$preke->id}}').submit()}">Ištrinti</button>
                     <form style="display:none" id="{{'form-delete-'.$preke->id}}" method="post" action="{{route('eparduotuve.removeFromCart', ['id' => $preke->id])}}">
                             @csrf
@@ -56,7 +56,7 @@
     </table>
     <div class="row">
         <div class="mx-auto w-50">
-            <a href="{{ route('eparduotuve.complete') }}" type="button" class="btn btn-primary w-100">Pradeti užsakymą</a>
+            <a href="{{ route('eparduotuve.order') }}" type="button" class="btn btn-primary w-100">Pradeti užsakymą</a>
         </div>
     </div>
 </div>

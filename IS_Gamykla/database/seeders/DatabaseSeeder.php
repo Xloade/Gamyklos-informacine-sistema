@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             SandelisSeeder::class,
             PrekeSeeder::class,
             PrekeSandelyjeSeeder::class,
+            BannkoKortelesSeeder::class,
             TvarkarastisSeeder::class
         ]);
     }
