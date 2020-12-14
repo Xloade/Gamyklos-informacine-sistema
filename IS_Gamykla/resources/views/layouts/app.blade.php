@@ -78,6 +78,7 @@
                             </a>
                         </li>
                         @endif
+                        @if ($user->userlevel == Config::get('constants.KLIENTAS') || $user->userlevel == Config::get('constants.ADMINISTRATORIUS'))
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-store"></i>
@@ -89,6 +90,7 @@
                                 <a class="dropdown-item" href="{{ route('eparduotuve.cart') }}"><i class="fas fa-shopping-cart"></i>Krepšelis</a>
                             </div>
                         </li>
+                        @endif
                         @if ($user->userlevel == Config::get('constants.ADMINISTRATORIUS'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.index') }}">
