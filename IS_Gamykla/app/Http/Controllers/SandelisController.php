@@ -102,11 +102,24 @@ class SandelisController extends Controller
     }
 
     public function uzsakymasideti(Request $request){
-        Preke_sandelyje::create([
-            'kiekis' => $request->preke_count,
-            'fk_sandelisId' => $request->fk_sandelisId,
-            'fk_prekeId' => $request->fk_prekeId
-        ]);
+        $prekeSandelyje = Preke_sandelyje::where([
+            ['fk_sandelisId', $request->fk_sandelisId],
+            ['fk_prekeId', $request->fk_prekeId]
+            ])->first();
+        if ($prekeSandelyje == null){
+            Preke_sandelyje::create([
+                'kiekis' => 0 + $request->preke_count,
+                'fk_sandelisId' => $request->fk_sandelisId,
+                'fk_prekeId' => $request->fk_prekeId
+            ]);
+        }
+        else {
+            $kiekis = $prekeSandelyje->kiekis;
+            $prekeSandelyje->update([
+                'kiekis' => $kiekis + $request->preke_count 
+                ]);
+        }
+        
         return redirect()->route('sandelis.index');
     }
 
