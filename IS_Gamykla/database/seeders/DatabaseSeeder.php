@@ -15,12 +15,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call([
+            GamyklaSeeder::class,
             UserSeeder::class,
             SandelisSeeder::class,
-            GamyklaSeeder::class,
             PrekeSeeder::class,
             PrekeSandelyjeSeeder::class,
-            BannkoKortelesSeeder::class
+            BannkoKortelesSeeder::class,
+            TvarkarastisSeeder::class
         ]);
     }
 }

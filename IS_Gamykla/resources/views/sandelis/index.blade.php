@@ -18,6 +18,12 @@
                             <i class="fas fa-plus"> Užsakyti prekę</i>
                         </button>
                     </form>
+                    <p></p>
+                    <form action="{{ action('SandelisController@search') }}" method="get">
+                        <button type="submit" name="calculate" id="calculate" class="btn btn-info">
+                            <i class="fas fa-search"> Ieškoti prekių</i>
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="d-flex flex-row-reverse">

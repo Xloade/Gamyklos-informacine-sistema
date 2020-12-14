@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Gamykla;
 use App\Http\Requests\UserValidateRequest;
 use App\Http\Requests\UserPasswordValidateRequest;
+use App\Http\Requests\CustomerAddressValidateRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Config;
@@ -32,5 +33,17 @@ class UserController extends Controller
         $user=Auth::user();
         $user->update(['password' =>  Hash::make($request['password'])]);
         return redirect()->route('user.editprofile',$user->id)->with('message','Slaptažodis pakeistas');
+    }
+
+    public function set_address(CustomerAddressValidateRequest $request){
+        $user=Auth::user();
+        $user->update([
+            'salis' =>  $request['salis'],
+            'miestas' => $request['miestas'],
+            'gatve' => $request['gatve'],
+            'buto_nr' => $request['buto_nr'],
+            'duru_kodas' => $request['duru_kodas'],
+        ]);
+        return redirect()->route('user.editprofile',$user->id)->with('message','Adreso duomenys įvesti');
     }
 }

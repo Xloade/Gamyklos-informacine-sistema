@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('user')->group(function () {
         Route::get('','UserController@editprofile')->name('user.editprofile');
         Route::patch('change_password','UserController@change_password')->name('user.change_password');
+        Route::patch('set_address','UserController@set_address')->name('user.set_address');
     });
 
     Route::prefix('gamyklos')->group( function () {
@@ -75,6 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('add', 'SandelisController@ideti')->name('sandelis.ideti');
             Route::get('uzsakyti', 'SandelisController@uzsakyti')->name('sandelis.uzsakyti');
             Route::post('uzsakyti', 'SandelisController@uzsakymasideti')->name('sandelis.uzsakymasideti');
+            Route::get('search', 'SandelisController@search')->name('sandelis.search');
         });
 
 

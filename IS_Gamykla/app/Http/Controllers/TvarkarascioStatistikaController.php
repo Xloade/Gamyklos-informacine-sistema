@@ -39,9 +39,7 @@ class TvarkarascioStatistikaController extends Controller
             $gamykla->iki = $finish;
         }
         
-        $gamyklos = $gamyklos->where('valandos', '>', 0)->sortBy([
-            'valanados', 'desc'
-        ]);
+        $gamyklos = $gamyklos->where('valandos', '>', 0)->sortByDesc('valandos');
         return view('tvarkarascio_statistika.show', ['gamyklos' => $gamyklos]);
     }
 
@@ -66,9 +64,7 @@ class TvarkarascioStatistikaController extends Controller
             $gamykla->iki = $finish;
         }
         
-        $gamyklos = $gamyklos->where('valandos', '>', 0)->sortBy([
-            'valanados', 'desc'
-        ]);
+        $gamyklos = $gamyklos->where('valandos', '>', 0)->sortByDesc('valandos');
         return view('tvarkarascio_statistika.show', ['gamyklos' => $gamyklos]);
     }
 }

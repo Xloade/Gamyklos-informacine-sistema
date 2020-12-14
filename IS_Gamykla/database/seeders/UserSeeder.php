@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'created_at' => '2020-02-14 14:43:59',
             'userlevel' => 3,
-            'fk_gamykla' => null,
+            'fk_gamykla' => 2,
         ],
         [
             'first_name' => 'Darbuotojas2',
@@ -65,7 +65,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'created_at' => '2020-03-14 14:43:59',
             'userlevel' => 3,
-            'fk_gamykla' => null,
+            'fk_gamykla' => 1,
         ],
         [
             'first_name' => 'Vadovas',
@@ -85,7 +85,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'created_at' => '2020-05-14 14:43:59',
             'userlevel' => 3,
-            'fk_gamykla' => null,
+            'fk_gamykla' => 2,
         ],
         [
             'first_name' => 'Vadovas',
@@ -95,7 +95,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'created_at' => '2020-06-14 14:43:59',
             'userlevel' => 3,
-            'fk_gamykla' => null,
+            'fk_gamykla' => 4,
         ],
         [
             'first_name' => 'Vadovas',
@@ -105,7 +105,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'created_at' => '2020-07-14 14:43:59',
             'userlevel' => 3,
-            'fk_gamykla' => null,
+            'fk_gamykla' => 5,
         ],
         [
             'first_name' => 'Antanas',
@@ -115,7 +115,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'created_at' => '2020-08-14 14:43:59',
             'userlevel' => 3,
-            'fk_gamykla' => null,
+            'fk_gamykla' => 1,
         ],
         [
             'first_name' => 'Ąžuolas',
@@ -125,7 +125,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'created_at' => '2020-09-14 14:43:59',
             'userlevel' => 3,
-            'fk_gamykla' => null,
+            'fk_gamykla' => 5,
         ],
         [
             'first_name' => 'Administratorius',

@@ -43,9 +43,7 @@ class PopuliariausiosPrekesController extends Controller
             $preke->iki = $finish;
         }
         
-        $prekes = $prekes->where('kiekis', '>', 0)->sortBy([
-            'kiekis', 'desc'
-        ]);
+        $prekes = $prekes->where('kiekis', '>', 0)->sortByDesc('kiekis');
         
         return view('populiariausios_prekes.show', ['prekes' => $prekes]);
     }
@@ -73,9 +71,7 @@ class PopuliariausiosPrekesController extends Controller
             $preke->iki = $finish;
         }
         
-        $prekes = $prekes->where('kiekis', '>', 0)->sortBy([
-            'kiekis', 'desc'
-        ]);
+        $prekes = $prekes->where('kiekis', '>', 0)->sortByDesc('kiekis');
         
         return view('populiariausios_prekes.show', ['prekes' => $prekes]);
     }
