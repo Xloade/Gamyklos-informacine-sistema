@@ -164,10 +164,6 @@
                 <td>{{$preke->kaina}} €</td>
                 <td>{{$preke->plotis}}cm x {{$preke->ilgis}}cm x {{$preke->aukstis}}cm</td>
                 <td>{{$preke->svoris}} kg</td>
-                 <?php
-                    // $kiekis = App\Models\preke_sandelyje::where('fk_prekeId', $preke->prekes_kodas)
-                    // ->value('kiekis');
-                ?>
                 <td>{{$preke->kiekis}}</td>
             </tr>
         @endforeach
