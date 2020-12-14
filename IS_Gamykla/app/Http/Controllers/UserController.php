@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Gamykla;
 use App\Http\Requests\UserValidateRequest;
 use App\Http\Requests\UserPasswordValidateRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Config;
 
 class UserController extends Controller
 {
@@ -17,6 +20,11 @@ class UserController extends Controller
 
     public function editprofile()
     {
+        $user = Auth::user();
+        if($user->userlevel == Config::get('constants.DARBUOTOJAS')){
+            $gamykla = Gamykla::where('kodas',$user->fk_gamykla)->first();
+            return view('user.editprofile',compact('gamykla'));
+        }
         return view('user.editprofile');
     }
 

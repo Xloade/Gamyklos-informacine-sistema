@@ -95,8 +95,12 @@
                 @else
                     <h2>Darbuotojas dirba gamykloje: {{$gamykla->pavadinimas}}</h2>
                     <h2>{{$gamykla->adresas}}</h2>
+                    @if(!empty($user->atlyginimas))
+                        <h2>Darbuotojo atlyginimas: {{$user->atlyginimas}} Eur</h2>
+                    @else
+                        <h4>Atlyginimas nenustatytas</h4>
+                    @endif
                 @endif
-                <h2>Darbuotojo atlyginimas: {{$user->atlyginimas}} Eur</h2>
                 <form method="post" action="{{route('admin.change_worker_info',$user->id)}}">
                     @csrf
                     @method('patch')
@@ -135,40 +139,44 @@
             @if($user->userlevel == Config::get('constants.GAMYKLOS_VADOVAS'))
                 @if(empty($gamykla))
                     <h3>Šiuo metu gamyklos vadovas neturi gamyklos</h3>
-                @else
+                @else       
                 <h2>Gamyklos vadovo gamykla: {{$gamykla->pavadinimas}}</h2>
                 <h2>{{$gamykla->adresas}}</h2>
-                <h1>Gamyklos darbuotojai</h1>
-                <table class="table table-hover table-striped  p-0 m-0">
-                    <thead>
-                        <tr class="text-center w-100">
-                            <th scope="col">Vardas</th>
-                            <th scope="col">E-paštas</th>
-                            <th scope="col">Paskyra sukurta</th>
-                            <th scope="col">Atlyginimas</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                        <tbody>
-                        @foreach($gamyklosDarbuotojai as $darbuotojas)
-                        <tr class="text-center w-100">
-                            <td scope="col">{{$darbuotojas->first_name}} {{$darbuotojas->last_name}}</td>
-                            <td scope="col">{{$darbuotojas->email}}</td>
-                            <td scope="col">{{$darbuotojas->created_at}}</td>
-                            <td scope="col">{{$darbuotojas->atlyginimas}}</td>                
-                            <td scope="col"><a class="btn btn-success" href="{{route('admin.edit',$darbuotojas->id)}}">Daugiau</a></td>
-                            <td scope="col"><button class="btn btn-danger" onclick="event.preventDefault();if(confirm('Do you really want to delete this user?')){
-                                        document.getElementById('form-delete-{{$user->id}}').submit()}">Ištrinti</button>
-                            </td>
-                            <form style="display:none" id="{{'form-delete-'.$darbuotojas->id}}" method="post" action="{{route('admin.destroy', $darbuotojas->id)}}">
-                                    @csrf
-                                    @method('delete')
-                            </form>               
-                        </tr>
-                        @endforeach
-                        </tbody>
-                </table>
+                @if($gamyklosDarbuotojai->count() != 0)
+                    <h1>Gamyklos darbuotojai</h1>
+                    <table class="table table-hover table-striped  p-0 m-0">
+                        <thead>
+                            <tr class="text-center w-100">
+                                <th scope="col">Vardas</th>
+                                <th scope="col">E-paštas</th>
+                                <th scope="col">Paskyra sukurta</th>
+                                <th scope="col">Atlyginimas</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                            @foreach($gamyklosDarbuotojai as $darbuotojas)
+                            <tr class="text-center w-100">
+                                <td scope="col">{{$darbuotojas->first_name}} {{$darbuotojas->last_name}}</td>
+                                <td scope="col">{{$darbuotojas->email}}</td>
+                                <td scope="col">{{$darbuotojas->created_at}}</td>
+                                <td scope="col">{{$darbuotojas->atlyginimas}}</td>                
+                                <td scope="col"><a class="btn btn-success" href="{{route('admin.edit',$darbuotojas->id)}}">Daugiau</a></td>
+                                <td scope="col"><button class="btn btn-danger" onclick="event.preventDefault();if(confirm('Do you really want to delete this user?')){
+                                            document.getElementById('form-delete-{{$user->id}}').submit()}">Ištrinti</button>
+                                </td>
+                                <form style="display:none" id="{{'form-delete-'.$darbuotojas->id}}" method="post" action="{{route('admin.destroy', $darbuotojas->id)}}">
+                                        @csrf
+                                        @method('delete')
+                                </form>               
+                            </tr>
+                            @endforeach
+                            </tbody>
+                    </table>
+                @else
+                <h2>šiuo metu gamykloje nėra darbuotojų</h2>
+                @endif               
                     <form method="post" action="{{route('admin.change_gam_vad_info',$user->id)}}">
                     @csrf
                     @method('patch') 
@@ -190,63 +198,160 @@
                             </div>
                         </div>
                     </form>
+                    @if(!empty($user->atlyginimas))
+                        <h2>Darbuotojo atlyginimas: {{$user->atlyginimas}} Eur</h2>
+                    @else
+                        <h4>Atlyginimas nenustatytas</h4>
+                    @endif
+                    <form method="post" action="{{route('admin.change_worker_info',$user->id)}}">
+                        @csrf
+                        @method('patch')
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-sm-3"> 
+                                    <label for="atlyginimas" class="form-label text-md-right"><b>{{ __('Atlyginimas, Eur') }}</b></label>
+                                    <div class="">
+                                        <input id="atlyginimas" value="{{$user->atlyginimas}}" type="number" class="form-control @error('atlyginimas') is-invalid @enderror" name="atlyginimas">
+                                        @error('atlyginimas')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    </select>
+                                </div>
+                                <div class="col align-self-end">                  
+                                    <button type="submit"  class="btn btn-primary">
+                                        Pakeisti atlyginimą
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 @endif
             @endif
 <!--SANDELIO_VADOVAS---------------------------------------------------------------------------------------------------------------------->
             @if($user->userlevel == Config::get('constants.SANDELIO_VADOVAS'))
-                <h1>Priklausantys sandėliai</h1>
-                <table class="table table-hover table-striped  p-0 m-0">
-                    <thead>
-                        <tr class="text-center w-100">
-                            <th scope="col">Kodas</th>
-                            <th scope="col">Šalis</th>
-                            <th scope="col">Miestas</th>
-                            <th scope="col">Gatvė</th>
-                            <th scope="col">Talpa</th>
-                            <th scope="col">Prekės sandelyje</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                        <tbody>
-                            @foreach($sandeliai as $sandelis)
-                                <tr>
-                                    <td class="text-center">#{{ $sandelis->sandelio_kodas }}</td>
-                                    <td class="text-center">{{ $sandelis->salis }}</td>
-                                    <td class="text-center">{{ $sandelis->miestas }}</td>
-                                    <td class="text-center">{{ $sandelis->gatve }}</td>
-                                    <td class="text-center">{{ $sandelis->talpa }} m&#x00B3</td>
-                                    <td class="text-center">
-                                        <div>
-                                            <form action="{{ action('PrekesSandelyjeController@index', $sandelis->sandelio_kodas) }}" method="get">
-                                                <button class="btn btn-info fas fa-eye" type="submit" value="Keisti"> Peržiūrėti prekes</button>
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            </form>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div>
-                                            <a href="{{ action('SandelisController@edit', $sandelis->sandelio_kodas) }}" class="btn btn-success fa fa-edit">Keisti</a>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div>
-                                            <form action="{{ action('SandelisController@delete') }}" method="post">
-                                                <button class="btn btn-danger fas fa-trash" type="submit"> Ištrinti</button>
-                                                <input type="hidden" name="_method" value="delete" />
-                                                <input type="hidden" name="id" value="{{ $sandelis->sandelio_kodas }}" />
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                </table>
+                @if($sandeliai->count() != 0)
+                    <h1>Priklausantys sandėliai</h1>
+                    <table class="table table-hover table-striped  p-0 m-0">
+                        <thead>
+                            <tr class="text-center w-100">
+                                <th scope="col">Kodas</th>
+                                <th scope="col">Šalis</th>
+                                <th scope="col">Miestas</th>
+                                <th scope="col">Gatvė</th>
+                                <th scope="col">Talpa</th>
+                                <th scope="col">Prekės sandelyje</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                @foreach($sandeliai as $sandelis)
+                                    <tr>
+                                        <td class="text-center">#{{ $sandelis->sandelio_kodas }}</td>
+                                        <td class="text-center">{{ $sandelis->salis }}</td>
+                                        <td class="text-center">{{ $sandelis->miestas }}</td>
+                                        <td class="text-center">{{ $sandelis->gatve }}</td>
+                                        <td class="text-center">{{ $sandelis->talpa }} m&#x00B3</td>
+                                        <td class="text-center">
+                                            <div>
+                                                <form action="{{ action('PrekesSandelyjeController@index', $sandelis->sandelio_kodas) }}" method="get">
+                                                    <button class="btn btn-info fas fa-eye" type="submit" value="Keisti"> Peržiūrėti prekes</button>
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                </form>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div>
+                                                <a href="{{ action('SandelisController@edit', $sandelis->sandelio_kodas) }}" class="btn btn-success fa fa-edit">Keisti</a>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div>
+                                                <form action="{{ action('SandelisController@delete') }}" method="post">
+                                                    <button class="btn btn-danger fas fa-trash" type="submit"> Ištrinti</button>
+                                                    <input type="hidden" name="_method" value="delete" />
+                                                    <input type="hidden" name="id" value="{{ $sandelis->sandelio_kodas }}" />
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                    </table>
+                @else
+                    <h2>Šiu metu vadovui priklausančių sandėlių nėra</h2>
+                @endif
+                @if(!empty($user->atlyginimas))
+                    <h2>Darbuotojo atlyginimas: {{$user->atlyginimas}} Eur</h2>
+                @else
+                    <h4>Atlyginimas nenustatytas</h4>
+                @endif
+                <form method="post" action="{{route('admin.change_worker_info',$user->id)}}">
+                    @csrf
+                    @method('patch')
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-3"> 
+                                <label for="atlyginimas" class="form-label text-md-right"><b>{{ __('Atlyginimas, Eur') }}</b></label>
+                                <div class="">
+                                    <input id="atlyginimas" value="{{$user->atlyginimas}}" type="number" class="form-control @error('atlyginimas') is-invalid @enderror" name="atlyginimas">
+                                    @error('atlyginimas')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                </select>
+                            </div>
+                            <div class="col align-self-end">                  
+                                <button type="submit"  class="btn btn-primary">
+                                    Pakeisti atlyginimą
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
             @endif
 
-<!--------------------------------------------------------------------------------------------------------------------------------------------------->
+<!----ADMINISTRATORIUS---------------------------------------------------------------------------------------------------------------------------------------->
+            @if($user->userlevel == Config::get('constants.ADMINISTRATORIUS'))
+                @if(!empty($user->atlyginimas))
+                    <h2>Darbuotojo atlyginimas: {{$user->atlyginimas}} Eur</h2>
+                @else
+                    <h4>Atlyginimas nenustatytas</h4>
+                @endif
+                <form method="post" action="{{route('admin.change_worker_info',$user->id)}}">
+                    @csrf
+                    @method('patch')
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-3"> 
+                                <label for="atlyginimas" class="form-label text-md-right"><b>{{ __('Atlyginimas, Eur') }}</b></label>
+                                <div class="">
+                                    <input id="atlyginimas" value="{{$user->atlyginimas}}" type="number" class="form-control @error('atlyginimas') is-invalid @enderror" name="atlyginimas">
+                                    @error('atlyginimas')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                </select>
+                            </div>
+                            <div class="col align-self-end">                  
+                                <button type="submit"  class="btn btn-primary">
+                                    Pakeisti darbuotojo duomenis
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            @endif
+<!---------------------------------------------------------------------------------------------------------------------------------------------------------->
             <form style="display:none" id="{{'form-delete-'.$user->id}}" method="post" action="{{route('admin.destroy', $user->id)}}">
                         @csrf
                         @method('delete')

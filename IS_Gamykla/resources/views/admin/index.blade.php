@@ -6,7 +6,7 @@
             <h2 class="text-center">Administratoriaus sąsaja</h2>
             <div class="d-flex flex-row-reverse">
                 <div>
-                    <a href="{{route('admin.create')}}" class="btn btn-default fas fas fa-plus" type="submit"> Sukurti naują vartotoją</a>
+                    <a href="{{route('admin.create')}}" class="btn btn-default fas fas fa-plus"> Sukurti naują vartotoją</a>
                 </div>
             </div>
         </div>
