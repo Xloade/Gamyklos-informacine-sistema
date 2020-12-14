@@ -203,6 +203,7 @@ class SandelisController extends Controller
         }
 
         $query = $query->join('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas');
+     //   $query = $query->join('sandeliai', 'sandeliai.', '=', 'preke.prekes_kodas');
 
         $prekes = $query->distinct('preke.prekes_kodas')->get();
         // $prekes = $query->get();
