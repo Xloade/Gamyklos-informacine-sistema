@@ -150,7 +150,7 @@ class SandelisController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         $query = DB::table('preke')
-            ->selectRaw('preke.prekes_kodas as prekes_kodas, preke.pavadinimas as pavadinimas, preke.kaina as kaina, preke.svoris as svoris, preke.plotis as plotis, preke.ilgis as ilgis, preke.aukstis as aukstis');
+            ->selectRaw('preke_sandelyje.kiekis as kiekis, preke.prekes_kodas as prekes_kodas, preke.pavadinimas as pavadinimas, preke.kaina as kaina, preke.svoris as svoris, preke.plotis as plotis, preke.ilgis as ilgis, preke.aukstis as aukstis');
         if($request->filled('pavadinimas')){
             $query = $query->where('pavadinimas', 'like', '%'.$request['pavadinimas'].'%');
         }
@@ -196,17 +196,19 @@ class SandelisController extends Controller
 
             }
             else{
-                $query = $query->join('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas');
+               // $query = $query->join('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas');
                 $query = $query->where('preke_sandelyje.fk_sandelisId', '=', $request['sandelys']);
             }
            // $query = $query->where('preke_sandelyje.kiekis', '>', '0');
         }
-        // $query = DB::table('preke_sandelyje')
-        //                         ->select('preke_sandelyje.kiekis as kiekis');
-                                // ->where('preke_sandelyje.fk_prekeId', '=', $request['sandelys']);
+
+        $query = $query->join('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas');
+
         $prekes = $query->distinct('preke.prekes_kodas')->get();
         // $prekes = $query->get();
         $sandeliai =  DB::table('sandeliai')->selectRaw('sandelio_kodas as id, salis, miestas, gatve')->get();
+        //$kiekis = preke_sandelyje::where('fk_prekeId', 'preke.prekes_kodas')->value('kiekis');
+
         FRequest::flash();
         return view('sandelis.search', compact('prekes', 'sandeliai'));
     }
