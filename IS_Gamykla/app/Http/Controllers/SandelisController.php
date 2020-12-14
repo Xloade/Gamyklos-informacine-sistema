@@ -120,10 +120,10 @@ class SandelisController extends Controller
         else {
             $kiekis = $prekeSandelyje->kiekis;
             $prekeSandelyje->update([
-                'kiekis' => $kiekis + $request->preke_count 
+                'kiekis' => $kiekis + $request->preke_count
                 ]);
         }
-        
+
         return redirect()->route('sandelis.index');
     }
 
@@ -193,18 +193,21 @@ class SandelisController extends Controller
         if($request->filled('sandelys')){
             if($request['sandelys'] == 0){
                 $query = $query->crossJoin('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas');
-                echo 'hahah';
+
             }
             else{
                 $query = $query->join('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas');
                 $query = $query->where('preke_sandelyje.fk_sandelisId', '=', $request['sandelys']);
             }
-            $query = $query->where('preke_sandelyje.kiekis', '>', '0');
+           // $query = $query->where('preke_sandelyje.kiekis', '>', '0');
         }
+        // $query = DB::table('preke_sandelyje')
+        //                         ->select('preke_sandelyje.kiekis as kiekis');
+                                // ->where('preke_sandelyje.fk_prekeId', '=', $request['sandelys']);
         $prekes = $query->distinct('preke.prekes_kodas')->get();
         // $prekes = $query->get();
-        // $sandeliai =  DB::table('sandeliai')->selectRaw('sandelio_kodas as id, salis, miestas, gatve')->get();
+        $sandeliai =  DB::table('sandeliai')->selectRaw('sandelio_kodas as id, salis, miestas, gatve')->get();
         FRequest::flash();
-        return view('sandelis.search', compact('prekes'));
+        return view('sandelis.search', compact('prekes', 'sandeliai'));
     }
 }

@@ -12,6 +12,9 @@
                 </ul>
             </div>
         @endif
+
+        {{-- <input type="hidden" id="fk_prekeId" name="fk_prekeId" value="{{}}"> --}}
+
         <h4>Pagal pavadinimą</h4>
         <div class="form-row input-group">
         <div class="col">
@@ -119,8 +122,8 @@
                 </div>
             </div>
         </div>
-
-        {{-- <h4>Likutis sandeliuose</h4>
+        <p></p>
+        <h4>Likutis sandeliuose</h4>
         <div class="form-row">
             <div class="form-group col">
                 <label for="sandelys">Sandėlis</label>
@@ -133,7 +136,7 @@
                     @endforeach
                 </select>
             </div>
-        </div> --}}
+        </div>
         <p></p>
         <div class="row my-2 mx-auto col-lg-6 col-12">
                 <button type="submit" class="btn btn-primary w-100"><i class="fas fa-search"></i>Ieškoti</button>
@@ -157,11 +160,11 @@
         @foreach ($prekes as $key => $preke)
             <tr>
                 <td scope="row">{{$key + 1}}</td>
-                <td><a href="{{route('eparduotuve.show', ['id' => $preke->prekes_kodas])}}">{{$preke->pavadinimas}}</a></td>
+                <td>{{$preke->pavadinimas}}</td>
                 <td>{{$preke->kaina}} €</td>
                 <td>{{$preke->plotis}}cm x {{$preke->ilgis}}cm x {{$preke->aukstis}}cm</td>
                 <td>{{$preke->svoris}} kg</td>
-                <td></td>
+                {{-- <td>{{$preke->kiekis}}</td> --}}
             </tr>
         @endforeach
         @endif
