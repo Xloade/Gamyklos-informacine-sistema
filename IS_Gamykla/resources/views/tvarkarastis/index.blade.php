@@ -23,12 +23,12 @@
                         <div class="row">
                                 <div class="col">
                                     <select name="gamykla" id="gamykla" class="form-control">
-                                        @if (Auth::user()->userlevel == Config::get('constants.ADMINISTRATORIUS'))
+                                        @if (Auth::user()->userlevel == Config::get('constants.ADMINISTRATORIUS') && $gamyklos != null)
                                             @foreach ($gamyklos as $gamykla)
                                                 <option value="{{$gamykla->kodas}}">{{$gamykla->pavadinimas}}</option>
                                             @endforeach
                                         @endif
-                                        @if (Auth::user()->userlevel == Config::get('constants.GAMYKLOS_VADOVAS'))
+                                        @if (Auth::user()->userlevel == Config::get('constants.GAMYKLOS_VADOVAS') && $gamyklos != null)
                                             <option value="{{$gamyklos->kodas}}">{{$gamyklos->pavadinimas}}</option>
                                         @endif
                                     </select>
