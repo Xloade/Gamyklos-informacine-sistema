@@ -72,14 +72,14 @@
             <div class="input-group col">
                 <input name="plotis-max" type="number" class="form-control col" step="0.01" value="{{ old('plotis-max') }}"  placeholder="max">
                 <div class="input-group-append">
-                    <span class="input-group-text">mm</span>
+                    <span class="input-group-text">cm</span>
                 </div>
             </div>
             -
             <div class="input-group col">
                 <input name="plotis-min" type="number" class="form-control col" step="0.01" value="{{ old('plotis-min') }}"  placeholder="min">
                 <div class="input-group-append">
-                    <span class="input-group-text">mm</span>
+                    <span class="input-group-text">cm</span>
                 </div>
             </div>
         </div>
@@ -88,14 +88,14 @@
             <div class="input-group col">
                 <input name="ilgis-max" type="number" class="form-control col" step="0.01" value="{{ old('ilgis-max') }}"  placeholder="max">
                 <div class="input-group-append">
-                    <span class="input-group-text">mm</span>
+                    <span class="input-group-text">cm</span>
                 </div>
             </div>
             -
             <div class="input-group col">
                 <input name="ilgis-min" type="number" class="form-control col" step="0.01" value="{{ old('ilgis-min') }}"  placeholder="min">
                 <div class="input-group-append">
-                    <span class="input-group-text">mm</span>
+                    <span class="input-group-text">cm</span>
                 </div>
             </div>
         </div>
@@ -104,14 +104,14 @@
             <div class="input-group col">
                 <input name="aukstis-max" type="number" class="form-control col" step="0.01" value="{{ old('aukstis-max') }}"  placeholder="max">
                 <div class="input-group-append">
-                    <span class="input-group-text">mm</span>
+                    <span class="input-group-text">cm</span>
                 </div>
             </div>
             -
             <div class="input-group col">
                 <input name="aukstis-min" type="number" class="form-control col" step="0.01" value="{{ old('aukstis-min') }}"  placeholder="min">
                 <div class="input-group-append">
-                    <span class="input-group-text">mm</span>
+                    <span class="input-group-text">cm</span>
                 </div>
             </div>
         </div>
@@ -153,7 +153,7 @@
                 <td scope="row">{{$key + 1}}</td>
                 <td><a href="{{route('eparduotuve.show', ['id' => $preke->prekes_kodas])}}">{{$preke->pavadinimas}}</a></td>
                 <td>{{$preke->kaina}} €</td>
-                <td>{{$preke->plotis}}mm x {{$preke->ilgis}}mm x {{$preke->aukstis}}mm</td>
+                <td>{{$preke->plotis}}cm x {{$preke->ilgis}}cm x {{$preke->aukstis}}cm</td>
                 <td>{{$preke->svoris}} kg</td>
                 <td><a href="{{ route('eparduotuve.show', $preke->prekes_kodas) }}" type="button" class="btn btn-info">Daugiau</a></td>
             </tr>

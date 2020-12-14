@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <th>Dimensijos (plotis x ilgis x aukštis)</th>
-            <td>{{$preke->plotis}}mm x {{$preke->ilgis}}mm x {{$preke->aukstis}}mm</td>
+            <td>{{$preke->plotis}}cm x {{$preke->ilgis}}cm x {{$preke->aukstis}}cm</td>
         </tr>
         <tr>
             <th>Svoris</th>
