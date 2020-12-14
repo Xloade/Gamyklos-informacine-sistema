@@ -22,11 +22,49 @@
 @endswitch
 <div class="container" id="app">
     <div class="card shadow border border-secondary">
-        <h1>Vartotojo informacija</h1>
-        <h2>{{$user->first_name}} {{$user->last_name}}</h2>
-        <h2>{{$user->email}}</h2>
-        <h3>Sukurtas: {{$user->created_at}}</h3>
-        <h3>{{$category}}</h3>
+    <h1 style="text-align: center;">Vartotojo informacija</h1>
+        <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card border border-secondary">
+                    <h2>{{$user->first_name}} {{$user->last_name}}</h2>
+                    <h2>{{$user->email}}</h2>
+                    <h3>Sukurtas: {{$user->created_at}}</h3>
+                    <h3>Kategorija: {{$category}}</h3>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <form method="post" action="{{route('admin.change_password',$user->id)}}">
+                    @csrf
+                    @method('patch')
+                    <div class="form-group row">
+                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Naujas slaptažodis') }}</label>
+                        <div class="">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Pakartoti slaptažodį') }}</label>
+                        <div class="">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Keisti slaptažodį') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
         <x-alert/>
             <form method="post" action="{{route('admin.update',$user->id)}}">
                 @csrf
@@ -54,37 +92,35 @@
                     </div>
                 </div>
             </form>
-            <form method="post" action="{{route('admin.change_password',$user->id)}}">
-                @csrf
-                @method('patch')
-                <div class="form-group row">
-                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Naujas slaptažodis') }}</label>
-                    <div class="">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Pakartoti slaptažodį') }}</label>
-                    <div class="">
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                    </div>
-                </div>
-                <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Keisti slaptažodį') }}
-                        </button>
-                    </div>
-                </div>
-            </form>
 <!--PIRKEJAS---------------------------------------------------------------------------------------------------------------------->
             @if($user->userlevel == Config::get('constants.KLIENTAS'))
-                <h1>pirkejas</h1>
+            <h2>Kliento adreso duomenys</h2>
+            <div class="col-sm-4">
+                <div class="card shadow border border-secondary">
+                    <table class="table">
+                        <tr>
+                            <th>Šalis</th>
+                            <td>{{$user->salis}}</td>
+                        </tr>
+                        <tr>
+                            <th>Miestas</th>
+                            <td>{{$user->miestas}}</td>
+                        </tr>
+                        <tr>
+                            <th>Gatvė</th>
+                            <td>{{$user->gatve}}</td>
+                            </tr>
+                        <tr>
+                            <th>Buto nr.</th>
+                            <td>{{$user->buto_nr}}</td>
+                        </tr>
+                        <tr>
+                            <th>Durų kodas</th>
+                            <td>{{$user->duru_kodas}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
 
             @endif
@@ -193,7 +229,7 @@
                                 <label for="darbuotojo_gamykla" class="form-label text-md-right"><b>{{ __('Priskirti gamyklą') }}</b></label>
                                 <select class="form-control @error('darbuotojo_gamykla') is-invalid @enderror" name="darbuotojo_gamykla" value="{{ old('darbuotojo_gamykla') }}" id="darbuotojo_gamykla">
                                     @foreach($visosGamyklos as $gam)
-                                    <option value="{{$gam->kodas}}" {{$user->fk_gamykla == $gam->kodas ? 'selected' : '' }}>{{$gam->pavadinimas}}</option>
+                                    <option value="{{$gam->kodas}}" {{$gamykla->kodas == $gam->kodas ? 'selected' : '' }}>{{$gam->pavadinimas}}</option>
                                     @endforeach
                                 </select>
                             </div>
