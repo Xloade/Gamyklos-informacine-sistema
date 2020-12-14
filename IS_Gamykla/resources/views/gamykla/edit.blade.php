@@ -25,7 +25,7 @@
                     <div class="col-md-3">
                         <select name="gamykla_boss" id="gamykla_boss" class="form-control">
                             @foreach ($gamykla->worker as $worker)
-                            @if ($worker->userlevel != Config::get('constants.ADMINISTRATORIUS'))
+                            @if ($worker->userlevel != Config::get('constants.ADMINISTRATORIUS') || $worker->userlevel != Config::get('constants.SANDELIO_VADOVAS'))
                                 @if ($boss != $worker)
                                     <option value="{{$worker->id}}">{{$worker->first_name}} {{$worker->last_name}}</option>
                                 @endif
