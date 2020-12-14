@@ -46,7 +46,7 @@
             <div class="form-group col">
                 <label for="sandelys">Sandelys</label>
                 <select type="text" class="form-control" id="sandelys" name="id">
-                        <option value="" selected></option>
+                        <option hidden="true" value="" selected></option>
                     @foreach ($sandeliai as $sandelys)
                         <option value="{{$sandelys->id}}">{{$sandelys->salis}}, {{$sandelys->miestas}}, {{$sandelys->gatve}}</option>
                     @endforeach
