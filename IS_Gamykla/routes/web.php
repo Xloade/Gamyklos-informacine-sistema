@@ -103,7 +103,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::prefix('eparduotuve')->group(function () {
-        Route::get('', 'EParduotuveController@index')->name('eparduotuve.index');
+        Route::get('search', 'EParduotuveController@search')->name('eparduotuve.search');
         Route::get('cart', 'EParduotuveController@cart')->name('eparduotuve.cart');
         Route::get('item/{id}', 'EParduotuveController@show')->name('eparduotuve.show');
         Route::get('complete', 'EParduotuveController@complete')->name('eparduotuve.complete');

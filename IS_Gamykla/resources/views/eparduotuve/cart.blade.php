@@ -7,9 +7,13 @@
             {{ session('message') }}
         </div>
     @endif
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
+    @if (count($errors) > 0)
+        <div class = "alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
     <table class="table">

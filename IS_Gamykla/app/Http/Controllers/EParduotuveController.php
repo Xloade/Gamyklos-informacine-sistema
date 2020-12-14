@@ -8,8 +8,8 @@ use App\Models\Preke;
 use App\Models\Preke_sandelyje;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request as FRequest;
 use Illuminate\Support\Facades\Config;
-use App\Http\Requests\UserValidateRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -20,9 +20,86 @@ class EParduotuveController extends Controller
 
     }
 
-    public function index()
+    public function search(Request $request)
     {
-        return view('eparduotuve.index');
+        $validator = Validator::make($request->all(), [
+            'kaina-max' => ['numeric','min:0','nullable'],
+            'kaina-min' => ['numeric','min:0','nullable'],
+            'svoris-max' => ['numeric','min:0','nullable'],
+            'kaina-min' => ['numeric','min:0','nullable'],
+            'turis-max' => ['numeric','min:0','nullable'],
+            'kaina-min' => ['numeric','min:0','nullable'],
+            'plotis-max' => ['numeric','min:0','nullable'],
+            'kaina-min' => ['numeric','min:0','nullable'],
+            'ilgis-max' => ['numeric','min:0','nullable'],
+            'kaina-min' => ['numeric','min:0','nullable'],
+            'aukstis-max' => ['numeric','min:0','nullable'],
+            'kaina-min' => ['numeric','min:0','nullable'],
+            'sandelys' => ['integer','min:0','nullable'],
+        ], [
+            'min' => 'Įveskite teigiama numerį',
+            'numeric' => 'Įveskite kiekį',
+        ]);
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }
+        $query = DB::table('preke')
+            ->selectRaw('preke.prekes_kodas as prekes_kodas, preke.pavadinimas as pavadinimas, preke.kaina as kaina, preke.svoris as svoris, preke.plotis as plotis, preke.ilgis as ilgis, preke.aukstis as aukstis');
+        if($request->filled('pavadinimas')){
+            $query = $query->where('pavadinimas', 'like', '%'.$request['pavadinimas'].'%');
+        }
+        if($request->filled('kaina-max')){
+            $query = $query->where('kaina', '<=', $request['kaina-max']);
+        }
+        if($request->filled('kaina-min')){
+            $query = $query->where('kaina', '>=', $request['kaina-min']);
+        }
+        if($request->filled('svoris-max')){
+            $query = $query->where('svoris', '<=', $request['svoris-max']);
+        }
+        if($request->filled('svoris-min')){
+            $query = $query->where('svoris', '>=', $request['svoris-max']);
+        }
+        if($request->filled('turis-max')){
+            $query = $query->where('plotis*ilgis*aukstis', '<=', $request['turis-max']);
+        }
+        if($request->filled('turis-min')){
+            $query = $query->where('plotis*ilgis*aukstis', '>=', $request['turis-min']);
+        }
+        if($request->filled('plotis-max')){
+            $query = $query->where('plotis', '<=', $request['plotis-max']);
+        }
+        if($request->filled('plotis-min')){
+            $query = $query->where('plotis', '>=', $request['plotis-min']);
+        }
+        if($request->filled('ilgis-max')){
+            $query = $query->where('ilgis', '<=', $request['ilgis-max']);
+        }
+        if($request->filled('ilgis-min')){
+            $query = $query->where('ilgis', '>=', $request['ilgis-min']);
+        }
+        if($request->filled('aukstis-max')){
+            $query = $query->where('aukstis', '<=', $request['aukstis-max']);
+        }
+        if($request->filled('aukstis-min')){
+            $query = $query->where('aukstis', '>=', $request['aukstis-min']);
+        }
+        if($request->filled('sandelys')){
+            if($request['sandelys'] == 0){
+                $query = $query->crossJoin('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas');
+                echo 'hahah';
+            }
+            else{
+                $query = $query->join('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas');
+                $query = $query->where('preke_sandelyje.fk_sandelisId', '=', $request['sandelys']);
+            }
+            $query = $query->where('preke_sandelyje.kiekis', '>', '0');
+        }
+        $prekes = $query->distinct('preke.prekes_kodas')->get();
+        // $prekes = $query->get();
+        $sandeliai =  DB::table('sandeliai')->selectRaw('sandelio_kodas as id, salis, miestas, gatve')->get();
+        FRequest::flash();
+        return view('eparduotuve.search', ['prekes' => $prekes, 'sandeliai' => $sandeliai]);
     }
 
     public function cart()
@@ -106,7 +183,7 @@ class EParduotuveController extends Controller
             return back()->with('message','Krepšelis sekmingai atnaujintas');
         }
         else{
-            return back()->with('error','Krepšelyje nera tokios prekes');
+            return back()->withErrors(['id' => 'Krepšelyje nera tokios prekes']);
         }
     }
 }

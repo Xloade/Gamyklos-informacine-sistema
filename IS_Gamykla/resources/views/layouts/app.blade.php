@@ -84,7 +84,7 @@
                                 eParduotuve
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('eparduotuve.index') }}"><i class="fas fa-search"></i>Prekių paieška</a>
+                                <a class="dropdown-item" href="{{ route('eparduotuve.search') }}"><i class="fas fa-search"></i>Prekių paieška</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('eparduotuve.cart') }}"><i class="fas fa-shopping-cart"></i>Krepšelis</a>
                             </div>
