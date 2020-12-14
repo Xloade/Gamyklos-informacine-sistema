@@ -109,13 +109,15 @@ class AdminController extends Controller
                 default:
             }
             if($newUserlevel == Config::get('constants.KLIENTAS')){
-                $user->update(['atyginimas' => null]);
+                $user->update(['atyginimas' => null, 'fk_gamykla' => null]);
+
             }
             $user->update(['userlevel' => $request->userlevel]);
         }
         
         return redirect()->route('admin.index')->with('message','Vartotojo kategorija buvo redaguota');
     }
+    
     public function destroy(User $user){
         switch($user->userlevel){
             case Config::get('constants.KLIENTAS'):
