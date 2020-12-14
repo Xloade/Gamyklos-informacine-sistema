@@ -54,7 +54,7 @@
             </div>
             <div class="form-group col">
                 <label for="kiekis">Prekiu skaičius</label>
-                <input type="text" class="form-control" id="kiekis" name="kiekis" placeholder="10">
+                <input type="number" step=1 class="form-control" id="kiekis" name="kiekis" placeholder="10" value="{{ old('kiekis') }}">
             </div>
         </div>
         
@@ -63,7 +63,12 @@
         </div>
     </form>
 </div>
-
+<script>
+    $(document).ready(function() {
+        let element = document.getElementById('sandelys');
+        element.value = '{{ old('id') }}';
+    });
+</script>
 <script>
     var full_width = false;
     function toggleWidth() {

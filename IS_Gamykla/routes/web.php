@@ -106,7 +106,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('search', 'EParduotuveController@search')->name('eparduotuve.search');
         Route::get('cart', 'EParduotuveController@cart')->name('eparduotuve.cart');
         Route::get('item/{id}', 'EParduotuveController@show')->name('eparduotuve.show');
-        Route::get('complete', 'EParduotuveController@complete')->name('eparduotuve.complete');
+        Route::get('order', 'EParduotuveController@order')->name('eparduotuve.order');
+        Route::post('completeOrder', 'EParduotuveController@completeOrder')->name('eparduotuve.completeOrder');
         Route::post('add', 'EParduotuveController@addToCart')->name('eparduotuve.addToCart');
         Route::delete('remove/{id}', 'EParduotuveController@removeFromCart')->name('eparduotuve.removeFromCart');
     });

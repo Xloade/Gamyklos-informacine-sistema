@@ -109,7 +109,6 @@ class EParduotuveController extends Controller
         if($request->filled('sandelys')){
             if($request['sandelys'] == 0){
                 $query = $query->crossJoin('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas');
-                echo 'hahah';
             }
             else{
                 $query = $query->join('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas');
@@ -130,7 +129,7 @@ class EParduotuveController extends Controller
             ->selectRaw('uzsakymas_preke.id as id, preke_sandelyje.fk_prekeId as prekeId, uzsakymas_preke.kiekis as kiekis, preke.pavadinimas as pavadinimas, preke.kaina * uzsakymas_preke.kiekis as kaina, sandeliai.salis as salis, sandeliai.miestas as miestas, sandeliai.gatve as gatve')
             ->join('preke_sandelyje', 'preke_sandelyje.fk_prekeId', '=', 'preke.prekes_kodas')
             ->join('uzsakymas_preke', 'uzsakymas_preke.fk_prekeSandelyjeId', '=', 'preke_sandelyje.id')
-            ->join('sandeliai', 'uzsakymas_preke.fk_prekeSandelyjeId', '=', 'sandeliai.sandelio_kodas')
+            ->join('sandeliai', 'preke_sandelyje.fk_sandelisId', '=', 'sandeliai.sandelio_kodas')
             ->join('uzsakymas', 'uzsakymas_preke.fk_uzsakymasId', '=', 'uzsakymas.id')
             ->where("uzsakymas.fk_userId", "=", Auth::id())
             ->where("uzsakymo_statusas", "=", Config::get('constants.UZASKYMAS_PRADETAS'))
@@ -146,9 +145,119 @@ class EParduotuveController extends Controller
         // echo Auth::id();
         return view('eparduotuve.cart', ['prekes' => $prekes, 'isViso' => $isViso]);
     }
-    public function complete()
+    public function order()
     {
-        return view('eparduotuve.complete');
+        $orderNotEmpty = Uzsakymas::where("fk_userId", "=", Auth::id())
+            ->crossJoin('uzsakymas_preke', 'uzsakymas.id', '=', 'uzsakymas_preke.fk_uzsakymasId')
+            ->where("uzsakymo_statusas", "=", Config::get('constants.UZASKYMAS_PRADETAS'))
+            ->doesntExist();
+        if($orderNotEmpty){
+            return redirect()->route('eparduotuve.cart')->withErrors(['uzsakymas'=>'Nieko neturite krepšelyje']);
+        }
+        else{
+            $korteles = DB::table('banko_korteles')
+                ->select("korteles_numeris")
+                ->where("fk_userId", "=", Auth::id())
+                ->get();
+            return view('eparduotuve.order', ['korteles'=>$korteles]);
+        }   
+    }
+    public function completeOrder(Request $request)
+    {
+        if($request->filled('isaugotaKortele')){
+            $validator = Validator::make($request->all(), [
+                'isaugotaKortele' => ['exists:banko_korteles,korteles_numeris'],
+            ], [
+                
+            ]);
+            if($validator->fails()){
+                return back()->withErrors($validator)->withInput();
+            }
+            $kortele_id = $request['isaugotaKortele'];
+        }else{
+            $validator = Validator::make($request->all(), [
+                'kortele_vardas' => ['required','max:30'],
+                'kortele_pavarde' => ['required','max:30'],
+                'kortele_nr' => ['required','digits:16','min:0'],
+                'kortele_cvv' => ['required','digits:3','min:0'],
+                'kortele_galiojimoMenuo' => ['required','integer','min:0','max:12'],
+                'kortele_galiojimoMetai' => ['required','integer','min:0','max:99'],
+                'kortele_salis' => ['required','max:30'],
+                'kortele_miestas' => ['required','max:30'],
+                'kortele_gatve' => ['required','max:30'],
+                'kortele_butoNr' => ['max:30'],
+
+            ], [
+                
+            ]);
+            if($validator->fails()){
+                return back()->withErrors($validator)->withInput();
+            }
+            $kortele_id = DB::table('banko_korteles')->insertGetId([
+                ['korteles_numeris' => $request['kortele_nr'],
+                'vardas' => $request['kortele_vardas'],
+                'pavarde' => $request['kortele_pavarde'],
+                'cvv' => $request['kortele_cvv'],
+                'galiojimo_pabaigos_menuo' => $request['kortele_galiojimoMenuo'],
+                'galiojimo_pabaigos_metai' => $request['kortele_galiojimoMetai'],
+                'gatve' => $request['kortele_gatve'],
+                'buto_nr' => $request['kortele_butoNr'],
+                'miestas' => $request['kortele_miestas'],
+                'salis' => $request['kortele_salis'],
+                'fk_userId' => Auth::id()]
+            ]);
+        }
+        if($request['isaugotasAdresas'] == false){
+            $validator = Validator::make($request->all(), [
+                'salis' => ['required','max:30'],
+                'miestas' => ['required','max:30'],
+                'gatve' => ['required','max:30'],
+                'butoNr' => ['integer','digits_between:0,11'],
+                'duruKodas' => ['integer','digits_between:0,11'],
+            ], [
+                
+            ]);
+            if($validator->fails()){
+                return back()->withErrors($validator)->withInput();
+            }
+            if($request['atsimintiAdresa'] == true){
+                DB::table('users')
+                ->where('id', Auth::id())
+                ->update([
+                    'salis' => $request['salis'],
+                    'miestas' => $request['miestas'],
+                    'gatve' => $request['gatve'],
+                    'buto_nr' => $request['butoNr'],
+                    'duru_kodas' => $request['duruKodas'],
+                ]);
+            }
+            DB::table('uzsakymas')
+                ->where('id', Auth::id())
+                ->update([
+                    'salis' => $request['salis'],
+                    'miestas' => $request['miestas'],
+                    'gatve' => $request['gatve'],
+                    'buto_nr' => $request['butoNr'],
+                    'duru_kodas' => $request['duruKodas'],
+                    'uzsakymo_statusas' => Config::get('constants.UZASKYMAS_PATVIRTINTAS'),
+                    'fk_bankoKorteleId' => $kortele_id,
+                ]);
+        }
+        $userInfo = DB::table('users')
+            ->where('id', Auth::id())
+            ->first();
+        DB::table('uzsakymas')
+                ->where('id', Auth::id())
+                ->update([
+                    'salis' => $userInfo->salis,
+                    'miestas' => $userInfo->miestas,
+                    'gatve' => $userInfo->gatve,
+                    'buto_nr' => isset($userInfo->butoNr)?$userInfo->butoNr:null,
+                    'duru_kodas' => isset($userInfo->duruKodas)?$userInfo->duruKodas:null,
+                    'uzsakymo_statusas' => Config::get('constants.UZASKYMAS_PATVIRTINTAS'),
+                    'fk_bankoKorteleId' => $kortele_id,
+                ]);
+        return redirect()->route('eparduotuve.cart')->with('message','Užsakymas įvikdytas');
     }
     public function show($id)
     {
@@ -179,7 +288,7 @@ class EParduotuveController extends Controller
             'id.exists' => 'Prekes šiame sandalyje nera'
         ]);
         if($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInput();
+            return back()->withErrors($validator)->withInput();
         }
 
         if(Uzsakymas::where("fk_userId", "=", Auth::id())->where("uzsakymo_statusas", "=", Config::get('constants.UZASKYMAS_PRADETAS'))->doesntExist()){
@@ -193,7 +302,7 @@ class EParduotuveController extends Controller
             'fk_uzsakymasId' => $uzsakymas->id,
             'fk_prekeSandelyjeId' => $request['id'],
         ]);
-        return back()->with('message','Krepšelis sekmingai atnaujintas');
+        return redirect()->route('eparduotuve.cart')->with('message','Krepšelis sekmingai atnaujintas');
     }
     public function removeFromCart($id){
         $result = DB::table('uzsakymas_preke')
