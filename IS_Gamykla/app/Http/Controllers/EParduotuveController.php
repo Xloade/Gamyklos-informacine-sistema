@@ -232,7 +232,8 @@ class EParduotuveController extends Controller
                 ]);
             }
             DB::table('uzsakymas')
-                ->where('id', Auth::id())
+                ->where('fk_userId', Auth::id())
+                ->where("uzsakymo_statusas", Config::get('constants.UZASKYMAS_PRADETAS'))
                 ->update([
                     'salis' => $request['salis'],
                     'miestas' => $request['miestas'],
@@ -247,7 +248,8 @@ class EParduotuveController extends Controller
             ->where('id', Auth::id())
             ->first();
         DB::table('uzsakymas')
-                ->where('id', Auth::id())
+                ->where('fk_userId', Auth::id())
+                ->where("uzsakymo_statusas", Config::get('constants.UZASKYMAS_PRADETAS'))
                 ->update([
                     'salis' => $userInfo->salis,
                     'miestas' => $userInfo->miestas,
