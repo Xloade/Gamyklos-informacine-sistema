@@ -84,7 +84,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'created_at' => '2020-05-14 14:43:59',
-            'userlevel' => 7,
+            'userlevel' => 3,
             'fk_gamykla' => null,
         ],
         [
@@ -94,7 +94,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'created_at' => '2020-06-14 14:43:59',
-            'userlevel' => 7,
+            'userlevel' => 3,
             'fk_gamykla' => null,
         ],
         [
