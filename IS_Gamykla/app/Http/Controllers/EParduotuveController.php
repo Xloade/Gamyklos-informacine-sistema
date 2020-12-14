@@ -304,14 +304,28 @@ class EParduotuveController extends Controller
             'fk_uzsakymasId' => $uzsakymas->id,
             'fk_prekeSandelyjeId' => $request['id'],
         ]);
+
+        Preke_sandelyje::find($request['id'])
+            ->update([
+                'kiekis' => $preke_sandelyje->kiekis - $request['kiekis']
+            ]);
+
         return redirect()->route('eparduotuve.cart')->with('message','Krepšelis sekmingai atnaujintas');
     }
     public function removeFromCart($id){
+        $uzsakymas = Uzsakymas_preke::find($id);
+        echo $uzsakymas;
+        $sandelyje = Preke_sandelyje::find($uzsakymas->fk_prekeSandelyjeId);
+        $naujas_kiekis = $sandelyje->kiekis + $uzsakymas->kiekis;
         $result = DB::table('uzsakymas_preke')
         ->join('uzsakymas', 'uzsakymas_preke.fk_uzsakymasId', '=', 'uzsakymas.id')
-        ->where('uzsakymas_preke.id' , '=', $id)
-        ->where("uzsakymas.fk_userId", "=", Auth::id())
-        ->delete();
+            ->where('uzsakymas_preke.id' , '=', $id)
+            ->where("uzsakymas.fk_userId", "=", Auth::id())
+            ->delete();
+        Preke_sandelyje::find($uzsakymas->fk_prekeSandelyjeId)
+            ->update([
+                'kiekis' => $naujas_kiekis 
+            ]);
         if($result){
             return back()->with('message','Krepšelis sekmingai atnaujintas');
         }
