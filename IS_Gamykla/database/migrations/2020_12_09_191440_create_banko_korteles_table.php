@@ -14,14 +14,14 @@ class CreateBankoKortelesTable extends Migration
     public function up()
     {
         Schema::create('banko_korteles', function (Blueprint $table) {
-            $table->increments('korteles_numeris');
+            $table->bigInteger('korteles_numeris')->unsigned()->primary();
             $table->string('vardas');
             $table->string('pavarde');
             $table->integer('cvv');
             $table->integer('galiojimo_pabaigos_menuo');
             $table->integer('galiojimo_pabaigos_metai');
             $table->string('gatve');
-            $table->string('buto_nr');
+            $table->string('buto_nr')->nullable();
             $table->string('miestas');
             $table->string('salis');
             $table->integer('fk_userId')->unsigned();

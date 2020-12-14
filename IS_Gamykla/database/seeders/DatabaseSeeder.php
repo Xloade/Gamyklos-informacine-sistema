@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             SandelisSeeder::class,
             GamyklaSeeder::class,
             PrekeSeeder::class,
-            PrekeSandelyjeSeeder::class
+            PrekeSandelyjeSeeder::class,
+            BannkoKortelesSeeder::class
         ]);
     }
 }
