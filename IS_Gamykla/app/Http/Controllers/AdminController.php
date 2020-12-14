@@ -78,8 +78,9 @@ class AdminController extends Controller
                 if(!empty($gamykla))
                     $gamyklosDarbuotojai = User::where('userlevel',Config::get('constants.DARBUOTOJAS'))->where('fk_gamykla',$gamykla->kodas)->orderBy('first_name')->get();
                 else $gamyklosDarbuotojai = null;
-                $visiVadovai = User::where('userlevel',Config::get('constants.GAMYKLOS_VADOVAS'))->orderBy('first_name')->get();
-                return view('admin.edit',compact('user', 'gamykla','visiVadovai','gamyklosDarbuotojai'));
+                //$visiVadovai = User::where('userlevel',Config::get('constants.GAMYKLOS_VADOVAS'))->orderBy('first_name')->get();
+                $visosGamyklos = Gamykla::orderBy('pavadinimas')->get();
+                return view('admin.edit',compact('user', 'gamykla','visosGamyklos','gamyklosDarbuotojai'));
             break;
             default:
                 return view('admin.edit',compact('user'));
@@ -187,12 +188,29 @@ class AdminController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         if(empty($request['atlyginimas'])){
-            $user->update(['atlyginimas' => $request['atlyginimas']]);
+            $user->update(['fk_gamykla' => $request['darbuotojo_gamykla']]);
         }
         else $user->update([
             'atlyginimas' => $request['atlyginimas'],
             'fk_gamykla' => $request['darbuotojo_gamykla'],
         ]);
+        return redirect()->route('admin.edit',$user->id)->with('message','Darbuotojo duomenys pakeisti');
+    }
+
+    public function change_gam_vad_info(Request $request,User $user){
+        $validator = Validator::make($request->all(), [
+            'atlyginimas' => ['required','numeric', 'min:325'],
+        ], [
+            'atlyginimas.required' => 'įrašykite atlyginimą',
+            'atlyginimas.numeric' => 'Atlyginimas turi būti skaičius',
+            'atlyginimas.min' => 'Atlyginimas ne mažesnis nei 325',
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $user->update(['atlyginimas' => $request['atlyginimas']]);
+        $gamykla = Gamykla::where('kodas',$request['darbuotojo_gamykla'])->first();
+        $gamykla->update(['fk_userId' => $user->id]);
         return redirect()->route('admin.edit',$user->id)->with('message','Darbuotojo duomenys pakeisti');
     }
 }
