@@ -17,7 +17,7 @@
         <div class="col">
             <input name="pavadinimas"  type="text" class="form-control col" value="{{ old('pavadinimas') }}" placeholder="Varžtas">
         </div>
-        </div>  
+        </div>
         <h4>Pagal Kainą</h4>
         <div class="form-row">
             <div class="input-group col">
@@ -50,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <h4>Pagal Turį</h4>
+        <h4>Pagal Tūrį</h4>
         <div class="form-row">
             <div class="input-group col">
                 <input name="turis-max" type="number" class="form-control col" step="0.01" value="{{ old('turis-max') }}"  placeholder="max">
@@ -115,15 +115,15 @@
                 </div>
             </div>
         </div>
-        
+
         <h4>Likutis sandeliuose</h4>
         <div class="form-row">
             <div class="form-group col">
-                <label for="sandelys">Sandelys</label>
+                <label for="sandelys">Sandėlis</label>
                 <select name="sandelys" type="number" class="form-control" id="sandelys" name="sandelys">
                     <option hidden='true' value="">Pasirinkite sandelį</option>
                     <option  value="">Nefiltruoti</option>
-                    <option value="0">Bet kureme</option>
+                    <option value="0">Bet kuriame</option>
                     @foreach ($sandeliai as $sandelys)
                         <option value="{{$sandelys->id}}">{{$sandelys->salis}}, {{$sandelys->miestas}}, {{$sandelys->gatve}}</option>
                     @endforeach
@@ -157,7 +157,7 @@
                 <td>{{$preke->svoris}} kg</td>
                 <td><a href="{{ route('eparduotuve.show', $preke->prekes_kodas) }}" type="button" class="btn btn-info">Daugiau</a></td>
             </tr>
-        @endforeach 
+        @endforeach
         @endif
         </tbody>
     </table>
