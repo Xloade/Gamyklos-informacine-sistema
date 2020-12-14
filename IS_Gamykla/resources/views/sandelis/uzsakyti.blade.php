@@ -34,7 +34,7 @@
                         <select name="fk_sandelisId" id="fk_sandelisId" class="form-control">
                             @foreach ($sandeliai as $nt)
 
-                            <option value="{{$nt->fk_sandelisId}}" >{{$nt->sandelis->salis}}, {{$nt->sandelis->miestas}}, {{$nt->sandelis->gatve}}</option>
+                            <option value="{{$nt->sandelio_kodas}}" >{{$nt->salis}}, {{$nt->miestas}}, {{$nt->gatve}}</option>
 
                             @endforeach
                           </select>

@@ -27,7 +27,10 @@ class SandelisController extends Controller
     public function edit($id){
         $sandelis = Sandelis::where('sandelio_kodas', $id)->first();
         $boss = $sandelis->boss;
-        $workers = User::where('userlevel', Config::get('constants.DARBUOTOJAS'))->get();
+        $workers = User::where([
+            ['userlevel', Config::get('constants.DARBUOTOJAS')],
+            ['fk_gamykla', null]
+            ])->get();
         return view('sandelis.edit', ['sandelis' => $sandelis, 'boss' => $boss, 'workers' => $workers]);
     }
 
@@ -92,7 +95,8 @@ class SandelisController extends Controller
     }
 
     public function uzsakyti(){
-        $sandeliai = Preke_sandelyje::with('sandelis')->get();
+        // $sandeliai = Preke_sandelyje::with('sandelis')->distinct('sandelio_kodas')->get();
+        $sandeliai = Sandelis::all();
         $preke = Preke::all();
         return view('sandelis.uzsakyti', compact('sandeliai', 'preke'));
     }
