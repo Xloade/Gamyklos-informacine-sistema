@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Config;
 use App\Models\Preke_sandelyje;
 use App\Models\Preke;
 
+use function Ramsey\Uuid\v1;
+
 class SandelisController extends Controller
 {
     public function __construct()
@@ -102,5 +104,15 @@ class SandelisController extends Controller
             'fk_prekeId' => $request->fk_prekeId
         ]);
         return redirect()->route('sandelis.index');
+    }
+
+    public function search() {
+
+        return view('sandelis.search');
+    }
+
+    public function process(){
+
+        return view();
     }
 }
