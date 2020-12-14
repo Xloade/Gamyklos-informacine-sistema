@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <th>Dimensijos (plotis x ilgis x aukštis)</th>
-            <td>{{$preke->plotis}}mm x {{$preke->ilgis}}mm x {{$preke->aukstis}}mm</td>
+            <td>{{$preke->plotis}}cm x {{$preke->ilgis}}cm x {{$preke->aukstis}}cm</td>
         </tr>
         <tr>
             <th>Svoris</th>
@@ -46,7 +46,7 @@
             <div class="form-group col">
                 <label for="sandelys">Sandelys</label>
                 <select type="text" class="form-control" id="sandelys" name="id">
-                        <option value="" selected></option>
+                        <option hidden="true" value="" selected></option>
                     @foreach ($sandeliai as $sandelys)
                         <option value="{{$sandelys->id}}">{{$sandelys->salis}}, {{$sandelys->miestas}}, {{$sandelys->gatve}}</option>
                     @endforeach
